@@ -14,8 +14,10 @@
 
             @foreach($journals as $journal)
                 <div class="card">
-                    <img data-src="{{ asset('storage/' . $journal->image) }}" alt="Card image cap">
-                    <p class="card-text">{{ $journal->name }}</p>
+                    <a href="{{ action('JournalsController@show', $journal->id) }}">
+                        <img data-src="{{ asset('storage/' . $journal->image) }}" alt="Card image cap">
+                        <p class="card-text">{{ $journal->name }}</p>
+                    </a>
                 </div>
             @endforeach
 
