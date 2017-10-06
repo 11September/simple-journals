@@ -11,6 +11,8 @@ class JournalsController extends Controller
     {
         $journals = Journal::where('status', '=', "PUBLISHED")->paginate(1);
 
-        return view('layoults.layoult', compact('journals'));
+//        dd($journals);
+
+        return view('welcome', compact('journals'));
     }
 }
