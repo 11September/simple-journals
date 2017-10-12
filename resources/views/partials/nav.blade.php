@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-md fixed-top bg-white">
+<nav id="navbar" class="navbar navbar-expand-md fixed-top bg-white">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('images/Logo-Cosmo-Press.png') }}" alt=""></a>
+        <a id="navbar-logo" class="navbar-brand" href="{{ url('/') }}"><img src="{{ asset('images/Logo-Cosmo-Press.png') }}" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
                 aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
