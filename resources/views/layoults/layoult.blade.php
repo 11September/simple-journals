@@ -13,7 +13,8 @@
 <div class="container wrapper-body">
     @yield('content')
 </div>
-{{--@include('partials.footer')--}}
+
+@include('partials.footer')
 
 @include('partials.scripts')
 
