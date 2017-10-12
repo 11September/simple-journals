@@ -6,3 +6,24 @@ body {
 .rm-right{
     margin-left: auto!important;
 }
+
+/*footer styles*/
+
+.footer{
+	background: black;
+	height: 12%;
+	max-height: 60px;
+}
+
+.footer-wrapper{
+	justify-content: center;
+	height: 100%;
+}
+
+.footer-text{
+	font-size: 16px;
+	margin: auto;
+	color: white;
+}
+
+/*footer styles*/
