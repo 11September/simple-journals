@@ -11,16 +11,16 @@
                     <a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="{{ url('/') }}">Home <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item {{ Request::is('page-about') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ url('page-about') }}">About <span class="sr-only"></span></a>
+                    <a class="nav-link {{ Request::is('page-about') ? 'active' : '' }}" href="{{ url('page-about') }}">About <span class="sr-only"></span></a>
+                </li>
+                <li class="nav-item {{ Request::is('magazines') ? 'active' : '' }}">
+                    <a class="nav-link {{ Request::is('magazines') ? 'active' : '' }}" href="{{ url('magazines') }}">Magazines <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item {{ Request::is('journals') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ url('page-about') }}">Magazines <span class="sr-only"></span></a>
-                </li>
-                <li class="nav-item {{ Request::is('journals') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ url('page-about') }}">Publication <span class="sr-only"></span></a>
+                    <a class="nav-link {{ Request::is('journals') ? 'active' : '' }}" href="{{ url('page-about') }}">Publication <span class="sr-only"></span></a>
                 </li>
                 <li class="nav-item {{ Request::is('advertising') ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ url('page-about') }}">Advertising <span class="sr-only"></span></a>
+                    <a class="nav-link {{ Request::is('advertising') ? 'active' : '' }}" href="{{ url('page-about') }}">Advertising <span class="sr-only"></span></a>
                 </li>
             </ul>
         </div>

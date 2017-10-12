@@ -10,7 +10,7 @@
 
 @include('partials.nav')
 
-<div class="container wrapper-body">
+<div class="container">
     @yield('content')
 </div>
 

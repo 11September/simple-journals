@@ -1,6 +1,20 @@
+@font-face {
+    font-family: Monserrat-Medium;
+    src: url(../fonts/Montserrat-Medium.otf);
+}
+@font-face {
+    font-family: Montserrat-Regular;
+    src: url(../fonts/Montserrat-Regular.otf);
+}
+@font-face {
+    font-family: OpenSans-Regular;
+    src: url(../fonts/OpenSans-Regular.ttf);
+}
+
 body {
     background-color: #F6F6F6;
     padding-top: 4.5rem;
+    font-family:  OpenSans-Regular, 'Comic Sans MS', cursive;
 }
 
 .container{
@@ -17,7 +31,9 @@ body {
 
 .nav-item .nav-link{
     font-size: 18px;
+    font-weight: normal;
     color: #111111;
+    font-family: Montserrat-Regular , 'Comic Sans MS', cursive;
 }
 
 .nav-link.active{
@@ -39,6 +55,7 @@ body {
 
 .wrapper-item{
     padding: 5px;
+    margin-top: 20px;
 }
 
 .wrapper-item:hover{
@@ -46,10 +63,32 @@ body {
     outline: 2px solid #DC1818;
 }
 
-
 .item img{
     width: 100%;
     height: 400px;
+}
+
+.center-pagination{
+    margin: 70px 0 150px 0;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-family:  OpenSans-Regular, 'Comic Sans MS', cursive;
+}
+
+.pagination li{
+    color: #8D8D8D;
+    padding: 5px;
+}
+
+.pagination li a{
+    color: #8D8D8D;
+    padding: 5px;
+}
+
+.pagination li.active{
+    text-decoration: underline;
+    color: #DC1818;
 }
 
 /*footer styles*/
@@ -70,3 +109,31 @@ body {
 	color: white;
 }
 /*footer styles*/
+
+
+
+/* page about journal */
+.wrapper-journal{
+    margin: 20px 0 100px 0;
+}
+
+.wrapper-item-single-journal{
+    padding: 15px;
+    background-color: white;
+}
+
+.item-journal img{
+    width: 100%;
+}
+
+.heading-journal{
+    letter-spacing: 10px;
+    line-height: 60px;
+    color: #DC1818;
+    margin: 15px 0 10px 0;
+    font-family: Monserrat-Medium , 'Comic Sans MS', cursive;
+    font-size: 38px;
+}
+
+
+/* page about journal */
