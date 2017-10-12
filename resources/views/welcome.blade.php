@@ -1,13 +1,6 @@
 @extends('layoults.layoult')
 
 @section('content')
-    <div class="row">
-        <div class="album text-muted">
-
-            
-
-        </div>
-    </div>
 
     <div class="row">
         <div id="logo-block" class="col-lg-12" style="text-align: center; margin: 20px;">
@@ -15,45 +8,30 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="wrapper-body">
+        <div class="row">
 
-        @foreach($journals as $journal)
+            @foreach($journals as $journal)
 
-            <div class="col-md-4">
-                <div class="wrapper-item">
-                    <div class="item">
-                        <a href="{{ action('JournalsController@show', $journal->id) }}">
-                            <img src="{{ asset('storage/' . $journal->image) }}" alt="{{ $journal->name }}">
-                        </a>
+                <div class="col-md-4">
+                    <div class="wrapper-item">
+                        <div class="item">
+                            <a href="{{ action('JournalsController@show', $journal->id) }}">
+                                <img src="{{ asset('storage/' . $journal->image) }}" alt="{{ $journal->name }}">
+                            </a>
+                        </div>
+
                     </div>
                 </div>
-            </div>
+            @endforeach
+        </div>
 
-            <div class="col-md-4">
-                <div class="wrapper-item">
-                    <div class="item">
-                        <a href="{{ action('JournalsController@show', $journal->id) }}">
-                            <img src="{{ asset('storage/' . $journal->image) }}" alt="{{ $journal->name }}">
-                        </a>
-                    </div>
+        <div class="row center-pagination">
+            <nav aria-label="Page navigation example">
+                <div class="justify-content-center">
+                    {{ $journals->links() }}
                 </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="wrapper-item">
-                    <div class="item">
-                        <a href="{{ action('JournalsController@show', $journal->id) }}">
-                            <img src="{{ asset('storage/' . $journal->image) }}" alt="{{ $journal->name }}">
-                        </a>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-
-
-    </div>
-
-    <div class="row">
-        {{ $journals->links() }}
+            </nav>
+        </div>
     </div>
 @endsection
