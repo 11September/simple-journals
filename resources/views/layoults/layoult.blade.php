@@ -10,7 +10,7 @@
 
 @include('partials.nav')
 
-<div class="container">
+<div class="container wrapper-body">
     @yield('content')
 </div>
 {{--@include('partials.footer')--}}
