@@ -3,8 +3,8 @@
 @section('content')
 
     <div class="row">
-        <div id="logo-block" class="col-lg-12" style="text-align: center; margin: 20px;">
-            <img src="{{ asset('images/Logo-Cosmo-Press@2x.png') }}">
+        <div id="logo-block" class="col-lg-12">
+            <img src="{{ asset('images/Logo-Cosmo-Press.png') }}">
         </div>
     </div>
 
