@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 13 2017 г., 14:19
+-- Время создания: Окт 13 2017 г., 18:21
 -- Версия сервера: 5.7.19
 -- Версия PHP: 7.1.7
 
@@ -21,22 +21,6 @@ SET time_zone = "+00:00";
 --
 -- База данных: `simple-journal`
 --
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `categories`
---
-
-CREATE TABLE `categories` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `parent_id` int(10) UNSIGNED DEFAULT NULL,
-  `order` int(11) NOT NULL DEFAULT '1',
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -65,19 +49,6 @@ CREATE TABLE `data_rows` (
 --
 
 INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, `required`, `browse`, `read`, `edit`, `add`, `delete`, `details`, `order`) VALUES
-(1, 1, 'id', 'number', 'ID', 1, 0, 0, 0, 0, 0, '', 1),
-(2, 1, 'author_id', 'text', 'Author', 1, 0, 1, 1, 0, 1, '', 2),
-(3, 1, 'category_id', 'text', 'Category', 1, 0, 1, 1, 1, 0, '', 3),
-(4, 1, 'title', 'text', 'Title', 1, 1, 1, 1, 1, 1, '', 4),
-(5, 1, 'excerpt', 'text_area', 'excerpt', 1, 0, 1, 1, 1, 1, '', 5),
-(6, 1, 'body', 'rich_text_box', 'Body', 1, 0, 1, 1, 1, 1, '', 6),
-(7, 1, 'image', 'image', 'Post Image', 0, 1, 1, 1, 1, 1, '{\"resize\":{\"width\":\"1000\",\"height\":\"null\"},\"quality\":\"70%\",\"upsize\":true,\"thumbnails\":[{\"name\":\"medium\",\"scale\":\"50%\"},{\"name\":\"small\",\"scale\":\"25%\"},{\"name\":\"cropped\",\"crop\":{\"width\":\"300\",\"height\":\"250\"}}]}', 7),
-(8, 1, 'slug', 'text', 'slug', 1, 0, 1, 1, 1, 1, '{\"slugify\":{\"origin\":\"title\",\"forceUpdate\":true}}', 8),
-(9, 1, 'meta_description', 'text_area', 'meta_description', 1, 0, 1, 1, 1, 1, '', 9),
-(10, 1, 'meta_keywords', 'text_area', 'meta_keywords', 1, 0, 1, 1, 1, 1, '', 10),
-(11, 1, 'status', 'select_dropdown', 'status', 1, 1, 1, 1, 1, 1, '{\"default\":\"DRAFT\",\"options\":{\"PUBLISHED\":\"published\",\"DRAFT\":\"draft\",\"PENDING\":\"pending\"}}', 11),
-(12, 1, 'created_at', 'timestamp', 'created_at', 0, 1, 1, 0, 0, 0, '', 12),
-(13, 1, 'updated_at', 'timestamp', 'updated_at', 0, 0, 0, 0, 0, 0, '', 13),
 (14, 2, 'id', 'number', 'id', 1, 0, 0, 0, 0, 0, '', 1),
 (15, 2, 'author_id', 'text', 'author_id', 1, 0, 0, 0, 0, 0, '', 2),
 (16, 2, 'title', 'text', 'title', 1, 1, 1, 1, 1, 1, '', 3),
@@ -108,8 +79,6 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (48, 6, 'created_at', 'timestamp', 'created_at', 0, 0, 0, 0, 0, 0, '', 3),
 (49, 6, 'updated_at', 'timestamp', 'updated_at', 0, 0, 0, 0, 0, 0, '', 4),
 (50, 6, 'display_name', 'text', 'Display Name', 1, 1, 1, 1, 1, 1, '', 5),
-(51, 1, 'seo_title', 'text', 'seo_title', 0, 1, 1, 1, 1, 1, '', 14),
-(52, 1, 'featured', 'checkbox', 'featured', 1, 1, 1, 1, 1, 1, '', 15),
 (53, 3, 'role_id', 'text', 'role_id', 1, 1, 1, 1, 1, 1, '', 9),
 (54, 7, 'id', 'checkbox', 'Id', 1, 0, 0, 0, 0, 0, NULL, 1),
 (55, 7, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"required\",\"messages\":{\"required\":\"This :attribute field is a must.\"}}}', 2),
@@ -118,7 +87,29 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (58, 7, 'url', 'text', 'Url', 0, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"required\",\"messages\":{\"required\":\"This :attribute field is a must.\"}}}', 5),
 (59, 7, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, NULL, 6),
 (60, 7, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, NULL, 7),
-(61, 7, 'status', 'select_dropdown', 'Status', 0, 1, 1, 1, 1, 1, '{\"default\":\"PUBLISHED\",\"options\":{\"PUBLISHED\":\"published\",\"DRAFT\":\"draft\",\"PENDING\":\"pending\"}}', 6);
+(61, 7, 'status', 'select_dropdown', 'Status', 0, 1, 1, 1, 1, 1, '{\"default\":\"PUBLISHED\",\"options\":{\"PUBLISHED\":\"published\",\"DRAFT\":\"draft\",\"PENDING\":\"pending\"}}', 6),
+(62, 8, 'id', 'number', 'ID', 1, 0, 0, 0, 0, 0, '', 1),
+(63, 8, 'author_id', 'text', 'Author', 1, 0, 1, 1, 0, 1, '', 2),
+(64, 8, 'category_id', 'text', 'Category', 1, 0, 1, 1, 1, 0, '', 3),
+(65, 8, 'title', 'text', 'Title', 1, 1, 1, 1, 1, 1, '', 4),
+(66, 8, 'excerpt', 'text_area', 'excerpt', 1, 0, 1, 1, 1, 1, '', 5),
+(67, 8, 'body', 'rich_text_box', 'Body', 1, 0, 1, 1, 1, 1, '', 6),
+(68, 8, 'image', 'image', 'Post Image', 0, 1, 1, 1, 1, 1, '{\"resize\":{\"width\":\"1000\",\"height\":\"null\"},\"quality\":\"70%\",\"upsize\":true,\"thumbnails\":[{\"name\":\"medium\",\"scale\":\"50%\"},{\"name\":\"small\",\"scale\":\"25%\"},{\"name\":\"cropped\",\"crop\":{\"width\":\"300\",\"height\":\"250\"}}]}', 7),
+(69, 8, 'slug', 'text', 'slug', 1, 0, 1, 1, 1, 1, '{\"slugify\":{\"origin\":\"title\",\"forceUpdate\":true}}', 8),
+(70, 8, 'meta_description', 'text_area', 'meta_description', 1, 0, 1, 1, 1, 1, '', 9),
+(71, 8, 'meta_keywords', 'text_area', 'meta_keywords', 1, 0, 1, 1, 1, 1, '', 10),
+(72, 8, 'status', 'select_dropdown', 'status', 1, 1, 1, 1, 1, 1, '{\"default\":\"DRAFT\",\"options\":{\"PUBLISHED\":\"published\",\"DRAFT\":\"draft\",\"PENDING\":\"pending\"}}', 11),
+(73, 8, 'created_at', 'timestamp', 'created_at', 0, 1, 1, 0, 0, 0, '', 12),
+(74, 8, 'updated_at', 'timestamp', 'updated_at', 0, 0, 0, 0, 0, 0, '', 13),
+(75, 9, 'id', 'number', 'id', 1, 0, 0, 0, 0, 0, '', 1),
+(76, 9, 'parent_id', 'select_dropdown', 'parent_id', 0, 0, 1, 1, 1, 1, '{\"default\":\"\",\"null\":\"\",\"options\":{\"\":\"-- None --\"},\"relationship\":{\"key\":\"id\",\"label\":\"name\"}}', 2),
+(77, 9, 'order', 'text', 'order', 1, 1, 1, 1, 1, 1, '{\"default\":1}', 3),
+(78, 9, 'name', 'text', 'name', 1, 1, 1, 1, 1, 1, '', 4),
+(79, 9, 'slug', 'text', 'slug', 1, 1, 1, 1, 1, 1, '{\"slugify\":{\"origin\":\"name\"}}', 5),
+(80, 9, 'created_at', 'timestamp', 'created_at', 0, 0, 1, 0, 0, 0, '', 6),
+(81, 9, 'updated_at', 'timestamp', 'updated_at', 0, 0, 0, 0, 0, 0, '', 7),
+(82, 8, 'seo_title', 'text', 'seo_title', 0, 1, 1, 1, 1, 1, '', 14),
+(83, 8, 'featured', 'checkbox', 'featured', 1, 1, 1, 1, 1, 1, '', 15);
 
 -- --------------------------------------------------------
 
@@ -148,12 +139,13 @@ CREATE TABLE `data_types` (
 --
 
 INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `display_name_plural`, `icon`, `model_name`, `policy_name`, `controller`, `description`, `generate_permissions`, `server_side`, `created_at`, `updated_at`) VALUES
-(1, 'posts', 'posts', 'Post', 'Posts', 'voyager-news', 'TCG\\Voyager\\Models\\Post', 'TCG\\Voyager\\Policies\\PostPolicy', '', '', 1, 0, '2017-10-06 09:57:30', '2017-10-06 09:57:30'),
 (2, 'pages', 'pages', 'Page', 'Pages', 'voyager-file-text', 'TCG\\Voyager\\Models\\Page', NULL, '', '', 1, 0, '2017-10-06 09:57:30', '2017-10-06 09:57:30'),
 (3, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', '', '', 1, 0, '2017-10-06 09:57:30', '2017-10-06 09:57:30'),
 (5, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, '2017-10-06 09:57:30', '2017-10-06 09:57:30'),
 (6, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, '2017-10-06 09:57:30', '2017-10-06 09:57:30'),
-(7, 'journals', 'journals', 'Journal', 'Journals', NULL, 'App\\Journal', NULL, NULL, NULL, 1, 0, '2017-10-06 10:15:09', '2017-10-06 10:15:09');
+(7, 'journals', 'journals', 'Journal', 'Journals', NULL, 'App\\Journal', NULL, NULL, NULL, 1, 0, '2017-10-06 10:15:09', '2017-10-06 10:15:09'),
+(8, 'posts', 'posts', 'Post', 'Posts', 'voyager-news', 'TCG\\Voyager\\Models\\Post', 'TCG\\Voyager\\Policies\\PostPolicy', '', '', 1, 0, '2017-10-13 11:58:08', '2017-10-13 11:58:08'),
+(9, 'categories', 'categories', 'Category', 'Categories', 'voyager-categories', 'TCG\\Voyager\\Models\\Category', NULL, '', '', 1, 0, '2017-10-13 11:58:08', '2017-10-13 11:58:08');
 
 -- --------------------------------------------------------
 
@@ -242,19 +234,20 @@ CREATE TABLE `menu_items` (
 
 INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class`, `color`, `parent_id`, `order`, `created_at`, `updated_at`, `route`, `parameters`) VALUES
 (1, 1, 'Dashboard', '', '_self', 'voyager-boat', NULL, NULL, 1, '2017-10-06 09:57:30', '2017-10-06 09:57:30', 'voyager.dashboard', NULL),
-(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 5, '2017-10-06 09:57:30', '2017-10-06 09:57:30', 'voyager.media.index', NULL),
-(3, 1, 'Posts', '', '_self', 'voyager-news', NULL, NULL, 6, '2017-10-06 09:57:30', '2017-10-06 09:57:30', 'voyager.posts.index', NULL),
+(2, 1, 'Media', '', '_self', 'voyager-images', NULL, NULL, 4, '2017-10-06 09:57:30', '2017-10-13 11:37:13', 'voyager.media.index', NULL),
 (4, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 3, '2017-10-06 09:57:30', '2017-10-06 09:57:30', 'voyager.users.index', NULL),
-(5, 1, 'Categories', '', '_self', 'voyager-categories', NULL, NULL, 8, '2017-10-06 09:57:30', '2017-10-06 09:57:30', 'voyager.categories.index', NULL),
-(6, 1, 'Pages', '', '_self', 'voyager-file-text', NULL, NULL, 7, '2017-10-06 09:57:30', '2017-10-06 09:57:30', 'voyager.pages.index', NULL),
+(6, 1, 'Pages', '', '_self', 'voyager-file-text', NULL, NULL, 6, '2017-10-06 09:57:30', '2017-10-13 11:37:13', 'voyager.pages.index', NULL),
 (7, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 2, '2017-10-06 09:57:30', '2017-10-06 09:57:30', 'voyager.roles.index', NULL),
-(8, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 9, '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL, NULL),
-(9, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, 8, 10, '2017-10-06 09:57:30', '2017-10-06 09:57:30', 'voyager.menus.index', NULL),
-(10, 1, 'Database', '', '_self', 'voyager-data', NULL, 8, 11, '2017-10-06 09:57:30', '2017-10-06 09:57:30', 'voyager.database.index', NULL),
-(11, 1, 'Compass', '/admin/compass', '_self', 'voyager-compass', NULL, 8, 12, '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL, NULL),
-(12, 1, 'Hooks', '/admin/hooks', '_self', 'voyager-hook', NULL, 8, 13, '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL, NULL),
-(13, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 14, '2017-10-06 09:57:30', '2017-10-06 09:57:30', 'voyager.settings.index', NULL),
-(14, 1, 'Journals', '/admin/journals', '_self', 'voyager-book', '#000000', NULL, 15, '2017-10-06 10:18:49', '2017-10-12 12:26:13', NULL, '');
+(8, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 9, '2017-10-06 09:57:30', '2017-10-13 11:37:24', NULL, NULL),
+(9, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, NULL, 10, '2017-10-06 09:57:30', '2017-10-13 11:37:24', 'voyager.menus.index', NULL),
+(10, 1, 'Database', '', '_self', 'voyager-data', NULL, NULL, 11, '2017-10-06 09:57:30', '2017-10-13 11:37:24', 'voyager.database.index', NULL),
+(11, 1, 'Compass', '/admin/compass', '_self', 'voyager-compass', NULL, NULL, 12, '2017-10-06 09:57:30', '2017-10-13 11:37:24', NULL, NULL),
+(12, 1, 'Hooks', '/admin/hooks', '_self', 'voyager-hook', NULL, NULL, 13, '2017-10-06 09:57:30', '2017-10-13 11:37:24', NULL, NULL),
+(13, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 14, '2017-10-06 09:57:30', '2017-10-13 11:37:24', 'voyager.settings.index', NULL),
+(14, 1, 'Journals', '/admin/journals', '_self', 'voyager-book', '#000000', NULL, 8, '2017-10-06 10:18:49', '2017-10-13 11:37:24', NULL, ''),
+(15, 1, 'ADS', '/admin/ads', '_self', NULL, '#000000', NULL, 15, '2017-10-13 11:47:50', '2017-10-13 11:47:50', NULL, ''),
+(16, 1, 'Posts', '', '_self', 'voyager-news', NULL, NULL, 6, '2017-10-13 11:58:08', '2017-10-13 11:58:08', 'voyager.posts.index', NULL),
+(17, 1, 'Categories', '', '_self', 'voyager-categories', NULL, NULL, 8, '2017-10-13 11:58:08', '2017-10-13 11:58:08', 'voyager.categories.index', NULL);
 
 -- --------------------------------------------------------
 
@@ -381,11 +374,6 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (22, 'edit_users', 'users', '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL),
 (23, 'add_users', 'users', '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL),
 (24, 'delete_users', 'users', '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL),
-(25, 'browse_posts', 'posts', '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL),
-(26, 'read_posts', 'posts', '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL),
-(27, 'edit_posts', 'posts', '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL),
-(28, 'add_posts', 'posts', '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL),
-(29, 'delete_posts', 'posts', '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL),
 (35, 'browse_settings', 'settings', '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL),
 (36, 'read_settings', 'settings', '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL),
 (37, 'edit_settings', 'settings', '2017-10-06 09:57:30', '2017-10-06 09:57:30', NULL),
@@ -395,7 +383,17 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (41, 'read_journals', 'journals', '2017-10-06 10:15:09', '2017-10-06 10:15:09', NULL),
 (42, 'edit_journals', 'journals', '2017-10-06 10:15:09', '2017-10-06 10:15:09', NULL),
 (43, 'add_journals', 'journals', '2017-10-06 10:15:09', '2017-10-06 10:15:09', NULL),
-(44, 'delete_journals', 'journals', '2017-10-06 10:15:09', '2017-10-06 10:15:09', NULL);
+(44, 'delete_journals', 'journals', '2017-10-06 10:15:09', '2017-10-06 10:15:09', NULL),
+(45, 'browse_posts', 'posts', '2017-10-13 11:58:08', '2017-10-13 11:58:08', NULL),
+(46, 'read_posts', 'posts', '2017-10-13 11:58:08', '2017-10-13 11:58:08', NULL),
+(47, 'edit_posts', 'posts', '2017-10-13 11:58:08', '2017-10-13 11:58:08', NULL),
+(48, 'add_posts', 'posts', '2017-10-13 11:58:08', '2017-10-13 11:58:08', NULL),
+(49, 'delete_posts', 'posts', '2017-10-13 11:58:08', '2017-10-13 11:58:08', NULL),
+(50, 'browse_categories', 'categories', '2017-10-13 11:58:08', '2017-10-13 11:58:08', NULL),
+(51, 'read_categories', 'categories', '2017-10-13 11:58:08', '2017-10-13 11:58:08', NULL),
+(52, 'edit_categories', 'categories', '2017-10-13 11:58:08', '2017-10-13 11:58:08', NULL),
+(53, 'add_categories', 'categories', '2017-10-13 11:58:08', '2017-10-13 11:58:08', NULL),
+(54, 'delete_categories', 'categories', '2017-10-13 11:58:08', '2017-10-13 11:58:08', NULL);
 
 -- --------------------------------------------------------
 
@@ -448,11 +446,6 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (22, 1),
 (23, 1),
 (24, 1),
-(25, 1),
-(26, 1),
-(27, 1),
-(28, 1),
-(29, 1),
 (35, 1),
 (36, 1),
 (37, 1),
@@ -462,31 +455,34 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (41, 1),
 (42, 1),
 (43, 1),
-(44, 1);
+(44, 1),
+(45, 1),
+(46, 1),
+(47, 1),
+(48, 1),
+(49, 1),
+(50, 1),
+(51, 1),
+(52, 1),
+(53, 1),
+(54, 1);
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `posts`
+-- Структура таблицы `positions`
 --
 
-CREATE TABLE `posts` (
+CREATE TABLE `positions` (
   `id` int(10) UNSIGNED NOT NULL,
-  `author_id` int(11) NOT NULL,
-  `category_id` int(11) DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `excerpt` text COLLATE utf8mb4_unicode_ci,
-  `body` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `meta_description` text COLLATE utf8mb4_unicode_ci,
-  `meta_keywords` text COLLATE utf8mb4_unicode_ci,
-  `status` enum('PUBLISHED','DRAFT','PENDING') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'DRAFT',
-  `featured` tinyint(1) NOT NULL DEFAULT '0',
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `price` double NOT NULL,
+  `status` json DEFAULT NULL,
+  `image` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -526,6 +522,22 @@ CREATE TABLE `settings` (
   `order` int(11) NOT NULL DEFAULT '1',
   `group` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `settings`
+--
+
+INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`, `order`, `group`) VALUES
+(1, 'site.title', 'Site Title', 'Site Title', '', 'text', 1, 'Site'),
+(2, 'site.description', 'Site Description', 'Site Description', '', 'text', 2, 'Site'),
+(3, 'site.logo', 'Site Logo', '', '', 'image', 3, 'Site'),
+(4, 'site.google_analytics_tracking_id', 'Google Analytics Tracking ID', '', '', 'text', 4, 'Site'),
+(5, 'admin.bg_image', 'Admin Background Image', '', '', 'image', 5, 'Admin'),
+(6, 'admin.title', 'Admin Title', 'Voyager', '', 'text', 1, 'Admin'),
+(7, 'admin.description', 'Admin Description', 'Welcome to Voyager. The Missing Admin for Laravel', '', 'text', 2, 'Admin'),
+(8, 'admin.loader', 'Admin Loader', '', '', 'image', 3, 'Admin'),
+(9, 'admin.icon_image', 'Admin Icon Image', '', '', 'image', 4, 'Admin'),
+(10, 'admin.google_analytics_client_id', 'Google Analytics Client ID (used for admin dashboard)', '', '', 'text', 1, 'Admin');
 
 -- --------------------------------------------------------
 
@@ -572,14 +584,6 @@ INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `password`, `re
 --
 -- Индексы сохранённых таблиц
 --
-
---
--- Индексы таблицы `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `categories_slug_unique` (`slug`),
-  ADD KEY `categories_parent_id_foreign` (`parent_id`);
 
 --
 -- Индексы таблицы `data_rows`
@@ -658,11 +662,10 @@ ALTER TABLE `permission_role`
   ADD KEY `permission_role_role_id_index` (`role_id`);
 
 --
--- Индексы таблицы `posts`
+-- Индексы таблицы `positions`
 --
-ALTER TABLE `posts`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `posts_slug_unique` (`slug`);
+ALTER TABLE `positions`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `roles`
@@ -697,20 +700,15 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT для таблицы `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT для таблицы `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 --
 -- AUTO_INCREMENT для таблицы `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT для таблицы `journals`
 --
@@ -725,7 +723,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT для таблицы `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT для таблицы `migrations`
 --
@@ -740,16 +738,16 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT для таблицы `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 --
 -- AUTO_INCREMENT для таблицы `permission_groups`
 --
 ALTER TABLE `permission_groups`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT для таблицы `posts`
+-- AUTO_INCREMENT для таблицы `positions`
 --
-ALTER TABLE `posts`
+ALTER TABLE `positions`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT для таблицы `roles`
@@ -760,7 +758,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT для таблицы `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT для таблицы `translations`
 --
@@ -774,12 +772,6 @@ ALTER TABLE `users`
 --
 -- Ограничения внешнего ключа сохраненных таблиц
 --
-
---
--- Ограничения внешнего ключа таблицы `categories`
---
-ALTER TABLE `categories`
-  ADD CONSTRAINT `categories_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `data_rows`
