@@ -249,7 +249,8 @@ class VoyagerAdvertisementController extends Controller
         // Check if BREAD is Translatable
         $isModelTranslatable = is_bread_translatable($dataTypeContent);
 
-        $view = 'voyager::bread.edit-add';
+//        $view = 'voyager::bread.edit-add';
+        $view = 'voyager.advertisements-add';
 
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
