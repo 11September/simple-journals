@@ -1,5 +1,13 @@
 @extends('layoults.layoult')
 
+@section('css')
+    <style>
+        .navbar-brand {
+            display: none;
+        }
+    </style>
+@endsection
+
 @section('content')
 
     <div class="row">
