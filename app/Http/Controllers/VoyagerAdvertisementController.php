@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Advertisement;
+use App\Position;
+
+use Illuminate\Support\Facades\Storage;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -109,31 +112,42 @@ class VoyagerAdvertisementController extends Controller
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
-        $regions = Region::all();
-
-        $object = Object::where('id', $id)->first();
-        $addressPlaceholder = $object->address;
-
         // Check permission
-        Voyager::canOrFail('edit_' . $dataType->name);
+        // Voyager::canOrFail('edit_' . $dataType->name);
+        $this->authorize('edit', app($dataType->model_name));
 
-        $dataTypeContent = Object::where('id', $id)->with('category', 'region', 'documents', 'customer', 'contractor', 'city')->first();
+        // $dataTypeContent = Object::where('id', $id)->with('category', 'region', 'documents', 'customer', 'contractor', 'city')->first();
 
-        $view = 'voyager::bread.edit-add';
+        $dataTypeContent = Advertisement::where('id', $id)->with('journal', 'positions')->first();
+
+
+        $view = 'voyager.advertisements-edit';
 
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
         }
 
         $isModelTranslatable = false;
+        $advertisement = Advertisement::find($id);
 
-        return view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'regions', 'addressPlaceholder'));
+        $newAdsPositions = [];
+        
+        $relPositions = Position::where("advertisement_id", '=', $id)->get();
+
+        $lastId = $relPositions[count($relPositions) - 1]->id;
+        
+        foreach ($relPositions as $key => $position) {
+            $newAdsPositions[$position->id] = ['position_id' => $position->id, 'price' => $position->price];
+            // array_push($newAdsPositions, new class { public $position_id = $position->id; public $price = $position->price; });
+        }
+        $newAdsPositions = json_encode($newAdsPositions);
+        // dd($relPositions[0]->price);
+
+        return view($view, compact('dataType', 'dataTypeContent', 'isModelTranslatable', 'relPositions', 'advertisement', 'newAdsPositions', 'lastId'));
     }
 
     public function update(Request $request, $id)
     {
-        $cities = City::all();
-        $regions = Region::all();
         $slug = $this->getSlug($request);
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -142,82 +156,73 @@ class VoyagerAdvertisementController extends Controller
         Voyager::canOrFail('add_' . $dataType->name);
 
         //Validate fields with ajax
-        $validator = Validator::make($request->all(), [
-            "name" => "required",
-            "address" => "required",
-            "city_id" => "required",
-            "category_id" => "required",
-            "customer_id" => "required",
-            "contractor_id" => "required",
-            "region_id" => "required",
-            "price" => "required|integer|min:0",
-            "status" => "required",
-            //"description" => "required",
-            "maps_lat" => "required",
-            "maps_lng" => "required",
-            //"finished_year" => "",
-        ]);
+        
+        $val = $this->validateBread($request->all(), $dataType->addRows);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => $validator->messages()]);
+        if ($val->fails()) {
+            return response()->json(['errors' => $val->messages()]);
         }
-
-        $city = City::where('id', $request->city_id)->first() ? City::where('id', $request->city_id)->first() : City::where('name', $request->city_id)->first();
-
-        if( $city ){
-            $city_id = $city->id;
-        }
-
-        if( !$city ){
-            $newCity = new City();
-            $newCity->name = $request->city_id;
-            $newCity->save();
-            $city_id = $newCity->id;
-        }
-
-        $region_id = $request->region_id;
-
-        if($request->region_id == 'місто Київ' || $request->region_id == 'город Киев'){
-            foreach ($regions as $region) {
-                if($region->name_ua == 'Київська область'){
-                    $region_id = $region->id;
-                }
-            }
-        }
-
+        
         if (!$request->ajax()) {
 
-            $object = Object::where('id', $id)->first();
+            $newAds = array_filter(json_decode($request->newAds));
+            $posToDelete = array_filter(json_decode($request->positionsToDelete));
+            $posToDelete = array_combine($posToDelete, $posToDelete);
 
-            $object->name = $request->name;
-            $object->address = $request->address;
-            $object->city_id = $city_id;
-            $object->category_id = $request->category_id;
-            $object->customer_id = $request->customer_id;
-            $object->contractor_id = $request->contractor_id;
-            $object->region_id = $region_id;
-            $object->price = $request->price;
-            $object->status = $request->status;
-            $object->description = $request->description;
-            $object->work_description = $request->work_description;
-            $object->maps_lat = $request->maps_lat;
-            $object->maps_lng = $request->maps_lng;
-            $object->finished_year = date('Y',strtotime($request->finished_at));
-            $object->finished_at = date('Y-m',strtotime($request->finished_at));
+            $advertisement = Advertisement::find($id);
 
-            $object->save();
+            if( $advertisement->journal_id !== (integer)$request->journal_id ){
+                Storage::deleteDirectory('Ads'.$advertisement->id.'Journal'.$advertisement->journal_id);
+            }
+            
+            $advertisement->journal_id = $request->journal_id;
+            $advertisement->coupon = $request->coupon;
+            $advertisement->percent = $request->percent;
+            $advertisement->link = $request->link;
+            $advertisement->title = $request->title;
+            $advertisement->save();
 
-            $finances = Finance::where('object_id', $id)->first();
-            $finances->suma = $request->price;
-            $finances->status = 'provided';
-            $finances->description = '';
-            $finances->date = Carbon::now()->toDateString();
-            $finances->object_id = $object->id;
-            $finances->save();
+            $positions = $newAds;
 
+            foreach ($positions as $positionIndex => $position) {
+                if( !array_key_exists( $position->position_id, $posToDelete )){
+                    $positionImage = $request->file('position-'.$position->position_id.'-img') ? $request->file('position-'.$position->position_id.'-img') : false ;
+                                            
+                    $updatePosition = Position::where( [ ["advertisement_id", "=", $id], 
+                                                      ["id", "=", $position->position_id] 
+                                                    ])->first();
+                    if ( !$updatePosition ){
+                        $updatePosition = new Position();
+                    }
+                    
+                    $updatePosition->price = $position->price;                
+                    $updatePosition->advertisement_id = $advertisement->id;
+                    $updatePosition->name = '';
+                    $updatePosition->save();
+
+                    if( $positionImage ){
+                        $updatePosition->image = 'Ads'.$advertisement->id.'Journal'.$request->journal_id.'/Position'.$updatePosition->id.'.'.$positionImage->extension();
+                    }
+
+                    $updatePosition->save();
+
+                    if( $positionImage ){
+                        $positionImage->storeAs(
+                            'Ads'.$advertisement->id.'Journal'.$request->journal_id, 'Position'.$updatePosition->id.'.'.$positionImage->extension()
+                        );
+                    }
+                }
+            }
+            
+            foreach ($posToDelete as $posId) {             
+                $matchingFiles = preg_grep('/Position'.$posId.'\.*/', Storage::files('Ads11journal2'));
+                Storage::delete( $matchingFiles );
+  
+                Position::where( [ ['id', '=', $posId] , ['advertisement_id', '=', $advertisement->id] ] )->delete();                
+            }
 
             return redirect()
-                ->route("voyager.{$dataType->slug}.edit", ['id' => $object->id])
+                ->route("voyager.{$dataType->slug}.index", ['id' => $advertisement->id])
                 ->with([
                     'message' => "Successfully Updated {$dataType->display_name_singular}",
                     'alert-type' => 'success',
@@ -249,8 +254,8 @@ class VoyagerAdvertisementController extends Controller
         // Check if BREAD is Translatable
         $isModelTranslatable = is_bread_translatable($dataTypeContent);
 
-//        $view = 'voyager::bread.edit-add';
-        $view = 'voyager.advertisements-add';
+
+        $view = 'voyager.advertisements-add';//        $view = 'voyager::bread.edit-add';
 
         if (view()->exists("voyager::$slug.edit-add")) {
             $view = "voyager::$slug.edit-add";
@@ -260,9 +265,9 @@ class VoyagerAdvertisementController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {            
         $slug = $this->getSlug($request);
-
+        
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
         // Check permission
@@ -276,14 +281,35 @@ class VoyagerAdvertisementController extends Controller
         }
 
         if (!$request->ajax()) {
+            $newAds = array_filter(json_decode($request->newAds));
+            
+            $newAdvertisement = new Advertisement();
+            $newAdvertisement->journal_id = $request->journal_id;
+            $newAdvertisement->coupon = $request->coupon;
+            $newAdvertisement->percent = $request->percent;
+            $newAdvertisement->link = $request->link;
+            $newAdvertisement->title = $request->title;
+            $newAdvertisement->save();      
+            
+            $positions = $newAds;
 
-            $advertisement = new Advertisement();
+            foreach ($positions as $id => $position) {
+                dump($position);
+                $positionImage = $request->file('position-'.$position->position_id.'-img');
 
-            $advertisement->journal_id = $request->journal_id;
-
-            $advertisement->save($request->all());
-
-
+                $newPosition = new Position();
+                $newPosition->price = $position->price;                
+                $newPosition->advertisement_id = $newAdvertisement->id;
+                $newPosition->name = '';
+                $newPosition->save();
+                
+                $newPosition->image = 'Ads'.$newAdvertisement->id.'Journal'.$request->journal_id.'/Position'.$newPosition->id.'.'.$positionImage->extension();
+                $newPosition->save();
+                
+                $positionImage->storeAs(
+                    'Ads'.$newAdvertisement->id.'Journal'.$request->journal_id, 'Position'.$newPosition->id.'.'.$positionImage->extension()
+                );
+            }
             return redirect()
                 ->route("voyager.{$dataType->slug}.index")
                 ->with([

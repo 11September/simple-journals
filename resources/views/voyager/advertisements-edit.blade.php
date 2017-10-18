@@ -35,10 +35,8 @@
 
                     <!-- CSRF TOKEN -->
                         {{ csrf_field() }}
-
-                        
-
-                        <div class="panel-body">                            
+                    
+                        <div class="panel-body">
 
                             @if (count($errors) > 0)
                                 <div class="alert alert-danger">
@@ -82,8 +80,10 @@
                                 @endif
                             @endforeach                            
                             <input type="hidden" name="newAds" id="newAds">
-                            <div id="position-images" style="display: block;"></div>
-                        </div><!-- panel-body -->                        
+                            <input type="hidden" name="positionsToDelete" id="positionsToDelete">
+                            <div id="position-images" style="display: block;"></div>                            
+                        </div>
+                        <!-- panel-body -->                        
                     </form>
 
                     <iframe id="form_target" name="form_target" style="display:none"></iframe>
@@ -107,7 +107,7 @@
                         
                         <div class="new-position-img col-lg-4" style="height: 100%; margin: 0 0 20px; border: 1px solid grey;">
                             <img id="new-position-img-view" src="" alt="Position Image" style="min-height: 100%; min-width: 100%">                            
-                        </div>
+                        </div>  
                         
                         <div class="col-lg-6" id="add-new-pos-form" style="height: 100%; display: flex; flex-direction: column; justify-content: space-around;">
                                                         
@@ -134,11 +134,39 @@
                 <div class="recently-added panel panel-bordered" style="margin-bottom: 20px;">
 
                     <div class="col-md-12">
-                        <h2>Recently Added</h2>
+                        <h2>Added Positions</h2>
                     </div>
 
                     <div class="recently-added-positions panel-body" style="height: 200px; padding: 0 20px 0;">
                         <div id="addedPositions" class="wrapper" style="display: flex; height: 90%; justify-content: flex-start;">
+
+                            @foreach ($relPositions as $viewId=> $position)
+                                
+                                <div id="added-position-{{ $position->id }}" class="positions-wrapper" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #eee; display: flex; justify-content: space-between;">
+                                    <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
+                                        <img id="added-position-img-{{ $position->id }}" src="{{ asset('storage/' . $position->image) }}" alt="Position Image" style="max-height: 100%; max-width: 100%">                            
+                                    </div>  
+
+                                    <div class="" style="height: 100%; display: flex; flex-direction: column; justify-content: space-around;">
+                                        <!-- <input class="btn btn-primary save" id="new-position-img" type="file" name="newPositionImg" > -->
+                                        <div class="added-position-price-wrapper" style="">
+
+                                            <label for="newPositionPrice">Price:</label>
+                                            <!-- <input class="form-control" type="text" name="newPositionPrice"> -->
+                                            <p id="added-position-price-{{ $position->id }}">{{ $position->price }}</p>                                   
+                                            <i class="fa fa-eur" aria-hidden="true"></i> 
+
+                                        </div>
+                                    </div>
+
+                                    <div class="" style="height: 100%; display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
+                                        <i id="edit-position-${positionId}" class="fa fa-pencil" aria-hidden="true" style="cursor: pointer" onclick="editRecent({{ $position->id }})"></i>
+                                        <i id="delete-position-${positionId}" class="fa fa-times" aria-hidden="true" style="cursor: pointer" onclick="deleteFromRecent({{ $position->id }})"></i>           
+                                    </div>
+                                    <input type="hidden" value="{{ $position->id }}" name="existing-position">
+                                </div>
+
+                            @endforeach
                         </div>
                     </div>
                         
@@ -184,9 +212,16 @@
     <script>
         var params = {}
         var $image;
-        var newAdsPositions = [];
+        var newAdsPositions = {!! $newAdsPositions !!};
         var updatePosition = false;
         var updatePositionId = '';
+        var deletePositions = [];
+
+        var newAdsPositions = $.map(newAdsPositions, function(value, index) {
+            return [value];
+        });
+
+        console.log(newAdsPositions);
 
         function readURL(input, img) {
             if (input && input[0]) {
@@ -209,16 +244,15 @@
             $("#new-position-header").text('Edit Position ' + positionId);
             $("#new-position-img-view").attr('src', $("#added-position-img-"+positionId).attr('src') );
             $("#new-position-price").val($("#added-position-price-"+positionId).text());
-            $("#new-position-img").remove();
-            $("#add-new-pos-form").prepend($("#position-"+positionId+"-img").clone()
-                .attr("id", "new-position-img")
-                .attr("name", "newPositionImg")
-                .attr("class", "btn btn-primary save"));
+            $("#new-position-img").val('');
         }
 
         function deleteFromRecent(positionId) {
+            
+            deletePositions.push($("input[name=existing-position][value="+positionId+"]").val());
             $("#added-position-" + positionId).remove();
             $("#position-" +positionId+ "-img").remove();
+
             delete newAdsPositions[positionId];
             
             newAdsPositions.length -= 1; 
@@ -280,8 +314,8 @@
             if($("#new-position-img").prop('files')){
                 readURL($("#new-position-img").prop('files'), $("#new-position-img-view"));
             }
+
             $("#add-new-pos-form").on("change", "#new-position-img", function () {
-                console.log('aaaaaa');
                 readURL($("#new-position-img").prop('files'), $("#new-position-img-view"));
             });
 
@@ -289,18 +323,19 @@
 
             $("#submitNewAds").on("click", function(e){
 
-                //change file input value on update
                 if( newAdsPositions.length > 0 ){                    
                     $("#newAds").val(JSON.stringify(newAdsPositions));
-                    $("#mainForm").submit();  
+                    $("#positionsToDelete").val(JSON.stringify(deletePositions));
+                    $("#mainForm").submit();
                 }else{
                     $(".recently-added").css('border', '1px solid red');
                     toastr.error("Add Positions");
                 }
                  
             });
+            
+            var positionId = {!! $lastId !!};
 
-            var positionId = -1;
             $("#addNewPosition").on("click", function(){
                 positionId++;
 
@@ -317,9 +352,11 @@
                             </div>  
 
                             <div class="" style="height: 100%; display: flex; flex-direction: column; justify-content: space-around;">
+                                <!-- <input class="btn btn-primary save" id="new-position-img" type="file" name="newPositionImg" > -->
                                 <div class="added-position-price-wrapper" style="">
 
                                     <label for="newPositionPrice">Price:</label>
+                                    <!-- <input class="form-control" type="text" name="newPositionPrice"> -->
                                     <p id="added-position-price-${positionId}">${newPosPrice}</p>                                   
                                     <i class="fa fa-eur" aria-hidden="true"></i> 
 
@@ -330,28 +367,41 @@
                                 <i id="edit-position-${positionId}" class="fa fa-pencil" aria-hidden="true" style="cursor: pointer" onclick="editRecent(${positionId})"></i>
                                 <i id="delete-position-${positionId}" class="fa fa-times" aria-hidden="true" style="cursor: pointer" onclick="deleteFromRecent(${positionId})"></i>           
                             </div>
-                            <div style="display: none;" id="position-${positionId}-img"></div>
                         </div>`
                     );
-                    $("#position-"+positionId+"-img").append($("#new-position-img").clone()) ;
-                    let forSubmitInput = $("#new-position-img").clone();    
+
+                    let forSubmitInput = $("#new-position-img").clone();
                     forSubmitInput.attr("id", "position-" +positionId+ "-img").attr("name", "position-" +positionId+ "-img");
                     $("#position-images").append(forSubmitInput);
-
-                    readURL($("#new-position-img").prop('files'), $("#added-position-img-"+positionId));
+                    
+                    if( $("#new-position-img").prop('files') ){
+                        readURL($("#new-position-img").prop('files'), $("#added-position-img-"+positionId));
+                    }
+                    
                     $(".recently-added").css('border', '1px solid transparent');
                     
-                }else if($("#new-position-price").val() && $("#new-position-img").prop('files') && updatePosition){
+                }else if($("#new-position-price").val() && updatePosition){
 
-                    $("#added-position-price-"+updatePositionId).text($("#new-position-price").val());
+                    $("#added-position-price-"+updatePositionId).text($("#new-position-price").val());                    
 
-                    $("#position-" +updatePositionId+ "-img").remove();
-                    let forSubmitInput = $("#new-position-img").clone();
-                    $("#position-images").append(forSubmitInput);
-                    forSubmitInput.attr("id", "position-" +updatePositionId+ "-img").attr("name", "position-" +updatePositionId+ "-img");
+                    if( $("#new-position-img").val().length > 0 ){
+                        $("#position-" +updatePositionId+ "-img").remove();
+                        let forSubmitInput = $("#new-position-img").clone(); 
+                        forSubmitInput.attr("id", "position-" +updatePositionId+ "-img").attr("name", "position-" +updatePositionId+ "-img");                   
+                        $("#position-images").append(forSubmitInput);                        
+                    }
+                    
 
-                    readURL($("#new-position-img").prop('files'), $("#added-position-img-"+updatePositionId));
-                    newAdsPositions[updatePositionId].price = $("#new-position-price").val();
+                    if( $("#new-position-img").prop('files') ){
+                        readURL($("#new-position-img").prop('files'), $("#added-position-img-"+updatePositionId));
+                    }
+
+                    for (var i = 0; i < newAdsPositions.length ; i++) {
+                        if( newAdsPositions[i].position_id = updatePositionId ){
+                            newAdsPositions[i].price = $("#new-position-price").val();
+                        }
+                    }
+
                     updatePositionId = '';
                     updatePosition = false;
                     $("#new-position-header").text('Add New Position');
