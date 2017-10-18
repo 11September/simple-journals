@@ -19,6 +19,8 @@ body {
     font-family: OpenSans-Regular, 'Comic Sans MS', cursive;
 }
 
+button:focus {outline:0;}
+
 .container {
     padding: 0;
 }
@@ -29,6 +31,25 @@ body {
 
 .bg-white {
     background-color: #FFFFFF;
+}
+
+.menu-wrapper{
+    width:100%;
+}
+
+.navbar-toggler{
+    /*position: absolute;*/
+    /*right: 20px;*/
+
+    line-height: 1;
+    background: 0 0;
+    font-size: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-brand{
+    margin: 0;
 }
 
 .navbar-toggler-icon {
@@ -51,6 +72,12 @@ body {
     padding-left: 30px;
 }
 
+@media (min-width: 768px) {
+    .navbar-brand{
+        display: inline-block !important;
+    }
+}
+
 .rm-right {
     margin-left: auto !important;
 }
@@ -62,7 +89,7 @@ body {
 }
 
 .wrapper-body {
-    padding-top: 40px;
+    padding-top: 50px;
 }
 
 .wrapper-item {
@@ -139,7 +166,11 @@ body {
 }
 
 .navbar-brand {
-    display: none;
+    /*display: none;*/
+}
+
+.wrapper-body-magazines{
+    padding-top: 120px;
 }
 
 /*for js*/

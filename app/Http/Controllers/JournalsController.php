@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Journal;
+use App\Advertisement;
 use Illuminate\Http\Request;
 
 class JournalsController extends Controller
@@ -23,6 +24,15 @@ class JournalsController extends Controller
     {
         $journals = Journal::where('status', '=', "PUBLISHED")->paginate(9);
 
-        return view('welcome', compact('journals'));
+        return view('magazines', compact('journals'));
+    }
+
+    public function advertisement(Request $request, $id)
+    {
+        $advertisement = Advertisement::where('journal_id', $id)->with('positions', 'journal')->first();
+
+//        dd($advertisement);
+
+        return view('advertisement', compact('advertisement'));
     }
 }

@@ -1,22 +1,11 @@
 @extends('layoults.layoult')
 
 @section('css')
-    <style>
-        .navbar-brand {
-            display: none;
-        }
-    </style>
+
 @endsection
 
 @section('content')
-
-    <div class="row">
-        <div id="logo-block" class="col-lg-12">
-            <img src="{{ asset('images/Logo-Cosmo-Press.png') }}">
-        </div>
-    </div>
-
-    <div class="wrapper-body">
+    <div class="wrapper-body-magazines">
         <div class="row">
 
             @foreach($journals as $journal)

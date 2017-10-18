@@ -20,7 +20,9 @@
             @endif
 
             @if($journal->url)
-                <h3 class="heading-journal">{{ $journal->url }}</h3>
+                <a href="{{ action('JournalsController@advertisement', $journal->id) }}">
+                    <h3 class="heading-journal">{{ $journal->url }}</h3>
+                </a>
             @endif
 
             <div class="content">
