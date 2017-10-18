@@ -6,12 +6,11 @@
             <a id="navbar-logo" class="navbar-brand" href="{{ url('/') }}"><img
                         src="{{ asset('images/Logo-Cosmo-Press.png') }}" alt=""></a>
 
-            <div class="pull-right">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                        aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fa fa-align-right fa-2x" aria-hidden="true"></i>
-                </button>
-            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-align-right fa-2x" aria-hidden="true"></i>
+            </button>
+
 
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav rm-right">
