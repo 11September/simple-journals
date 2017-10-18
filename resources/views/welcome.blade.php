@@ -39,6 +39,7 @@
         <div id="paypal-button-container"></div>
     </div>
     <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+
     <script>
         paypal.Button.render({
 
@@ -62,13 +63,12 @@
                     payment: {
                         transactions: [
                             {
-                                amount: { total: '0.01', currency: 'USD' }
+                                amount: { total: '0.01', currency: 'EUR' }
                             }
                         ]
                     }
                 });
             },
-
             // onAuthorize() is called when the buyer approves the payment
             onAuthorize: function(data, actions) {
 

@@ -25,4 +25,5 @@ class JournalsController extends Controller
 
         return view('welcome', compact('journals'));
     }
+
 }
