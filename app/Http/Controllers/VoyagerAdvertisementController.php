@@ -174,6 +174,13 @@ class VoyagerAdvertisementController extends Controller
             if( $advertisement->journal_id !== (integer)$request->journal_id ){
                 Storage::deleteDirectory('Ads'.$advertisement->id.'Journal'.$advertisement->journal_id);
             }
+
+            foreach ($posToDelete as $posId) {             
+                $matchingFiles = preg_grep('/Position'.$posId.'\.*/', Storage::files('Ads'.$advertisement->id.'Journal'.$advertisement->journal_id));                
+                Storage::delete( $matchingFiles );
+  
+                Position::where( [ ['id', '=', $posId] , ['advertisement_id', '=', $advertisement->id] ] )->delete();                
+            }
             
             $advertisement->journal_id = $request->journal_id;
             $advertisement->coupon = $request->coupon;
@@ -212,13 +219,6 @@ class VoyagerAdvertisementController extends Controller
                         );
                     }
                 }
-            }
-            
-            foreach ($posToDelete as $posId) {             
-                $matchingFiles = preg_grep('/Position'.$posId.'\.*/', Storage::files('Ads11journal2'));
-                Storage::delete( $matchingFiles );
-  
-                Position::where( [ ['id', '=', $posId] , ['advertisement_id', '=', $advertisement->id] ] )->delete();                
             }
 
             return redirect()

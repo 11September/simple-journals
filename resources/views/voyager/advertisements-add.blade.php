@@ -106,7 +106,7 @@
                     <div class="recently-added-position panel-body" style="height: 300px; padding-bottom: 30px;">
                         
                         <div class="new-position-img col-lg-4" style="height: 100%; margin: 0 0 20px; border: 1px solid grey;">
-                            <img id="new-position-img-view" src="" alt="Position Image" style="min-height: 100%; min-width: 100%">                            
+                            <img id="new-position-img-view" src="" alt="Position Image" style="height: 100%; width: 100%">                            
                         </div>
                         
                         <div class="col-lg-6" id="add-new-pos-form" style="height: 100%; display: flex; flex-direction: column; justify-content: space-around;">
@@ -124,7 +124,7 @@
 
                         <div class="col-lg-2" style="height: 100%; ;display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
                             
-                            <i id="clearAddingPosition" class="fa fa-trash-o fa-3x" style="cursor: pointer;" aria-hidden="true"></i>
+                            <i id="clearAddingPosition" class="fa fa-times fa-3x" style="cursor: pointer;" aria-hidden="true"></i>
                             <i id="addNewPosition" class="fa fa-check-circle-o fa-3x" style="cursor: pointer;" aria-hidden="true"></i>
 
                         </div>
@@ -192,15 +192,18 @@
             if (input && input[0]) {
                 var reader = new FileReader();
 
-                reader.onload = function (e) {
+                reader.onload = function (e) {                
                     img
-                        .attr('src', e.target.result)
-                        .width(150)
-                        .height(200);
+                        .attr('src', e.target.result);
                 };
 
                 reader.readAsDataURL(input[0]);
             }
+        }
+
+        function clearForm(){
+            $("#new-position-img").val('');
+            $("#new-position-img-view").attr('src', '');
         }
 
         function editRecent(positionId){
@@ -280,8 +283,7 @@
             if($("#new-position-img").prop('files')){
                 readURL($("#new-position-img").prop('files'), $("#new-position-img-view"));
             }
-            $("#add-new-pos-form").on("change", "#new-position-img", function () {
-                console.log('aaaaaa');
+            $("#add-new-pos-form").on("change", "#new-position-img", function () {                
                 readURL($("#new-position-img").prop('files'), $("#new-position-img-view"));
             });
 
@@ -302,10 +304,16 @@
 
             var positionId = -1;
             $("#addNewPosition").on("click", function(){
-                positionId++;
+                
+                let str = $("#new-position-price").val();
+                let patt = new RegExp("^[^0][^a-zA-Z]$");
+                let priceTest = patt.test(str);
+                console.log(priceTest);
 
-                if( $("#new-position-price").val() && $("#new-position-img").prop('files') && !updatePosition ){
-                    
+                if( $("#new-position-price").val() && priceTest && $("#new-position-img").val() && !updatePosition ){
+
+                    positionId++;
+
                     var newPosPrice = $("#new-position-price").val();
 
                     newAdsPositions[positionId] = { position_id: positionId, price: newPosPrice} ;
@@ -313,14 +321,14 @@
                     $("#addedPositions").append(`
                         <div id="added-position-${positionId}" class="positions-wrapper" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #eee; display: flex; justify-content: space-between;">
                             <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
-                                <img id="added-position-img-${positionId}" src="" alt="Position Image" style="max-height: 100%; max-width: 100%">                            
+                                <img id="added-position-img-${positionId}" src="" alt="Position Image" style="height: 100%; width: 100%">
                             </div>  
 
                             <div class="" style="height: 100%; display: flex; flex-direction: column; justify-content: space-around;">
                                 <div class="added-position-price-wrapper" style="">
 
                                     <label for="newPositionPrice">Price:</label>
-                                    <p id="added-position-price-${positionId}">${newPosPrice}</p>                                   
+                                    <p id="added-position-price-${positionId}">${newPosPrice}</p>
                                     <i class="fa fa-eur" aria-hidden="true"></i> 
 
                                 </div>
@@ -340,8 +348,10 @@
 
                     readURL($("#new-position-img").prop('files'), $("#added-position-img-"+positionId));
                     $(".recently-added").css('border', '1px solid transparent');
+
+                    clearForm();
                     
-                }else if($("#new-position-price").val() && $("#new-position-img").prop('files') && updatePosition){
+                }else if($("#new-position-price").val() && priceTest && $("#new-position-img").val() && updatePosition){
 
                     $("#added-position-price-"+updatePositionId).text($("#new-position-price").val());
 
@@ -355,16 +365,17 @@
                     updatePositionId = '';
                     updatePosition = false;
                     $("#new-position-header").text('Add New Position');
-                }
 
-                $("#new-position-img").val('');
-                $("#new-position-img-view").attr('src', '');
+                    clearForm();
+                }
+                
             });
 
             $("#clearAddingPosition").on("click", function() {
                 $("#new-position-img").val('');
                 $("#new-position-img-view").attr('src', '');
                 $("#new-position-price").val('');
+                $("#new-position-header").text('Add New Position');
                 updatePositionId = '';
                 updatePosition = false;
             });            
