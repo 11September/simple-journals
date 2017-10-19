@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Окт 19 2017 г., 15:02
+-- Время создания: Окт 19 2017 г., 18:31
 -- Версия сервера: 5.7.19
 -- Версия PHP: 7.1.7
 
@@ -151,7 +151,17 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (98, 11, 'status', 'radio_btn', 'Status', 0, 1, 1, 1, 1, 1, '{\"default\":\"PUBLISHED\",\"options\":{\"PUBLISHED\":\"PUBLISHED\",\"DRAFT\":\"DRAFT\",\"PENDING\":\"PENDING\"}}', 5),
 (99, 11, 'image', 'image', 'Image', 0, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"required|mimes:jpeg,bmp,png\",\"messages\":{\"mimes\":\"Только загрузка картинки\",\"size\":\"Картинка большого размера\",\"size:max\":\"Картинка большого размера\",\"required\":\"Данное поле обязательное к заполнению.\"}},\"resize\":{\"width\":\"1000\",\"height\":\"null\"},\"quality\":\"80%\",\"upsize\":true,\"thumbnails\":[{\"name\":\"medium\",\"scale\":\"50%\"}]}', 6),
 (100, 11, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, NULL, 7),
-(101, 11, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, NULL, 8);
+(101, 11, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, NULL, 8),
+(102, 12, 'id', 'checkbox', 'Id', 1, 0, 0, 0, 0, 0, NULL, 1),
+(103, 12, 'name', 'text', 'Name', 0, 1, 1, 1, 1, 1, NULL, 3),
+(104, 12, 'email', 'text', 'Email', 0, 1, 1, 1, 1, 1, NULL, 4),
+(105, 12, 'phone', 'text', 'Phone', 0, 1, 1, 1, 1, 1, NULL, 5),
+(106, 12, 'journal_id', 'select_dropdown', 'Journal', 1, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"required\",\"messages\":{\"required\":\"This :attribute field is a must.\",\"max\":\"This :attribute field maximum :max.\"}}}', 6),
+(107, 12, 'total_price', 'number', 'Total Price', 1, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"required\",\"messages\":{\"required\":\"This :attribute field is a must.\",\"max\":\"This :attribute field maximum :max.\"}}}', 7),
+(108, 12, 'purchase_time', 'date', 'Purchase Time', 1, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"required\",\"messages\":{\"required\":\"This :attribute field is a must.\",\"max\":\"This :attribute field maximum :max.\"}}}', 8),
+(109, 12, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, NULL, 9),
+(110, 12, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, NULL, 10),
+(111, 12, 'sale_hasone_journal_relationship', 'relationship', 'Journal', 0, 1, 1, 1, 1, 1, '{\"model\":\"App\\\\Journal\",\"table\":\"journals\",\"type\":\"belongsTo\",\"column\":\"journal_id\",\"key\":\"id\",\"label\":\"name\",\"pivot_table\":\"advertisements\",\"pivot\":\"0\"}', 2);
 
 -- --------------------------------------------------------
 
@@ -189,7 +199,8 @@ INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `displa
 (8, 'posts', 'posts', 'Post', 'Posts', 'voyager-news', 'TCG\\Voyager\\Models\\Post', 'TCG\\Voyager\\Policies\\PostPolicy', '', '', 1, 0, '2017-10-13 11:58:08', '2017-10-13 11:58:08'),
 (9, 'categories', 'categories', 'Category', 'Categories', 'voyager-categories', 'TCG\\Voyager\\Models\\Category', NULL, '', '', 1, 0, '2017-10-13 11:58:08', '2017-10-13 11:58:08'),
 (10, 'advertisements', 'advertisements', 'Advertisement', 'Advertisements', 'voyager-paypal', 'App\\Advertisement', NULL, 'VoyagerAdvertisementController', NULL, 1, 0, '2017-10-14 09:55:04', '2017-10-14 10:06:49'),
-(11, 'positions', 'positions', 'Position', 'Positions', NULL, 'App\\Position', NULL, NULL, NULL, 1, 0, '2017-10-14 10:49:11', '2017-10-14 10:49:11');
+(11, 'positions', 'positions', 'Position', 'Positions', NULL, 'App\\Position', NULL, NULL, NULL, 1, 0, '2017-10-14 10:49:11', '2017-10-14 10:49:11'),
+(12, 'sales', 'sales', 'Sale', 'Sales', 'voyager-basket', 'App\\Sale', NULL, NULL, NULL, 1, 0, '2017-10-19 12:02:29', '2017-10-19 12:02:29');
 
 -- --------------------------------------------------------
 
@@ -284,7 +295,8 @@ INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class
 (13, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 14, '2017-10-06 09:57:30', '2017-10-14 11:06:03', 'voyager.settings.index', NULL),
 (14, 1, 'Journals', '/admin/journals', '_self', 'voyager-book', '#000000', NULL, 6, '2017-10-06 10:18:49', '2017-10-14 11:06:03', NULL, ''),
 (18, 1, 'Advertisements', '/admin/advertisements', '_self', 'voyager-paypal', '#000000', NULL, 8, '2017-10-14 09:55:46', '2017-10-14 11:06:04', NULL, ''),
-(19, 1, 'Positions', '/admin/positions', '_self', 'voyager-list', '#000000', NULL, 7, '2017-10-14 10:50:35', '2017-10-14 11:06:04', NULL, '');
+(19, 1, 'Positions', '/admin/positions', '_self', 'voyager-list', '#000000', NULL, 7, '2017-10-14 10:50:35', '2017-10-14 11:06:04', NULL, ''),
+(20, 1, 'Sales', '/admin/sales', '_self', 'voyager-basket', '#000000', NULL, 15, '2017-10-19 12:04:13', '2017-10-19 12:04:13', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -432,7 +444,12 @@ INSERT INTO `permissions` (`id`, `key`, `table_name`, `created_at`, `updated_at`
 (61, 'read_positions', 'positions', '2017-10-14 10:49:11', '2017-10-14 10:49:11', NULL),
 (62, 'edit_positions', 'positions', '2017-10-14 10:49:11', '2017-10-14 10:49:11', NULL),
 (63, 'add_positions', 'positions', '2017-10-14 10:49:11', '2017-10-14 10:49:11', NULL),
-(64, 'delete_positions', 'positions', '2017-10-14 10:49:11', '2017-10-14 10:49:11', NULL);
+(64, 'delete_positions', 'positions', '2017-10-14 10:49:11', '2017-10-14 10:49:11', NULL),
+(65, 'browse_sales', 'sales', '2017-10-19 12:02:29', '2017-10-19 12:02:29', NULL),
+(66, 'read_sales', 'sales', '2017-10-19 12:02:29', '2017-10-19 12:02:29', NULL),
+(67, 'edit_sales', 'sales', '2017-10-19 12:02:29', '2017-10-19 12:02:29', NULL),
+(68, 'add_sales', 'sales', '2017-10-19 12:02:29', '2017-10-19 12:02:29', NULL),
+(69, 'delete_sales', 'sales', '2017-10-19 12:02:29', '2017-10-19 12:02:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -527,7 +544,17 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (63, 1),
 (63, 3),
 (64, 1),
-(64, 3);
+(64, 3),
+(65, 1),
+(65, 3),
+(66, 1),
+(66, 3),
+(67, 1),
+(67, 3),
+(68, 1),
+(68, 3),
+(69, 1),
+(69, 3);
 
 -- --------------------------------------------------------
 
@@ -569,6 +596,24 @@ INSERT INTO `roles` (`id`, `name`, `display_name`, `created_at`, `updated_at`) V
 (1, 'admin', 'Administrator', '2017-10-06 09:57:30', '2017-10-06 09:57:30'),
 (2, 'user', 'Normal User', '2017-10-06 09:57:30', '2017-10-06 09:57:30'),
 (3, 'moderator', 'Moderator', '2017-10-19 07:21:13', '2017-10-19 07:21:13');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `sales`
+--
+
+CREATE TABLE `sales` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `journal_id` int(11) NOT NULL,
+  `total_price` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `purchase_time` datetime NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -746,6 +791,12 @@ ALTER TABLE `roles`
   ADD UNIQUE KEY `roles_name_unique` (`name`);
 
 --
+-- Индексы таблицы `sales`
+--
+ALTER TABLE `sales`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `settings`
 --
 ALTER TABLE `settings`
@@ -779,12 +830,12 @@ ALTER TABLE `advertisements`
 -- AUTO_INCREMENT для таблицы `data_rows`
 --
 ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 --
 -- AUTO_INCREMENT для таблицы `data_types`
 --
 ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT для таблицы `journals`
 --
@@ -799,7 +850,7 @@ ALTER TABLE `menus`
 -- AUTO_INCREMENT для таблицы `menu_items`
 --
 ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT для таблицы `migrations`
 --
@@ -814,7 +865,7 @@ ALTER TABLE `pages`
 -- AUTO_INCREMENT для таблицы `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 --
 -- AUTO_INCREMENT для таблицы `permission_groups`
 --
@@ -830,6 +881,11 @@ ALTER TABLE `positions`
 --
 ALTER TABLE `roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT для таблицы `sales`
+--
+ALTER TABLE `sales`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT для таблицы `settings`
 --
