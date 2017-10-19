@@ -38,14 +38,19 @@ button:focus {outline:0;}
 }
 
 .navbar-toggler{
-    /*position: absolute;*/
-    /*right: 20px;*/
+    position: absolute;
+    top: 25px;
+    right: 20px;
 
     line-height: 1;
     background: 0 0;
     font-size: inherit;
     margin: 0;
     padding: 0;
+}
+
+.navbar-expand-md .navbar-collapse{
+    min-height: 63px;
 }
 
 .navbar-brand{
@@ -57,6 +62,7 @@ button:focus {outline:0;}
 }
 
 .nav-item .nav-link {
+    text-align: center;
     font-size: 18px;
     font-weight: normal;
     color: #111111;
@@ -74,7 +80,8 @@ button:focus {outline:0;}
 
 @media (min-width: 768px) {
     .navbar-brand{
-        display: inline-block !important;
+        /*display: inline-block !important;*/
+        float: left;
     }
 }
 
@@ -84,7 +91,7 @@ button:focus {outline:0;}
 
 #logo-block {
     text-align: center;
-    margin: 20px;
+    /*margin: 20px;*/
     margin-top: 70px;
 }
 
@@ -108,7 +115,7 @@ button:focus {outline:0;}
 }
 
 .center-pagination {
-    margin: 70px 0 150px 0;
+    margin: 70px 0 110px 0;
     align-items: center;
     justify-content: center;
     font-size: 22px;
@@ -125,6 +132,10 @@ button:focus {outline:0;}
     padding: 5px;
 }
 
+.pagination li a:hover {
+    text-decoration: none;
+}
+
 .pagination li.active {
     text-decoration: underline;
     color: #DC1818;
@@ -132,10 +143,8 @@ button:focus {outline:0;}
 
 /*footer styles*/
 .footer {
-    background: black;
-    height: 12%;
-    max-height: 60px;
-    margin-top: 50px;
+    background-color: #111111;
+    height: 60px;
 }
 
 .footer-wrapper {
@@ -144,10 +153,21 @@ button:focus {outline:0;}
 }
 
 .footer-text {
+    font-family: Montserrat-Regular, 'Comic Sans MS', cursive;
     font-size: 16px;
     margin: auto;
     color: white;
 }
+
+.copyright-link{
+    color: inherit;
+}
+
+.copyright-link:hover{
+    color: #DC1818;
+    text-decoration: none;
+}
+
 
 /*footer styles*/
 
@@ -177,16 +197,21 @@ button:focus {outline:0;}
 
 /* page about journal */
 .wrapper-journal {
-    margin: 20px 0 100px 0;
+    margin: 70px 0 100px 0;
 }
 
 .wrapper-item-single-journal {
-    padding: 15px;
+    padding: 15px 20px 50px 20px;
     background-color: white;
 }
 
-.item-journal img {
-    width: 100%;
+.alert-heading{
+    text-align: center;
+}
+
+.item-link{
+    width:100%;
+    height:100%;
 }
 
 .heading-journal {
@@ -207,6 +232,12 @@ button:focus {outline:0;}
     }
 }
 
+@media (max-width: 600px) {
+    .item {
+        padding: 20px 60px;
+    }
+}
+
 @media (max-width: 350px) {
     .navbar-brand {
         margin-right: 0;
@@ -221,6 +252,13 @@ button:focus {outline:0;}
     .navbar-expand-md {
         padding-left: 10px;
         padding-right: 8px;
+    }
+}
+
+@media (min-width: 767px) and (max-width: 900px) {
+    .logo{
+        width: 180px;
+        padding: 5px;
     }
 }
 

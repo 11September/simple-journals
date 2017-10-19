@@ -33,6 +33,10 @@ class JournalsController extends Controller
 
 //        dd($advertisement);
 
-        return view('advertisement', compact('advertisement'));
+        if (!$advertisement){
+            $journal = Journal::where('id', $id)->where('status', '=', "PUBLISHED")->first();
+        }
+
+        return view('advertisement', compact('advertisement', 'journal'));
     }
 }
