@@ -40,18 +40,68 @@
                 </div>
 
                 @if($advertisement->positions)
-                    @foreach($advertisement->positions as $position)
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="item-journal">
-                                    <img src="{{ asset("storage/$position->image") }}"
-                                         alt="{{ $position->name }}"
-                                         class="img-fluid">
-                                    <p>{{ $position->price }}</p>
-                                </div>
-                            </div>
+
+                    <hr>
+
+                    <div class="container">
+                        <div class="list-group">
+
+                            @foreach($advertisement->positions as $position)
+                                {{--<div class="row">--}}
+                                {{--<div class="col-md-6">--}}
+                                {{--<div class="item-journal">--}}
+                                {{--<img src="{{ asset("voyager/sales.jpg") }}"--}}
+                                {{--alt="{{ $position->name }}"--}}
+                                {{--class="img-fluid">--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--<div class="col-md-6">--}}
+                                {{--<div class="item-journal">--}}
+                                {{--<img src="{{ asset("storage/$position->image") }}"--}}
+                                {{--alt="{{ $position->name }}"--}}
+                                {{--class="img-fluid">--}}
+                                {{--<p>{{ $position->price }}</p>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+                                {{--</div>--}}
+
+
+                                <a href="#" class="list-group-item">
+                                    <div class="media">
+                                        <div class="checkbox pull-left">
+                                            <label>
+                                                <input name="position" type="checkbox" value="{{ $position->id }}">
+                                            </label>
+                                        </div>
+                                        <div class="pull-left">
+                                            <img class="media-object" src="http://placehold.it/100x70" alt="Image">
+                                        </div>
+                                        <div class="media-body">
+                                            <h4 class="media-heading">{{ $position->name }}</h4>
+                                            <p>{{ $position->description }}</p>
+                                        </div>
+                                        <span class="label label-danger pull-right">{{ $position->price }}$</span>
+                                    </div>
+                                </a>
+                            @endforeach
                         </div>
-                    @endforeach
+
+                        <br>
+                        <hr>
+
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="staticEmail2" class="sr-only">Code</label>
+                                <input type="text" class="form-control-plaintext" id="staticEmail2" value="">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Confirm coupon</button>
+                        </form>
+
+                        <br>
+                        <hr>
+
+                        <p>total price is: <span id="total_price">50 $</span></p>
+                    </div>
                 @endif
 
             </div>

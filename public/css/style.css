@@ -73,6 +73,11 @@ button:focus {outline:0;}
     color: #DC1818
 }
 
+.nav-link:hover{
+    color: #DC1818;
+    text-decoration: underline;
+}
+
 .navbar-expand-md .navbar-nav .nav-link {
     padding-right: 0;
     padding-left: 30px;
@@ -91,12 +96,12 @@ button:focus {outline:0;}
 
 #logo-block {
     text-align: center;
-    /*margin: 20px;*/
     margin-top: 70px;
 }
 
 .wrapper-body {
     padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .wrapper-item {
@@ -105,13 +110,11 @@ button:focus {outline:0;}
 }
 
 .wrapper-item:hover {
-    /*border: 2px solid red;*/
     outline: 2px solid #DC1818;
 }
 
 .item img {
     width: 100%;
-    /*height: 400px;*/
 }
 
 .center-pagination {
