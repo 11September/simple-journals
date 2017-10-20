@@ -1,7 +1,14 @@
 @extends('layoults.layoult')
 
 @section('css')
-
+    @if(iconv_strlen($page->body) < 2500)
+        <style>
+            .footer{
+                position: absolute;
+                bottom: 0;
+            }
+        </style>
+    @endif
 @endsection
 
 @section('content')
@@ -18,6 +25,7 @@
 
             <div class="content">
                 {!! $page->body !!}
+                {!! iconv_strlen($page->body) !!}
             </div>
         </div>
     </div>
