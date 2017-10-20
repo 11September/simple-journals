@@ -19,7 +19,7 @@
                 <div class="image">
                     <img src="{{ asset('storage/' . $page->image) }}"
                          alt="{{ $page->title }}"
-                         style="width: 100%;">
+                         class="img-fluid">
                 </div>
             @endif
 

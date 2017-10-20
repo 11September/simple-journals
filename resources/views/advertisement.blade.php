@@ -25,26 +25,24 @@
                     <h3 class="heading-journal">{{ $advertisement->journal->url }}</h3>
                 @endif
 
-                @if(isset($advertisement->journal->description))
-                    <div class="content">
+                <div class="content">
+                    @if(isset($advertisement->journal->description))
                         {!! $advertisement->journal->description !!}
-                    </div>
-                @endif
+                    @endif
 
-                @if(isset($advertisement->title))
-                    <div class="content">
+                    @if(isset($advertisement->title))
                         {!! $advertisement->title !!}
-                    </div>
-                @endif
+                    @endif
+                </div>
 
-                @if(isset($advertisement->positions))
+                @if($advertisement->positions)
                     @foreach($advertisement->positions as $position)
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="item-journal">
                                     <img src="{{ asset('storage/' . $position->image) }}"
                                          alt="{{ $position->name }}"
-                                         style="width: 100%;">
+                                         class="img-fluid">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -68,7 +66,9 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <h4 class="alert-heading">Sorry advertisements not found!</h4>
-                    <p class="text-center">Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
+                    <p class="text-center">Aww yeah, you successfully read this important alert message. This
+                        example text is going to run a bit longer so that you can see how spacing within an
+                        alert works with this kind of content.</p>
                 </div>
             </div>
 
@@ -76,7 +76,8 @@
                 @if($journal->image)
                     <div class="wrapper-item-single-journal">
                         <div class="item-journal">
-                            <a class="item-link" href="{{ action('JournalsController@advertisement', $journal->id) }}">
+                            <a class="item-link"
+                               href="{{ action('JournalsController@advertisement', $journal->id) }}">
                                 <img src="{{ asset('storage/' . $journal->image) }}"
                                      class="img-fluid"
                                      alt="{{ $journal->title }}">
