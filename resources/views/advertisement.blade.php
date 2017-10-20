@@ -27,11 +27,15 @@
 
                 <div class="content">
                     @if(isset($advertisement->journal->description))
-                        {!! $advertisement->journal->description !!}
+                        <p>
+                            {!! $advertisement->journal->description !!}
+                        </p>
                     @endif
 
                     @if(isset($advertisement->title))
-                        {!! $advertisement->title !!}
+                        <p>
+                            {!! $advertisement->title !!}
+                        </p>
                     @endif
                 </div>
 
@@ -46,8 +50,8 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <h4>{{ $position->name }}</h4>
-                                <p>{{ $position->description }}</p>
+                                {{--<h4>{{ $position->name }}</h4>--}}
+                                {{--<p>{{ $position->description }}</p>--}}
                                 <p>{{ $position->price }}</p>
                             </div>
                         </div>
