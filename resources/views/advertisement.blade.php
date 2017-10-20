@@ -15,7 +15,7 @@
                             <a href="{{ action('JournalsController@show', $advertisement->journal->id) }}">
                                 <img src="{{ asset('storage/' . $advertisement->journal->image) }}"
                                      alt="{{ $advertisement->journal->title }}"
-                                     style="width: 100%;">
+                                     class="img-fluid">
                             </a>
                         </div>
                     </div>

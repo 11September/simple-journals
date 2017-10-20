@@ -5,6 +5,10 @@
         /*.navbar-brand {*/
             /*display: none;*/
         /*}*/
+
+        #logo-block{
+
+        }
     </style>
 @endsection
 

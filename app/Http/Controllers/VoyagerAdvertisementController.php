@@ -294,7 +294,6 @@ class VoyagerAdvertisementController extends Controller
             $positions = $newAds;
 
             foreach ($positions as $id => $position) {
-                dump($position);
                 $positionImage = $request->file('position-'.$position->position_id.'-img');
 
                 $newPosition = new Position();
