@@ -31,13 +31,10 @@ class JournalsController extends Controller
     {
         $advertisement = Advertisement::where('journal_id', $id)->with('positions', 'journal')->first();
 
-        dd($advertisement);
-
         if (!$advertisement){
             $journal = Journal::where('id', $id)->where('status', '=', "PUBLISHED")->first();
         }
 
         return view('advertisement', compact('advertisement', 'journal'));
     }
-
 }

@@ -42,17 +42,13 @@
                 @if($advertisement->positions)
                     @foreach($advertisement->positions as $position)
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 <div class="item-journal">
-                                    <img src="{{ asset('storage/' . $position->image) }}"
+                                    <img src="{{ asset("storage/$position->image") }}"
                                          alt="{{ $position->name }}"
                                          class="img-fluid">
+                                    <p>{{ $position->price }}</p>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                {{--<h4>{{ $position->name }}</h4>--}}
-                                {{--<p>{{ $position->description }}</p>--}}
-                                <p>{{ $position->price }}</p>
                             </div>
                         </div>
                     @endforeach
