@@ -6,6 +6,7 @@ Route::get('/journal/{journal}', 'JournalsController@show');
 Route::get('/magazines', 'JournalsController@magazines');
 
 Route::get('/advertisement/{id}', 'JournalsController@advertisement');
+Route::get('/coupon', 'JournalsController@coupon');
 
 Route::get('/page-{slug}', 'PagesController@page');
 

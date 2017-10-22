@@ -81,7 +81,7 @@
                             @endforeach                            
                             <input type="hidden" name="newAds" id="newAds">
                             <input type="hidden" name="positionsToDelete" id="positionsToDelete">
-                            <div id="position-images" style="display: block;"></div>                            
+                            <div id="position-images" style="display: none;"></div>                            
                         </div>
                         <!-- panel-body -->                        
                     </form>
@@ -144,10 +144,10 @@
                                 
                                 <div id="added-position-{{ $position->id }}" class="positions-wrapper" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #eee; display: flex; justify-content: space-between;">
                                     <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
-                                        <img id="added-position-img-{{ $position->id }}" src="{{ asset('storage/' . $position->image) }}" alt="Position Image" style="height: 100%; width: 100%>                            
+                                        <img id="added-position-img-{{ $position->id }}" src="{{ asset('storage/' . $position->image) }}" alt="Position Image" style="height: 100%; width: 100%">                            
                                     </div>  
 
-                                    <div class="" style="height: 100%; display: flex; flex-direction: column; justify-content: space-around;">
+                                    <div class="" style="height: 100%; display: flex; flex-direction: column; margin: 0 10px; justify-content: space-around;">
                                         <!-- <input class="btn btn-primary save" id="new-position-img" type="file" name="newPositionImg" > -->
                                         <div class="added-position-price-wrapper" style="">
 
@@ -217,7 +217,7 @@
         var updatePositionId = '';
         var deletePositions = [];
 
-        var newAdsPositions = $.map(newAdsPositions, function(value, index) {
+        newAdsPositions = $.map(newAdsPositions, function(value, index) {
             return [value];
         });
 
@@ -338,14 +338,13 @@
             var positionId = {!! $lastId !!};
 
             $("#addNewPosition").on("click", function(){
-                positionId++;
-
+                
                 let str = $("#new-position-price").val();
                 let patt = new RegExp("^[^0][^a-zA-Z]$");
                 let priceTest = patt.test(str);
 
                 if( $("#new-position-price").val() && priceTest && $("#new-position-img").val() && !updatePosition ) {
-                    
+                    positionId++;
                     var newPosPrice = $("#new-position-price").val();
 
                     newAdsPositions[positionId] = { position_id: positionId, price: newPosPrice} ;
@@ -399,15 +398,19 @@
                     }
                     
 
-                    if( $("#new-position-img").prop('files') ){
+                    if( $("#new-position-img").val() ){
                         readURL($("#new-position-img").prop('files'), $("#added-position-img-"+updatePositionId));
                     }
 
-                    for (var i = 0; i < newAdsPositions.length ; i++) {
-                        if( newAdsPositions[i].position_id = updatePositionId ){
-                            newAdsPositions[i].price = $("#new-position-price").val();
+                    $.each(newAdsPositions, function( i, position ) {
+
+                        if( typeof position !== 'undefined' ){
+                            if( position.position_id == updatePositionId ){
+                                position.price = $("#new-position-price").val();
+                            }
                         }
-                    }
+
+                    });
 
                     updatePositionId = '';
                     updatePosition = false;

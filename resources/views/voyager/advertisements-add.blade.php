@@ -82,7 +82,7 @@
                                 @endif
                             @endforeach                            
                             <input type="hidden" name="newAds" id="newAds">
-                            <div id="position-images" style="display: block;"></div>
+                            <div id="position-images" style="display: none;"></div>
                         </div><!-- panel-body -->                        
                     </form>
 
