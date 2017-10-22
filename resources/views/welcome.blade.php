@@ -8,12 +8,6 @@
 
 @section('content')
 
-    {{--<div class="row">--}}
-    {{--<div id="logo-block" class="col-lg-12">--}}
-    {{--<img src="{{ asset('images/Logo-Cosmo-Press.png') }}">--}}
-    {{--</div>--}}
-    {{--</div>--}}
-
     <div class="wrapper-body">
         <div class="row">
 
@@ -53,7 +47,7 @@
 @endsection
 
 @section('scripts')
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    {{--<script src="https://www.paypalobjects.com/api/checkout.js"></script>--}}
     <script>
         // paypal.Button.render({
         // <div id="paypal-button-container"></div>

@@ -21,14 +21,6 @@ body {
 
 button:focus {outline:0;}
 
-.container {
-    padding: 0;
-}
-
-.navbar-expand-md {
-    min-height: 80px;
-}
-
 .bg-white {
     background-color: #FFFFFF;
 }
@@ -39,7 +31,7 @@ button:focus {outline:0;}
 
 .navbar-toggler{
     position: absolute;
-    top: 25px;
+    top: 20px;
     right: 20px;
 
     line-height: 1;
@@ -47,10 +39,6 @@ button:focus {outline:0;}
     font-size: inherit;
     margin: 0;
     padding: 0;
-}
-
-.navbar-expand-md .navbar-collapse{
-    min-height: 63px;
 }
 
 .navbar-brand{
@@ -79,15 +67,7 @@ button:focus {outline:0;}
 }
 
 .navbar-expand-md .navbar-nav .nav-link {
-    padding-right: 0;
-    padding-left: 30px;
-}
-
-@media (min-width: 768px) {
-    .navbar-brand{
-        /*display: inline-block !important;*/
-        float: left;
-    }
+    padding: 20px 0 0 30px;
 }
 
 .rm-right {
@@ -188,15 +168,9 @@ button:focus {outline:0;}
     }
 }
 
-.navbar-brand {
-    /*display: none;*/
-}
-
 .wrapper-body-magazines{
     padding-top: 80px;
 }
-
-/*for js*/
 
 /* page about journal */
 .wrapper-journal {
@@ -280,6 +254,24 @@ button:focus {outline:0;}
 /* page about journal */
 
 /* media */
+@media (max-width: 768px) {
+    .navbar-nav{
+        margin-top: 20px;
+    }
+
+    .navbar-expand-md .navbar-nav .nav-link{
+        padding-left: 0;
+        margin-bottom: 5px;
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-brand{
+        /*display: inline-block !important;*/
+        float: left;
+    }
+}
+
 @media (min-width: 767px) and (max-width: 1100px) {
     .navbar > .container, .navbar > .container-fluid {
         justify-content: space-around;
@@ -289,7 +281,7 @@ button:focus {outline:0;}
 @media (max-width: 600px) {
     .item {
         /*padding: 20px 60px;*/
-        margin: 20px 60px;
+        margin: 20px 40px;
     }
 }
 
