@@ -1,7 +1,7 @@
 @extends('layoults.layoult')
 
 @section('css')
-    @if(iconv_strlen($page->body) < 1000)
+    @if(iconv_strlen($page->body) < 1200)
         <style>
             .footer{
                 position: absolute;
