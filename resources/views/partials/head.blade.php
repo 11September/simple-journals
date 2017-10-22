@@ -7,5 +7,6 @@
 <meta name="description" content="{{ Voyager::setting('description') }}">
 <meta name="keywords" content="@yield('keywords')">
 
+
 <meta name="author" content="">
 <link rel="icon" href="favicon.ico">
