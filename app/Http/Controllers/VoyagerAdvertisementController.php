@@ -140,6 +140,7 @@ class VoyagerAdvertisementController extends Controller
             $newAdsPositions[$position->id] = ['position_id' => $position->id, 'price' => $position->price];
             // array_push($newAdsPositions, new class { public $position_id = $position->id; public $price = $position->price; });
         }
+
         $newAdsPositions = json_encode($newAdsPositions);
         // dd($relPositions[0]->price);
 
@@ -198,6 +199,7 @@ class VoyagerAdvertisementController extends Controller
                     $updatePosition = Position::where( [ ["advertisement_id", "=", $id], 
                                                       ["id", "=", $position->position_id] 
                                                     ])->first();
+
                     if ( !$updatePosition ){
                         $updatePosition = new Position();
                     }
@@ -215,7 +217,7 @@ class VoyagerAdvertisementController extends Controller
 
                     if( $positionImage ){
                         $positionImage->storeAs(
-                            'Ads'.$advertisement->id.'Journal'.$request->journal_id, 'Position'.$updatePosition->id.'.'.$positionImage->extension()
+                            'public/Ads'.$advertisement->id.'Journal'.$request->journal_id, 'Position'.$updatePosition->id.'.'.$positionImage->extension()
                         );
                     }
                 }
@@ -266,6 +268,7 @@ class VoyagerAdvertisementController extends Controller
 
     public function store(Request $request)
     {            
+        dd(Storage::disk('local'));
         $slug = $this->getSlug($request);
         
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -306,7 +309,7 @@ class VoyagerAdvertisementController extends Controller
                 $newPosition->save();
                 
                 $positionImage->storeAs(
-                    'Ads'.$newAdvertisement->id.'Journal'.$request->journal_id, 'Position'.$newPosition->id.'.'.$positionImage->extension()
+                    'public/Ads'.$newAdvertisement->id.'Journal'.$request->journal_id, 'Position'.$newPosition->id.'.'.$positionImage->extension()
                 );
             }
             return redirect()

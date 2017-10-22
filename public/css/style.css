@@ -226,6 +226,57 @@ button:focus {outline:0;}
     font-size: 38px;
 }
 
+.positions-block{
+    padding-left: 10px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.position-img-wrapper{
+    width: 30%;
+    position: relative;
+    cursor: pointer;
+}
+
+.position-chose{
+    position: absolute;
+    z-index: 1;
+    top: 4px;
+    right: 4px;
+}
+
+.position-price{
+    margin-left: 10px;
+}
+
+.media-object{
+    width: 100%;
+}
+
+.buy-form{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.coupon-wrapper{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.coupon{
+    border: 1px solid grey;
+}
+
+.position-price-wrapper{
+    text-align: center;
+    background-color: white;
+}
+
 /* page about journal */
 
 /* media */
