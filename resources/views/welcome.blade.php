@@ -47,7 +47,7 @@
 @endsection
 
 @section('scripts')
-    {{--<script src="https://www.paypalobjects.com/api/checkout.js"></script>--}}
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
     <script>
         // paypal.Button.render({
         // <div id="paypal-button-container"></div>
