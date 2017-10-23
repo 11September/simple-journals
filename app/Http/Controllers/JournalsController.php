@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use App\Journal;
 use App\Advertisement;
 use App\Position;
+use App\Sale;
+
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\URL;
 
 class JournalsController extends Controller
 {
@@ -89,8 +90,8 @@ class JournalsController extends Controller
         // );
 
         // if ($validator->fails()) {
-            // return response()->json( 'No Shipping Data Provided' );
-            // //return back()->with('error', 'No Shipping Data Provided');
+        //     return response()->json( 'No Shipping Data Provided' );
+        //     //return back()->with('error', 'No Shipping Data Provided');
         // }
 
         if( $request->couponStatus === 'true' ){
@@ -104,6 +105,8 @@ class JournalsController extends Controller
 
             $prices[$i] = Position::where([['id', '=', $posId], ['status', '=', 'INSTOCK']])->pluck('price')->first();
 
+            $soldPosition = Position::where([['id', '=', $posId], ['status', '=', 'INSTOCK']])->first();
+            $soldPosition->status = 'SOLD';
             if (isset($percent)) {
                 $prices[$i] = $prices[$i] - $prices[$i] * $percent * 0.01;
             }
@@ -113,14 +116,17 @@ class JournalsController extends Controller
             $i++;
         }
 
-        $redirectTo = URL::previous();
+        $sale = new Sale();
+        $sale->journal_id = $request->journal_id;
+        $sale->name = $request->customer['f_name'] . ' ' . $request->customer['l_name'];
+        $sale->email = $request->customer['email'];
+        $sale->phone = $request->customer['phone'];
+        $sale->total_price = $toPay;
+        $sale->purchase_time = date_default_timezone_get();
+        $sale->save();
 
         return response()->json( ['toPay' => $toPay] );//, 'ids' => $ids
         // return view('paypal', compact('toPay', 'redirectTo'));
     }
 
-    public function completePayment()
-    {
-        
-    }
 }

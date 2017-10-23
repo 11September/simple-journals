@@ -59,7 +59,7 @@
                                                    value="{{ $position->price }}">
                                             <div class="position-price-wrapper">
                                                 <span class="position-price label label-danger">{{ $position->price }}
-                                                    $</span>
+                                                    <i class="fa fa-eur" aria-hidden="true"></i></span>
                                             </div>
                                         </div>
 
@@ -100,7 +100,7 @@
 
                                 <button id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
                                 <div id="paypal-button-container" style="display: none;"></div>
-                                
+
                             </div>
                         </div>
                         <br>
@@ -289,27 +289,23 @@
                         }
                     }
                 }
-<<<<<<< HEAD
-                
-                if( positions.length > 0 ){ 
-                    
-||||||| merged common ancestors
 
                 if( positions.length > 0 ){ 
-                    
-=======
 
-                if (positions.length > 0) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
 
->>>>>>> 230f835dbc11280932588294021a5ffc135d77e2
                     $.ajax({
                         url: '/position-check',
-                        type: 'GET',
+                        type: 'POST',
                         data: {
                             positions: positions,
                             customer: customerData,
                             coupon_status: couponStatus,
-                            advertisement: advertisement.id
+                            journal_id: advertisement.journal_id,
                         },
                         success: function (response) {
 
@@ -328,23 +324,14 @@
 
                     });
 
-<<<<<<< HEAD
                     // $("#pre-payment-positions").val( JSON.stringify(positions) );
                     // $("#pre-payment-coupon-status").val( JSON.stringify(couponStatus) );
 
                     // $("#pre-payment-form").submit();
-
-                }else{
-                    $("#couponError").append('<p class="alert alert-danger">No Positions Selected</p>');
-||||||| merged common ancestors
-                }else{
-                    $("#couponError").append('<p class="alert alert-danger">No Positions Selected</p>');
-=======
                 } else {
                     $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
                         '<span aria-hidden="true">&times;</span>\n' +
                         '</button>No Positions Selected</div>');
->>>>>>> 230f835dbc11280932588294021a5ffc135d77e2
                 }
             });
 
