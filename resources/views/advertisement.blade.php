@@ -52,45 +52,56 @@
                                     <div class="positions-block">
 
                                         <div class="position-img-wrapper">
-                                            <img class="media-object" src="{{ asset('storage/' . $position->image) }}" alt="Image">
-                                            <input class="position-chose" name="position{{ $position->id }}" type="checkbox" posid="{{ $position->id }}" value="{{ $position->price }}">
+                                            <img class="media-object" src="{{ asset('storage/' . $position->image) }}"
+                                                 alt="Image">
+                                            <input class="position-chose" name="position{{ $position->id }}"
+                                                   type="checkbox" posid="{{ $position->id }}"
+                                                   value="{{ $position->price }}">
                                             <div class="position-price-wrapper">
-                                                <span class="position-price label label-danger">{{ $position->price }}$</span>
-                                            </div>                                            
+                                                <span class="position-price label label-danger">{{ $position->price }}
+                                                    $</span>
+                                            </div>
                                         </div>
-                                        
-                                    </div>  
+
+                                    </div>
                                 @endforeach
                             </div>
 
                             <div class="buy-form col-lg-6">
 
-                                    <div class="form-group">
-                                        <h2>Total price is: <span id="total_price">0 </span> <i class="fa fa-eur" aria-hidden="true"></i></h2>
-                                        <!-- <label for="staticEmail2" class="sr-only">Code</label> -->
-                                        <div class="coupon-wrapper">
-                                            <input type="text" class="form-control form-control-plaintext coupon" placeholder="Coupon Here" id="couponBody" value="">
-                                            <button type="" id="submitCoupon" class="btn btn-primary"><i class="fa fa-ticket" aria-hidden="true"></i></button>
-                                        </div>
-                                        
-                                    </div>    
-                                    <div id="couponError">
-                                        @if( $errors->any() )
-                                            <div class="alert alert-danger">
-                                                    @foreach ($errors->all() as $error)
-                                                        <p>{{ $error }}</p>
-                                                    @endforeach
-                                            </div>
-                                        @endif
-                                    </div>         
-                                    <div id="couponSuccess"></div>
-                                    <input type="text" class="form-control" id="customerFName" placeholder="First name">
-                                    <input type="text" class="form-control" id="customerLName" placeholder="Last name">
-                                    <input type="text" class="form-control" id="customerPhone" placeholder="Phone">
-                                    <input type="text" class="form-control" id="customerEmail" placeholder="Email">
-                                    <input type="text" class="form-control" id="customerAddress" placeholder="Address">
+                                <div class="form-group">
+                                    <h2>Total price is: <span id="total_price">0 </span> <i class="fa fa-eur"
+                                                                                            aria-hidden="true"></i></h2>
+                                    <!-- <label for="staticEmail2" class="sr-only">Code</label> -->
+                                    <div class="coupon-wrapper">
+                                        <input type="text" class="form-control coupon"
+                                               placeholder="Coupon Here" id="couponBody" value="">
+                                        <button type="" id="submitCoupon" class="btn btn-primary"><i
+                                                    class="fa fa-ticket" aria-hidden="true"></i></button>
+                                    </div>
 
-                                    <button id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
+                                </div>
+                                <div id="couponError">
+                                    @if( $errors->any() )
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+
+                                            @foreach ($errors->all() as $error)
+                                                <p>{{ $error }}</p>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
+                                <div id="couponSuccess"></div>
+                                <input type="text" class="form-control" id="customerFName" placeholder="First name">
+                                <input type="text" class="form-control" id="customerLName" placeholder="Last name">
+                                <input type="text" class="form-control" id="customerPhone" placeholder="Phone">
+                                <input type="text" class="form-control" id="customerEmail" placeholder="Email">
+                                <input type="text" class="form-control" id="customerAddress" placeholder="Address">
+
+                                <button id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
 
                             </div>
                         </div>
@@ -98,7 +109,7 @@
                         <hr>
 
                         <div class="clearfix"></div>
-                        
+
                     </div>
                 @endif
 
@@ -153,18 +164,20 @@
     <script>
         var advertisement = {!! $advertisement !!};
         var sum = 0;
-        var currentPrice = 0;   
+        var currentPrice = 0;
         var couponStatus = false;
 
-        function clearCouponErrors(){
-            setTimeout(function(){ $('#couponError').empty(); }, 7000);
+        function clearCouponErrors() {
+            setTimeout(function () {
+                $('#couponError').empty();
+            }, 7000);
         }
 
-        function rewritePositions( positions, percent, _sum ){
-            $("#positions-wrapper").empty();            
+        function rewritePositions(positions, percent, _sum) {
+            $("#positions-wrapper").empty();
 
-            $.each( positions, function( i, position ) {
-                
+            $.each(positions, function (i, position) {
+
                 $("#positions-wrapper").append(
                     `
                     <div class="positions-block">
@@ -182,41 +195,41 @@
                 );
 
             });
-            
+
             sum = _sum
-            $("#total_price").text( _sum );
-            $('#couponSuccess').append('<p class="alert alert-success">You Refunded '+percent+'%</p>');
+            $("#total_price").text(_sum);
+            $('#couponSuccess').append('<p class="alert alert-success">You Refunded ' + percent + '%</p>');
 
         }
 
-        function selectedPrice(){
+        function selectedPrice() {
             currentPrice = 0;
             for (var key in $(".position-chose")) {
-                
+
                 if ($(".position-chose").hasOwnProperty(key)) {
-                    if( $(".position-chose")[key].checked ){
-                        currentPrice += parseFloat( $(".position-chose")[key].value );                        
+                    if ($(".position-chose")[key].checked) {
+                        currentPrice += parseFloat($(".position-chose")[key].value);
                         $("#total_price").text(currentPrice);
                     }
                 }
             }
 
-            if( currentPrice === 0 ){
+            if (currentPrice === 0) {
                 currentPrice = sum;
                 $("#total_price").text(currentPrice);
             }
-            
+
         }
 
-        $('document').ready(function(){
+        $('document').ready(function () {
 
             selectedPrice();
 
-            $("#positions-wrapper").on('click', '.position-img-wrapper', function(){
+            $("#positions-wrapper").on('click', '.position-img-wrapper', function () {
 
-                if( $(this).find('input:checkbox').prop("checked") ){
+                if ($(this).find('input:checkbox').prop("checked")) {
                     $(this).find('input:checkbox').prop("checked", false);
-                }else{
+                } else {
                     $(this).find('input:checkbox').prop("checked", true);
                 }
 
@@ -224,29 +237,29 @@
 
             });
 
-            $("#submitCoupon").on('click', function(){
+            $("#submitCoupon").on('click', function () {
                 let coupon = $("#couponBody").val();
 
                 $.ajax({
                     url: '/coupon',
                     type: 'GET',
                     data: {coupon: coupon, id: advertisement.id},
-                    success: function( response ){
+                    success: function (response) {
 
-                        if( typeof response === 'string' ){
-                            $('#couponError').append('<p class="alert alert-danger">'+response+'</p>');
+                        if (typeof response === 'string') {
+                            $('#couponError').append('<p class="alert alert-danger">' + response + '</p>');
                             clearCouponErrors();
                         }
-                        if( typeof response === 'object' ){
+                        if (typeof response === 'object') {
                             couponStatus = true;
-                            rewritePositions( response[0].positions, response[0].percent, response[1] );
+                            rewritePositions(response[0].positions, response[0].percent, response[1]);
                         }
-                    }                    
+                    }
                 });
 
             });
 
-            $("#proceedPayment").on( 'click', function(){
+            $("#proceedPayment").on('click', function () {
 
                 // if( $("#customerFName").val().length == 0 ||
                 //     $("#customerLName").val().length == 0 ||
@@ -268,36 +281,42 @@
 
                 let positions = [];
                 for (var key in $(".position-chose")) {
-                    
+
                     if ($(".position-chose").hasOwnProperty(key)) {
-                        if( $(".position-chose")[key].checked ){
+                        if ($(".position-chose")[key].checked) {
                             positions[key] = $(".position-chose")[key].attributes['posid'].value;
                         }
                     }
                 }
 
-                if( positions.length > 0 ){ 
-                    
+                if (positions.length > 0) {
+
                     $.ajax({
                         url: '/position-check',
                         type: 'GET',
-                        data: { positions: positions, customer: customerData, coupon_status: couponStatus, advertisement: advertisement.id },
-                        success: function( response ){
+                        data: {
+                            positions: positions,
+                            customer: customerData,
+                            coupon_status: couponStatus,
+                            advertisement: advertisement.id
+                        },
+                        success: function (response) {
 
                             // if( typeof response === 'string' ){
                             //     $("#couponError").append('<p class="alert alert-danger">'+response+'</p>');
                             // }
 
                         }
-                        
+
                     });
 
-                }else{
-                    $("#couponError").append('<p class="alert alert-danger">No Positions Selected</p>');
+                } else {
+                    $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                        '<span aria-hidden="true">&times;</span>\n' +
+                        '</button>No Positions Selected</div>');
                 }
             });
 
-            
 
         });//document ready
 
