@@ -79,8 +79,14 @@
                                         <button type="" id="submitCoupon" class="btn btn-primary"><i
                                                     class="fa fa-ticket" aria-hidden="true"></i></button>
                                     </div>
-
                                 </div>
+
+                                <input type="text" class="form-control" id="customerFName" placeholder="First name">
+                                <input type="text" class="form-control" id="customerLName" placeholder="Last name">
+                                <input type="text" class="form-control" id="customerPhone" placeholder="Phone">
+                                <input type="text" class="form-control" id="customerEmail" placeholder="Email">
+                                <input type="text" class="form-control" id="customerAddress" placeholder="Address">
+
                                 <div id="couponError">
                                     @if( $errors->any() )
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -95,11 +101,6 @@
                                     @endif
                                 </div>
                                 <div id="couponSuccess"></div>
-                                <input type="text" class="form-control" id="customerFName" placeholder="First name">
-                                <input type="text" class="form-control" id="customerLName" placeholder="Last name">
-                                <input type="text" class="form-control" id="customerPhone" placeholder="Phone">
-                                <input type="text" class="form-control" id="customerEmail" placeholder="Email">
-                                <input type="text" class="form-control" id="customerAddress" placeholder="Address">
 
                                 <button id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
 
