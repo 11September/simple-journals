@@ -44,24 +44,30 @@
     </div>
 </nav>
 
-{{--<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">--}}
-{{--<div class="container">--}}
-{{--<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">--}}
-{{--<span class="navbar-toggler-icon"></span>--}}
-{{--</button>--}}
-{{--<a class="navbar-brand" href="#"><img src="{{ asset('images/Logo-Cosmo-Press.png') }}" alt=""></a>--}}
-{{--<div class="collapse navbar-collapse" id="navbarCollapse">--}}
-{{--<ul class="navbar-nav ml-auto">--}}
-{{--<li class="nav-item active">--}}
-{{--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--}}
-{{--</li>--}}
-{{--<li class="nav-item">--}}
-{{--<a class="nav-link" href="#">Link</a>--}}
-{{--</li>--}}
-{{--<li class="nav-item">--}}
-{{--<a class="nav-link disabled" href="#">Disabled</a>--}}
-{{--</li>--}}
-{{--</ul>--}}
-{{--</div>--}}
-{{--</div>--}}
+{{--<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse bg-white">--}}
+
+    {{--<div class="container">--}}
+
+        {{--<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"--}}
+                {{--data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"--}}
+                {{--aria-label="Toggle navigation">--}}
+            {{--<span class="navbar-toggler-icon"></span>--}}
+        {{--</button>--}}
+
+        {{--<a id="navbar-logo" class="navbar-brand" href="/">--}}
+            {{--<img class="logo" src="{{ asset('images/Logo-Cosmo-Press.png') }}" alt="logo">--}}
+        {{--</a>--}}
+
+        {{--<div class="collapse navbar-collapse" id="navbarCollapse">--}}
+            {{--<ul class="navbar-nav ml-auto">--}}
+                {{--<li class="nav-item active">--}}
+                    {{--<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>--}}
+                {{--</li>--}}
+                {{--<li class="nav-item">--}}
+                    {{--<a class="nav-link" href="#">Link</a>--}}
+                {{--</li>--}}
+            {{--</ul>--}}
+        {{--</div>--}}
+
+    {{--</div>--}}
 {{--</nav>--}}
