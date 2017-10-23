@@ -111,13 +111,17 @@
                                         @endif
                                     </div>         
                                     <div id="couponSuccess"></div>
-                                    <input type="text" class="form-control" id="customerFName" placeholder="First name">
-                                    <input type="text" class="form-control" id="customerLName" placeholder="Last name">
-                                    <input type="text" class="form-control" id="customerPhone" placeholder="Phone">
-                                    <input type="text" class="form-control" id="customerEmail" placeholder="Email">
-                                    <input type="text" class="form-control" id="customerAddress" placeholder="Address">
+
+                                        <input type="text" name="customerFName" class="form-control" id="customerFName" placeholder="First name">
+                                        <input type="text" name="customerLName" class="form-control" id="customerLName" placeholder="Last name">
+                                        <input type="text" name="customerPhone" class="form-control" id="customerPhone" placeholder="Phone">
+                                        <input type="text" name="customerEmail" class="form-control" id="customerEmail" placeholder="Email">
+                                        <input type="text" name="customerAddress" class="form-control" id="customerAddress" placeholder="Address">
+                                        <input type="hidden" name="prePaymentPositions" id="pre-payment-positions">
+                                        <input type="hidden" name="couponStatus" id="pre-payment-coupon-status">
 
                                     <button type="" id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
+                                    <div id="paypal-button-container" style="display: none;"></div>
 
                             </div>
                         </div>
@@ -182,6 +186,7 @@
         var sum = {!! $sum !!}
         var currentPrice = 0;   
         var couponStatus = false;
+        var toPay;
 
         function clearCouponErrors(){
             setTimeout(function(){ $('#couponError').empty(); }, 7000);
@@ -293,6 +298,8 @@
                     address: $("#customerAddress").val(),
                 };
 
+
+
                 let positions = [];
                 for (var key in $(".position-chose")) {
                     
@@ -302,7 +309,7 @@
                         }
                     }
                 }
-
+                
                 if( positions.length > 0 ){ 
                     
                     $.ajax({
@@ -311,13 +318,25 @@
                         data: { positions: positions, customer: customerData, coupon_status: couponStatus, advertisement: advertisement.id },
                         success: function( response ){
 
-                            // if( typeof response === 'string' ){
-                            //     $("#couponError").append('<p class="alert alert-danger">'+response+'</p>');
-                            // }
+                            if( typeof response === 'string' ){
+                                $("#couponError").append('<p class="alert alert-danger">'+response+'</p>');
+                            }
+
+                            if( typeof response === 'object' ){
+                                toPay = response.toPay;
+                                
+                                $("#proceedPayment").css('display', 'none');
+                                $("#paypal-button-container").css('display', 'block');
+                            }                            
 
                         }
-                        
+
                     });
+
+                    // $("#pre-payment-positions").val( JSON.stringify(positions) );
+                    // $("#pre-payment-coupon-status").val( JSON.stringify(couponStatus) );
+
+                    // $("#pre-payment-form").submit();
 
                 }else{
                     $("#couponError").append('<p class="alert alert-danger">No Positions Selected</p>');
@@ -327,6 +346,47 @@
             
 
         });//document ready
+
+        paypal.Button.render({            
+        env: 'sandbox', // sandbox | production
+
+        // PayPal Client IDs - replace with your own
+        // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+        client: {
+            sandbox:    'AZMB-J6m13UNxagLZXBFkiCEYj91thLcQ_e-CxvdwphvuEW9qoqpPiKMBVZp0QsryKF1eoeR6ET7Rhk8',
+            production: '<insert production client id>'
+        },
+
+        // Show the buyer a 'Pay Now' button in the checkout flow
+        commit: true,
+
+        // payment() is called when the button is clicked
+        payment: function(data, actions) {
+            // Make a call to the REST api to create the payment
+
+            return actions.payment.create({
+                payment: {
+                    transactions: [
+                        {
+                            amount: { total: toPay, currency: 'EUR' }
+                        }
+                    ]
+                }
+            });
+        },
+
+        // onAuthorize() is called when the buyer approves the payment
+        onAuthorize: function(data, actions) {
+
+            // Make a call to the REST api to execute the payment
+            return actions.payment.execute().then(function() {
+                // window.alert('Payment Complete!');
+                window.location = redirectTo;
+            });
+
+        }
+
+    }, '#paypal-button-container');
 
     </script>
 @endsection
