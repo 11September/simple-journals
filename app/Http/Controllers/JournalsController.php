@@ -34,7 +34,9 @@ class JournalsController extends Controller
 
     public function advertisement(Request $request, $id)
     {
-        $advertisement = Advertisement::where('journal_id', $id)->with('positions', 'journal')->first();
+        $advertisement = Advertisement::where('journal_id', $id)->with(['positions' => function ($query) {
+            $query->where('status', '=', 'INSTOCK');}, 'journal'])->first();
+
 //        $sum = $advertisement->positions->sum('price');
 
         if (!$advertisement) {
