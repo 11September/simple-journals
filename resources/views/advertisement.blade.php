@@ -49,7 +49,7 @@
 
                                 @foreach($advertisement->positions as $position)
 
-                                    <div class="positions-block">
+                                    <div class="positions-block" id="block-position-{{ $position->id }}">
 
                                         <div class="position-img-wrapper">
                                             <img class="media-object" src="{{ asset('storage/' . $position->image) }}"
@@ -179,7 +179,7 @@
 
                 $("#positions-wrapper").append(
                     `
-                    <div class="positions-block">
+                    <div class="positions-block" id="block-position-${position.id}">
 
                         <div class="position-img-wrapper">
                             <img class="media-object" src="{{ asset('storage') }}/${position.image}" alt="Image">
@@ -225,11 +225,12 @@
             selectedPrice();
 
             $("#positions-wrapper").on('click', '.position-img-wrapper', function () {
-
-                if ($(this).find('input:checkbox').prop("checked")) {
-                    $(this).find('input:checkbox').prop("checked", false);
-                } else {
-                    $(this).find('input:checkbox').prop("checked", true);
+                if( !$(this).find('input:checkbox').attr("disabled") ){
+                    if ( $(this).find('input:checkbox').prop("checked") ) {
+                        $(this).find('input:checkbox').prop("checked", false);
+                    } else {
+                        $(this).find('input:checkbox').prop("checked", true);
+                    }
                 }
 
                 selectedPrice();
@@ -260,15 +261,15 @@
 
             $("#proceedPayment").on('click', function () {
 
-                // if( $("#customerFName").val().length == 0 ||
-                //     $("#customerLName").val().length == 0 ||
-                //     $("#customerPhone").val().length == 0 ||
-                //     $("#customerEmail").val().length == 0 
-                //      ) //str_len( $("#customerAddress").val() ) == 0
-                // {
-                //     $("#couponError").append('<p class="alert alert-danger">No Shipping Data Provided</p>');
-                //     return
-                // }
+                if( $("#customerFName").val().length == 0 ||
+                    $("#customerLName").val().length == 0 ||
+                    $("#customerPhone").val().length == 0 ||
+                    $("#customerEmail").val().length == 0 
+                     ) //str_len( $("#customerAddress").val() ) == 0
+                {
+                    $("#couponError").append('<p class="alert alert-danger">No Shipping Data Provided</p>');
+                    return
+                }
 
                 let customerData = {
                     f_name: $("#customerFName").val(),
@@ -290,17 +291,11 @@
                     }
                 }
 
-                if( positions.length > 0 ){ 
-
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
+                if( positions.length > 0 ){                     
 
                     $.ajax({
                         url: '/position-check',
-                        type: 'POST',
+                        type: 'GET',
                         data: {
                             positions: positions,
                             customer: customerData,
@@ -316,6 +311,10 @@
                             if( typeof response === 'object' ){
                                 toPay = response.toPay;
                                 
+                                $(".buy-form :input").attr("disabled", true);
+                                
+                                $(".position-img-wrapper :input").attr("disabled", true);
+
                                 $("#proceedPayment").css('display', 'none');
                                 $("#paypal-button-container").css('display', 'block');
                             }                            
@@ -324,10 +323,6 @@
 
                     });
 
-                    // $("#pre-payment-positions").val( JSON.stringify(positions) );
-                    // $("#pre-payment-coupon-status").val( JSON.stringify(couponStatus) );
-
-                    // $("#pre-payment-form").submit();
                 } else {
                     $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
                         '<span aria-hidden="true">&times;</span>\n' +
@@ -371,8 +366,58 @@
 
             // Make a call to the REST api to execute the payment
             return actions.payment.execute().then(function() {
-                // window.alert('Payment Complete!');
-                window.location = redirectTo;
+                window.alert('Payment Complete!');
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                let customerData = {
+                    f_name: $("#customerFName").val(),
+                    l_name: $("#customerLName").val(),
+                    phone: $("#customerPhone").val(),
+                    email: $("#customerEmail").val(),
+                    address: $("#customerAddress").val(),
+                };
+
+                let positions = [];
+                for (var key in $(".position-chose")) {
+
+                    if ($(".position-chose").hasOwnProperty(key)) {
+                        if ($(".position-chose")[key].checked) {
+                            positions[key] = $(".position-chose")[key].attributes['posid'].value;
+                        }
+                    }
+                }
+
+                if( positions.length > 0 ){                     
+
+                    $.ajax({
+                        url: '/payment-completed',
+                        type: 'POST',
+                        data: {
+                            toPay: toPay,
+                            positions: positions,
+                            customer: customerData,
+                            journal_id: advertisement.journal_id,
+                        },
+                        success: function( response ){
+
+                            $.each( response, function( index, value ){
+                                $("#block-position-"+value).remove();
+                            });
+
+                        }
+                    });
+
+                } else {
+                    $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                        '<span aria-hidden="true">&times;</span>\n' +
+                        '</button>No Positions Selected</div>');
+                }
+
             });
 
         }

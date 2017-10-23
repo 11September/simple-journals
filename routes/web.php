@@ -8,7 +8,9 @@ Route::get('/magazines', 'JournalsController@magazines');
 Route::get('/advertisement/{id}', 'JournalsController@advertisement');
 //paypal-
 Route::get('/coupon', 'JournalsController@coupon');
-Route::post('/position-check', 'JournalsController@positionCheck');
+Route::get('/position-check', 'JournalsController@positionCheck');
+
+Route::post('/payment-completed', 'JournalsController@paymentCompleted');
 
 //-paypal
 Route::get('/page-{slug}', 'PagesController@page');

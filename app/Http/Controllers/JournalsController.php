@@ -82,23 +82,22 @@ class JournalsController extends Controller
         }
         $prices = [];
 
-        // $validator = Validator::make($request->customer, 
-        //     [ 
-        //         "f_name" => "required", 
-        //         "l_name" => "required",
-        //         "phone" => "required",
-        //         "email" => "required|email",
-        //     ]
-        // );
+        $validator = Validator::make($request->customer, 
+            [ 
+                "f_name" => "required", 
+                "l_name" => "required",
+                "phone" => "required",
+                "email" => "required|email",
+            ]
+        );
 
-        // if ($validator->fails()) {
-        //     return response()->json( 'No Shipping Data Provided' );
-        //     //return back()->with('error', 'No Shipping Data Provided');
-        // }
+        if ($validator->fails()) {
+            return response()->json( 'No Shipping Data Provided' );
+            //return back()->with('error', 'No Shipping Data Provided');
+        }
 
         if( $request->couponStatus === 'true' ){
             $percent = Advertisement::find( $request->advertisement )->pluck( 'percent' )->first();
-
         }
 
         $i = 0;
@@ -106,9 +105,7 @@ class JournalsController extends Controller
         foreach ($positionIds as $posId) {
 
             $prices[$i] = Position::where([['id', '=', $posId], ['status', '=', 'INSTOCK']])->pluck('price')->first();
-
-            $soldPosition = Position::where([['id', '=', $posId], ['status', '=', 'INSTOCK']])->first();
-            $soldPosition->status = 'SOLD';
+            
             if (isset($percent)) {
                 $prices[$i] = $prices[$i] - $prices[$i] * $percent * 0.01;
             }
@@ -118,17 +115,31 @@ class JournalsController extends Controller
             $i++;
         }
 
+        return response()->json( ['toPay' => $toPay] );//, 'ids' => $ids
+        // return view('paypal', compact('toPay', 'redirectTo'));
+    }
+
+    public function paymentCompleted( Request $request )
+    {
+
+        $positionIds = array_filter( $request->positions );
+
+        foreach ($positionIds as $posId) {
+            $soldPosition = Position::where([['id', '=', $posId], ['status', '=', 'INSTOCK']])->first();
+            $soldPosition->status = 'SOLD';
+            $soldPosition->save();
+        }
+
         $sale = new Sale();
         $sale->journal_id = $request->journal_id;
         $sale->name = $request->customer['f_name'] . ' ' . $request->customer['l_name'];
         $sale->email = $request->customer['email'];
         $sale->phone = $request->customer['phone'];
-        $sale->total_price = $toPay;
-        $sale->purchase_time = date_default_timezone_get();
+        $sale->total_price = $request->toPay;
+        $sale->purchase_time = date('m/d/Y h:i:s a');
         $sale->save();
 
-        return response()->json( ['toPay' => $toPay] );//, 'ids' => $ids
-        // return view('paypal', compact('toPay', 'redirectTo'));
+        return response()->json( $positionIds );
     }
 
 }
