@@ -7,7 +7,6 @@
 @section('content')
     <div class="wrapper-body-magazines">
         <div class="row">
-
             @foreach($journals as $journal)
 
                 <div class="col-md-4">

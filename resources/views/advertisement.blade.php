@@ -75,7 +75,7 @@
 
                                         <div class="position-img-wrapper">
                                             <img class="media-object" src="{{ asset('storage/' . $position->image) }}" alt="Image">
-                                            <input class="position-chose" name="position{{ $position->id }}" type="checkbox" value="{{ $position->price }}">
+                                            <input class="position-chose" name="position{{ $position->id }}" type="checkbox" posid="{{ $position->id }}" value="{{ $position->price }}">
                                             <div class="position-price-wrapper">
                                                 <span class="position-price label label-danger">{{ $position->price }}$</span>
                                             </div>                                            
@@ -101,14 +101,23 @@
                                         </div>
                                         
                                     </div>    
-                                    <div id="couponError"></div>         
-                                    <div id="couponSuccess"></div>                         
-                                    <input type="text" class="form-control" placeholder="First name">
-                                    <input type="text" class="form-control" placeholder="Last name">
-                                    <input type="text" class="form-control" placeholder="Email">
-                                    <input type="text" class="form-control" placeholder="Email">
-                                    <input type="text" class="form-control" placeholder="Address">
-                                    <div id="paypal-button-container"></div>
+                                    <div id="couponError">
+                                        @if( $errors->any() )
+                                            <div class="alert alert-danger">
+                                                    @foreach ($errors->all() as $error)
+                                                        <p>{{ $error }}</p>
+                                                    @endforeach
+                                            </div>
+                                        @endif
+                                    </div>         
+                                    <div id="couponSuccess"></div>
+                                    <input type="text" class="form-control" id="customerFName" placeholder="First name">
+                                    <input type="text" class="form-control" id="customerLName" placeholder="Last name">
+                                    <input type="text" class="form-control" id="customerPhone" placeholder="Phone">
+                                    <input type="text" class="form-control" id="customerEmail" placeholder="Email">
+                                    <input type="text" class="form-control" id="customerAddress" placeholder="Address">
+
+                                    <button type="" id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
 
                             </div>
                         </div>
@@ -172,6 +181,7 @@
         var advertisement = {!! $advertisement !!};
         var sum = {!! $sum !!}
         var currentPrice = 0;   
+        var couponStatus = false;
 
         function clearCouponErrors(){
             setTimeout(function(){ $('#couponError').empty(); }, 7000);
@@ -188,7 +198,7 @@
 
                         <div class="position-img-wrapper">
                             <img class="media-object" src="{{ asset('storage') }}/${position.image}" alt="Image">
-                            <input class="position-chose" name="position${position.id}" type="checkbox" value="${position.price}">
+                            <input class="position-chose" name="position${position.id}" type="checkbox" posid="${position.id}" value="${position.price}">
                             <div class="position-price-wrapper">
                                 <span class="position-price label label-danger">${position.price}$</span>
                             </div>                                            
@@ -212,7 +222,7 @@
                 
                 if ($(".position-chose").hasOwnProperty(key)) {
                     if( $(".position-chose")[key].checked ){
-                        currentPrice += parseInt( $(".position-chose")[key].value );
+                        currentPrice += parseFloat( $(".position-chose")[key].value );                        
                         $("#total_price").text(currentPrice);
                     }
                 }
@@ -254,52 +264,69 @@
                             $('#couponError').append('<p class="alert alert-danger">'+response+'</p>');
                             clearCouponErrors();
                         }
-                        if( typeof response === 'object' ){                        
+                        if( typeof response === 'object' ){
+                            couponStatus = true;
                             rewritePositions( response[0].positions, response[0].percent, response[1] );
                         }
                     }                    
                 });
 
             });
-        });
 
-        paypal.Button.render({            
-            env: 'sandbox', // sandbox | production
+            $("#proceedPayment").on( 'click', function(){
 
-            // PayPal Client IDs - replace with your own
-            // Create a PayPal app: https://developer.paypal.com/developer/applications/create
-            client: {
-                sandbox:    'AZMB-J6m13UNxagLZXBFkiCEYj91thLcQ_e-CxvdwphvuEW9qoqpPiKMBVZp0QsryKF1eoeR6ET7Rhk8',
-                production: '<insert production client id>'
-            },
+                // if( $("#customerFName").val().length == 0 ||
+                //     $("#customerLName").val().length == 0 ||
+                //     $("#customerPhone").val().length == 0 ||
+                //     $("#customerEmail").val().length == 0 
+                //      ) //str_len( $("#customerAddress").val() ) == 0
+                // {
+                //     $("#couponError").append('<p class="alert alert-danger">No Shipping Data Provided</p>');
+                //     return
+                // }
 
-            // Show the buyer a 'Pay Now' button in the checkout flow
-            commit: true,
+                let customerData = {
+                    f_name: $("#customerFName").val(),
+                    l_name: $("#customerLName").val(),
+                    phone: $("#customerPhone").val(),
+                    email: $("#customerEmail").val(),
+                    address: $("#customerAddress").val(),
+                };
 
-            // payment() is called when the button is clicked
-            payment: function(data, actions) {
-
-                // Make a call to the REST api to create the payment
-                return actions.payment.create({
-                    payment: {
-                        transactions: [
-                            {
-                                amount: { total: '0.01', currency: 'EUR' }
-                            }
-                        ]
+                let positions = [];
+                for (var key in $(".position-chose")) {
+                    
+                    if ($(".position-chose").hasOwnProperty(key)) {
+                        if( $(".position-chose")[key].checked ){
+                            positions[key] = $(".position-chose")[key].attributes['posid'].value;
+                        }
                     }
-                });
-            },
-            // onAuthorize() is called when the buyer approves the payment
-            onAuthorize: function(data, actions) {
+                }
 
-                // Make a call to the REST api to execute the payment
-                return actions.payment.execute().then(function() {
-                    window.alert('Payment Complete!');
-                });
-            }
+                if( positions.length > 0 ){ 
+                    
+                    $.ajax({
+                        url: '/position-check',
+                        type: 'GET',
+                        data: { positions: positions, customer: customerData, coupon_status: couponStatus, advertisement: advertisement.id },
+                        success: function( response ){
 
-        }, '#paypal-button-container');
+                            // if( typeof response === 'string' ){
+                            //     $("#couponError").append('<p class="alert alert-danger">'+response+'</p>');
+                            // }
+
+                        }
+                        
+                    });
+
+                }else{
+                    $("#couponError").append('<p class="alert alert-danger">No Positions Selected</p>');
+                }
+            });
+
+            
+
+        });//document ready
 
     </script>
 @endsection
