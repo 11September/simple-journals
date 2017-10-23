@@ -231,8 +231,8 @@ button:focus {outline:0;}
 
 .buy-form{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
+    align-items: stretch;
     flex-direction: column;
 }
 
@@ -391,4 +391,8 @@ button:focus {outline:0;}
 }
 .effect-picture:hover .preview::before, .effect-picture:hover .preview::after{
     transition-delay: 0.2s;
+}
+
+#submitCoupon{
+    margin-left: 20px;
 }

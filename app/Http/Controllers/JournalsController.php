@@ -35,13 +35,13 @@ class JournalsController extends Controller
     public function advertisement(Request $request, $id)
     {
         $advertisement = Advertisement::where('journal_id', $id)->with('positions', 'journal')->first();
-        $sum = $advertisement->positions->sum('price');
+//        $sum = $advertisement->positions->sum('price');
 
         if (!$advertisement){
             $journal = Journal::where('id', $id)->where('status', '=', "PUBLISHED")->first();
         }
 
-        return view('advertisement', compact('advertisement', 'journal', 'sum'));
+        return view('advertisement', compact('advertisement', 'journal'));
     }
     
     public function coupon(Request $request)

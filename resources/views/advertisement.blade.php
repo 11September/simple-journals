@@ -49,29 +49,7 @@
 
                                 @foreach($advertisement->positions as $position)
 
-                                    {{--<div class="row">--}}
-                                    {{--<div class="col-md-6">--}}
-                                    {{--<div class="item-journal">--}}
-                                    {{--<img src="{{ asset("voyager/sales.jpg") }}"--}}
-                                    {{--alt="{{ $position->name }}"--}}
-                                    {{--class="img-fluid">--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="col-md-6">--}}
-                                    {{--<div class="item-journal">--}}
-                                    {{--<img src="{{ asset("storage/$position->image") }}"--}}
-                                    {{--alt="{{ $position->name }}"--}}
-                                    {{--class="img-fluid">--}}
-                                    {{--<p>{{ $position->price }}</p>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-
                                     <div class="positions-block">
-
-<!--                                         <div class="checkbox position-chose">
-                                            
-                                        </div> -->
 
                                         <div class="position-img-wrapper">
                                             <img class="media-object" src="{{ asset('storage/' . $position->image) }}" alt="Image">
@@ -80,23 +58,18 @@
                                                 <span class="position-price label label-danger">{{ $position->price }}$</span>
                                             </div>                                            
                                         </div>
-
-                                        <!-- <div class="media-body">
-                                            <h4 class="media-heading">{{ $position->name }}</h4>
-                                            <p>{{ $position->description }}</p>
-                                        </div> -->
                                         
                                     </div>  
                                 @endforeach
                             </div>
 
-                            <div class="buy-form col-lg-5">
+                            <div class="buy-form col-lg-6">
 
                                     <div class="form-group">
-                                        <h2>Total price is: <span id="total_price">{{ $sum }} </span><i class="fa fa-eur" aria-hidden="true"></i></h2>
+                                        <h2>Total price is: <span id="total_price">0 </span> <i class="fa fa-eur" aria-hidden="true"></i></h2>
                                         <!-- <label for="staticEmail2" class="sr-only">Code</label> -->
                                         <div class="coupon-wrapper">
-                                            <input type="text" class="form-control-plaintext coupon" placeholder="Coupon Here" id="couponBody" value="">
+                                            <input type="text" class="form-control form-control-plaintext coupon" placeholder="Coupon Here" id="couponBody" value="">
                                             <button type="" id="submitCoupon" class="btn btn-primary"><i class="fa fa-ticket" aria-hidden="true"></i></button>
                                         </div>
                                         
@@ -117,7 +90,7 @@
                                     <input type="text" class="form-control" id="customerEmail" placeholder="Email">
                                     <input type="text" class="form-control" id="customerAddress" placeholder="Address">
 
-                                    <button type="" id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
+                                    <button id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
 
                             </div>
                         </div>
@@ -179,7 +152,7 @@
 @section('scripts')
     <script>
         var advertisement = {!! $advertisement !!};
-        var sum = {!! $sum !!}
+        var sum = 0;
         var currentPrice = 0;   
         var couponStatus = false;
 
