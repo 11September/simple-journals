@@ -73,10 +73,11 @@ class JournalsController extends Controller
     public function positionCheck(Request $request)
     {
 
-        $positionIds = array_filter($request->positions);
+        $positionIds = array_filter( $request->positions );
 
-        if (count($positionIds) === 0) {
-            return response()->json('No positions selected');
+        if( count($positionIds) === 0 ){
+            return response()->json( 'No positions selected' );
+
         }
         $prices = [];
 
@@ -90,11 +91,13 @@ class JournalsController extends Controller
         // );
 
         // if ($validator->fails()) {
-        //     return response()->json( 'No Shipping Data Provided' );
+            // return response()->json( 'No Shipping Data Provided' );
+            // //return back()->with('error', 'No Shipping Data Provided');
         // }
 
-        if ($request->coupon_status === 'true') {
-            $percent = Advertisement::find($request->advertisement)->pluck('percent')->first();
+        if( $request->couponStatus === 'true' ){
+            $percent = Advertisement::find( $request->advertisement )->pluck( 'percent' )->first();
+
         }
 
         $i = 0;
@@ -114,12 +117,12 @@ class JournalsController extends Controller
 
         $redirectTo = URL::previous();
 
-
-        // return response()->json( ['toPay' => $toPay] );//, 'ids' => $ids
+        return response()->json( ['toPay' => $toPay] );//, 'ids' => $ids
+        // return view('paypal', compact('toPay', 'redirectTo'));
     }
 
     public function completePayment()
     {
-        return view('paypal', compact('toPay', 'redirectTo'));
+        
     }
 }

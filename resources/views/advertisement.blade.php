@@ -89,21 +89,18 @@
 
                                 <div id="couponError">
                                     @if( $errors->any() )
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-
-                                            @foreach ($errors->all() as $error)
-                                                <p>{{ $error }}</p>
-                                            @endforeach
+                                        <div class="alert alert-danger">
+                                                @foreach ($errors->all() as $error)
+                                                    <p>{{ $error }}</p>
+                                                @endforeach
                                         </div>
                                     @endif
-                                </div>
+                                </div>         
                                 <div id="couponSuccess"></div>
 
                                 <button id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
-
+                                <div id="paypal-button-container" style="display: none;"></div>
+                                
                             </div>
                         </div>
                         <br>
@@ -167,6 +164,7 @@
         var sum = 0;
         var currentPrice = 0;
         var couponStatus = false;
+        var toPay;
 
         function clearCouponErrors() {
             setTimeout(function () {
@@ -280,6 +278,8 @@
                     address: $("#customerAddress").val(),
                 };
 
+
+
                 let positions = [];
                 for (var key in $(".position-chose")) {
 
@@ -289,9 +289,19 @@
                         }
                     }
                 }
+<<<<<<< HEAD
+                
+                if( positions.length > 0 ){ 
+                    
+||||||| merged common ancestors
+
+                if( positions.length > 0 ){ 
+                    
+=======
 
                 if (positions.length > 0) {
 
+>>>>>>> 230f835dbc11280932588294021a5ffc135d77e2
                     $.ajax({
                         url: '/position-check',
                         type: 'GET',
@@ -303,23 +313,84 @@
                         },
                         success: function (response) {
 
-                            // if( typeof response === 'string' ){
-                            //     $("#couponError").append('<p class="alert alert-danger">'+response+'</p>');
-                            // }
+                            if( typeof response === 'string' ){
+                                $("#couponError").append('<p class="alert alert-danger">'+response+'</p>');
+                            }
+
+                            if( typeof response === 'object' ){
+                                toPay = response.toPay;
+                                
+                                $("#proceedPayment").css('display', 'none');
+                                $("#paypal-button-container").css('display', 'block');
+                            }                            
 
                         }
 
                     });
 
+<<<<<<< HEAD
+                    // $("#pre-payment-positions").val( JSON.stringify(positions) );
+                    // $("#pre-payment-coupon-status").val( JSON.stringify(couponStatus) );
+
+                    // $("#pre-payment-form").submit();
+
+                }else{
+                    $("#couponError").append('<p class="alert alert-danger">No Positions Selected</p>');
+||||||| merged common ancestors
+                }else{
+                    $("#couponError").append('<p class="alert alert-danger">No Positions Selected</p>');
+=======
                 } else {
                     $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
                         '<span aria-hidden="true">&times;</span>\n' +
                         '</button>No Positions Selected</div>');
+>>>>>>> 230f835dbc11280932588294021a5ffc135d77e2
                 }
             });
 
 
         });//document ready
+
+        paypal.Button.render({            
+        env: 'sandbox', // sandbox | production
+
+        // PayPal Client IDs - replace with your own
+        // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+        client: {
+            sandbox:    'AZMB-J6m13UNxagLZXBFkiCEYj91thLcQ_e-CxvdwphvuEW9qoqpPiKMBVZp0QsryKF1eoeR6ET7Rhk8',
+            production: '<insert production client id>'
+        },
+
+        // Show the buyer a 'Pay Now' button in the checkout flow
+        commit: true,
+
+        // payment() is called when the button is clicked
+        payment: function(data, actions) {
+            // Make a call to the REST api to create the payment
+
+            return actions.payment.create({
+                payment: {
+                    transactions: [
+                        {
+                            amount: { total: toPay, currency: 'EUR' }
+                        }
+                    ]
+                }
+            });
+        },
+
+        // onAuthorize() is called when the buyer approves the payment
+        onAuthorize: function(data, actions) {
+
+            // Make a call to the REST api to execute the payment
+            return actions.payment.execute().then(function() {
+                // window.alert('Payment Complete!');
+                window.location = redirectTo;
+            });
+
+        }
+
+    }, '#paypal-button-container');
 
     </script>
 @endsection
