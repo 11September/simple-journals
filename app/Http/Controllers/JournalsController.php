@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\URL;
 
 class JournalsController extends Controller
-{   
+{
 
     public function index()
     {
@@ -35,37 +35,37 @@ class JournalsController extends Controller
     public function advertisement(Request $request, $id)
     {
         $advertisement = Advertisement::where('journal_id', $id)->with('positions', 'journal')->first();
-        $sum = $advertisement->positions->sum('price');
+//        $sum = $advertisement->positions->sum('price');
 
-        if (!$advertisement){
+        if (!$advertisement) {
             $journal = Journal::where('id', $id)->where('status', '=', "PUBLISHED")->first();
         }
 
-        return view('advertisement', compact('advertisement', 'journal', 'sum'));
+        return view('advertisement', compact('advertisement', 'journal'));
     }
-    
+
     public function coupon(Request $request)
-    {   
+    {
 
-        $advertisement = Advertisement::where( [ 
-                                                 ["id", "=", $request->id], 
-                                                 ["coupon", "=", $request->coupon] 
-                                               ]
-                                                    )->with('positions', 'journal')->first();
+        $advertisement = Advertisement::where([
+                ["id", "=", $request->id],
+                ["coupon", "=", $request->coupon]
+            ]
+        )->with('positions', 'journal')->first();
 
-        if( $advertisement ){
+        if ($advertisement) {
             foreach ($advertisement->positions as $key => $position) {
                 $position->price = $position->price - $position->price * $advertisement->percent * 0.01;
             }
 
             $sum = $advertisement->positions->sum('price');
 
-        }else{
+        } else {
             return response()->json('Advertisement don\'t have a coupon');
         }
 
-        return response()->json( [ $advertisement, $sum] );
-        
+        return response()->json([$advertisement, $sum]);
+
     }
 
     public function positionCheck(Request $request)
@@ -75,7 +75,7 @@ class JournalsController extends Controller
 
         if( count($positionIds) === 0 ){
             return response()->json( 'No positions selected' );
-            // return back()->with('error', 'No positions selected');
+
         }
         $prices = [];
 
@@ -95,19 +95,20 @@ class JournalsController extends Controller
 
         if( $request->couponStatus === 'true' ){
             $percent = Advertisement::find( $request->advertisement )->pluck( 'percent' )->first();
+
         }
 
         $i = 0;
 
         foreach ($positionIds as $posId) {
-            
-            $prices[$i] = Position::where( [ ['id', '=', $posId], ['status', '=', 'INSTOCK'] ] )->pluck('price')->first();
 
-            if( isset($percent) ){
+            $prices[$i] = Position::where([['id', '=', $posId], ['status', '=', 'INSTOCK']])->pluck('price')->first();
+
+            if (isset($percent)) {
                 $prices[$i] = $prices[$i] - $prices[$i] * $percent * 0.01;
             }
 
-            $toPay = array_sum( $prices );
+            $toPay = array_sum($prices);
 
             $i++;
         }

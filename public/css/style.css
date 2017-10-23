@@ -223,6 +223,9 @@ button:focus {outline:0;}
 
 .position-price{
     margin-left: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
 }
 
 .media-object{
@@ -231,8 +234,8 @@ button:focus {outline:0;}
 
 .buy-form{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
+    align-items: stretch;
     flex-direction: column;
 }
 
@@ -243,7 +246,7 @@ button:focus {outline:0;}
 }
 
 .coupon{
-    border: 1px solid grey;
+    /*border: 1px solid grey;*/
 }
 
 .position-price-wrapper{
@@ -391,4 +394,8 @@ button:focus {outline:0;}
 }
 .effect-picture:hover .preview::before, .effect-picture:hover .preview::after{
     transition-delay: 0.2s;
+}
+
+#submitCoupon{
+    margin-left: 20px;
 }
