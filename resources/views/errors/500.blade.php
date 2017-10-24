@@ -70,7 +70,7 @@
 <body>
 <div class="body-404">
 
-    <a class="erorrs-links" href="{{ url('/') }}">On general</a>
+    {{--<a class="erorrs-links" href="{{ url('/') }}">On general</a>--}}
 
 </div>
 </body>
