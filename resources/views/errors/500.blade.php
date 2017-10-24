@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>404</title>
+    <title>500</title>
 
     <style>
 
@@ -70,8 +70,6 @@
 <body>
 <div class="body-404">
 
-    <h2>500</h2>
-    <h2>Oops something went wrong</h2>
     <a class="erorrs-links" href="{{ url('/') }}">On general</a>
 
 </div>
