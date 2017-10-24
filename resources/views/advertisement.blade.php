@@ -44,8 +44,7 @@
                     <hr>
 
                     <div class="container">
-                        <div class="row">
-                            <div class="list-group col-lg-6" id="positions-wrapper">
+                            <div class="" id="positions-wrapper" style="display: flex; align-items: flex-start; flex-direction: column;">
 
                                 @foreach($advertisement->positions as $position)
 
@@ -54,38 +53,41 @@
                                         <div class="position-img-wrapper">
                                             <img class="media-object" src="{{ asset('storage/' . $position->image) }}"
                                                  alt="Image">
+
+                                            <div class="accept-image-wrapper">
+                                                <img class="accept-image" src="{{ asset('/images/accept.png') }}" >
+                                            </div>
+
                                             <input class="position-chose" name="position{{ $position->id }}"
                                                    type="checkbox" posid="{{ $position->id }}"
                                                    value="{{ $position->price }}">
-                                            <div class="position-price-wrapper">
-                                                <span class="position-price label label-danger">{{ $position->price }}
-                                                    <i class="fa fa-eur" aria-hidden="true"></i></span>
-                                            </div>
                                         </div>
-
+                                        <div class="position-text">
+                                            <span class="position-price label label-danger">{{ $position->price }}
+                                                    <i class="fa fa-eur" aria-hidden="true"></i> for {{ $position->name }}</span>
+                                        </div>
                                     </div>
                                 @endforeach
                             </div>
 
-                            <div class="buy-form col-lg-6">
-
-                                <div class="form-group">
-                                    <h2>Total price is: <span id="total_price">0 </span> <i class="fa fa-eur"
-                                                                                            aria-hidden="true"></i></h2>
-                                    <!-- <label for="staticEmail2" class="sr-only">Code</label> -->
-                                    <div class="coupon-wrapper">
+                            <div class="buy-form col-lg-12">
+                                <div class="coupon-wrapper">
+                                    <div class="coupon-input">
                                         <input type="text" class="form-control coupon"
                                                placeholder="Coupon Here" id="couponBody" value="">
                                         <button type="" id="submitCoupon" class="btn btn-primary"><i
                                                     class="fa fa-ticket" aria-hidden="true"></i></button>
                                     </div>
+                                    <h2>Total price is: <span id="total_price">0 </span> <i class="fa fa-eur"aria-hidden="true"></i></h2>
                                 </div>
 
-                                <input type="text" class="form-control" id="customerFName" placeholder="First name">
-                                <input type="text" class="form-control" id="customerLName" placeholder="Last name">
+                                <div id="couponSuccess"></div>
+                            </div>
+                            <div class="buy-form col-lg-12">
+
+                                <input type="text" class="form-control" id="customerName" placeholder="First name">
                                 <input type="text" class="form-control" id="customerPhone" placeholder="Phone">
                                 <input type="text" class="form-control" id="customerEmail" placeholder="Email">
-                                <input type="text" class="form-control" id="customerAddress" placeholder="Address">
 
                                 <div id="couponError">
                                     @if( $errors->any() )
@@ -95,14 +97,12 @@
                                                 @endforeach
                                         </div>
                                     @endif
-                                </div>         
-                                <div id="couponSuccess"></div>
-
+                                </div>   
+                                
                                 <button id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
                                 <div id="paypal-button-container" style="display: none;"></div>
 
                             </div>
-                        </div>
                         <br>
                         <hr>
 
@@ -182,14 +182,22 @@
                     <div class="positions-block" id="block-position-${position.id}">
 
                         <div class="position-img-wrapper">
-                            <img class="media-object" src="{{ asset('storage') }}/${position.image}" alt="Image">
-                            <input class="position-chose" name="position${position.id}" type="checkbox" posid="${position.id}" value="${position.price}">
-                            <div class="position-price-wrapper">
-                                <span class="position-price label label-danger">${position.price}$</span>
-                            </div>                                            
+                            <img class="media-object" src="{{ asset('storage') }}/${position.image}"
+                                 alt="Image">
+
+                            <div class="accept-image-wrapper">
+                                <img class="accept-image" src="{{ asset('/images/accept.png') }}" >
+                            </div>
+
+                            <input class="position-chose" name="position${position.id}"
+                                   type="checkbox" posid="${position.id}"
+                                   value="${position.price}">
                         </div>
-                        
-                    </div> 
+                        <div class="position-text">
+                            <span class="position-price label label-danger">${position.price}
+                                    <i class="fa fa-eur" aria-hidden="true"></i> for ${position.name}</span>
+                        </div>
+                    </div>
                     `
                 );
 
@@ -222,13 +230,18 @@
 
         $('document').ready(function () {
 
+            $('.position-img-wrapper').find(".accept-image-wrapper").css('display', 'none');
+            $('.position-img-wrapper').find('input:checkbox').prop("checked", false);
+
             selectedPrice();
 
             $("#positions-wrapper").on('click', '.position-img-wrapper', function () {
                 if( !$(this).find('input:checkbox').attr("disabled") ){
                     if ( $(this).find('input:checkbox').prop("checked") ) {
+                        $(this).find(".accept-image-wrapper").css('display', 'none');
                         $(this).find('input:checkbox').prop("checked", false);
                     } else {
+                        $(this).find(".accept-image-wrapper").css('display', 'block');
                         $(this).find('input:checkbox').prop("checked", true);
                     }
                 }
@@ -261,25 +274,20 @@
 
             $("#proceedPayment").on('click', function () {
 
-                if( $("#customerFName").val().length == 0 ||
-                    $("#customerLName").val().length == 0 ||
+                if( $("#customerName").val().length == 0 ||
                     $("#customerPhone").val().length == 0 ||
                     $("#customerEmail").val().length == 0 
-                     ) //str_len( $("#customerAddress").val() ) == 0
+                     )
                 {
                     $("#couponError").append('<p class="alert alert-danger">No Shipping Data Provided</p>');
                     return
                 }
 
                 let customerData = {
-                    f_name: $("#customerFName").val(),
-                    l_name: $("#customerLName").val(),
+                    name: $("#customerName").val(),
                     phone: $("#customerPhone").val(),
                     email: $("#customerEmail").val(),
-                    address: $("#customerAddress").val(),
                 };
-
-
 
                 let positions = [];
                 for (var key in $(".position-chose")) {
@@ -375,11 +383,9 @@
                 });
 
                 let customerData = {
-                    f_name: $("#customerFName").val(),
-                    l_name: $("#customerLName").val(),
+                    name: $("#customerName").val(),
                     phone: $("#customerPhone").val(),
                     email: $("#customerEmail").val(),
-                    address: $("#customerAddress").val(),
                 };
 
                 let positions = [];

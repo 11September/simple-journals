@@ -173,11 +173,11 @@ class VoyagerAdvertisementController extends Controller
             $advertisement = Advertisement::find($id);
 
             if( $advertisement->journal_id !== (integer)$request->journal_id ){
-                Storage::deleteDirectory('Ads'.$advertisement->id.'Journal'.$advertisement->journal_id);
+                Storage::deleteDirectory('public/Ads'.$advertisement->id.'Journal'.$advertisement->journal_id);
             }
 
             foreach ($posToDelete as $posId) {             
-                $matchingFiles = preg_grep('/Position'.$posId.'\.*/', Storage::files('Ads'.$advertisement->id.'Journal'.$advertisement->journal_id));                
+                $matchingFiles = preg_grep('/Position'.$posId.'\.*/', Storage::files('public/Ads'.$advertisement->id.'Journal'.$advertisement->journal_id));                
                 Storage::delete( $matchingFiles );
   
                 Position::where( [ ['id', '=', $posId] , ['advertisement_id', '=', $advertisement->id] ] )->delete();                
@@ -206,11 +206,11 @@ class VoyagerAdvertisementController extends Controller
                     
                     $updatePosition->price = $position->price;                
                     $updatePosition->advertisement_id = $advertisement->id;
-                    $updatePosition->name = '';
+                    $updatePosition->name =$position->name;
                     $updatePosition->save();
 
                     if( $positionImage ){
-                        $updatePosition->image = 'Ads'.$advertisement->id.'Journal'.$request->journal_id.'/Position'.$updatePosition->id.'.'.$positionImage->extension();
+                        $updatePosition->image = 'public/Ads'.$advertisement->id.'Journal'.$request->journal_id.'/Position'.$updatePosition->id.'.'.$positionImage->extension();
                     }
 
                     $updatePosition->save();
@@ -268,7 +268,7 @@ class VoyagerAdvertisementController extends Controller
 
     public function store(Request $request)
     {            
-        dd(Storage::disk('local'));
+        
         $slug = $this->getSlug($request);
         
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
@@ -292,7 +292,7 @@ class VoyagerAdvertisementController extends Controller
             $newAdvertisement->percent = $request->percent;
             $newAdvertisement->link = $request->link;
             $newAdvertisement->title = $request->title;
-            $newAdvertisement->save();      
+            $newAdvertisement->save();
             
             $positions = $newAds;
 
@@ -302,7 +302,7 @@ class VoyagerAdvertisementController extends Controller
                 $newPosition = new Position();
                 $newPosition->price = $position->price;                
                 $newPosition->advertisement_id = $newAdvertisement->id;
-                $newPosition->name = '';
+                $newPosition->name = $position->name;
                 $newPosition->save();
                 
                 $newPosition->image = 'Ads'.$newAdvertisement->id.'Journal'.$request->journal_id.'/Position'.$newPosition->id.'.'.$positionImage->extension();

@@ -84,8 +84,7 @@ class JournalsController extends Controller
 
         $validator = Validator::make($request->customer, 
             [ 
-                "f_name" => "required", 
-                "l_name" => "required",
+                "name" => "required", 
                 "phone" => "required",
                 "email" => "required|email",
             ]
@@ -132,7 +131,7 @@ class JournalsController extends Controller
 
         $sale = new Sale();
         $sale->journal_id = $request->journal_id;
-        $sale->name = $request->customer['f_name'] . ' ' . $request->customer['l_name'];
+        $sale->name = $request->customer['name'];
         $sale->email = $request->customer['email'];
         $sale->phone = $request->customer['phone'];
         $sale->total_price = $request->toPay;
