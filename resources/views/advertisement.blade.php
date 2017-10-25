@@ -70,6 +70,8 @@
                                 @endforeach
                             </div>
 
+                            <hr>
+
                             <div class="buy-form col-lg-12">
                                 <div class="coupon-wrapper">
                                     <div class="coupon-input">
@@ -86,8 +88,8 @@
                             <div class="buy-form col-lg-12">
 
                                 <input type="text" class="form-control" id="customerName" placeholder="First name">
-                                <input type="text" class="form-control" id="customerPhone" placeholder="Phone">
-                                <input type="text" class="form-control" id="customerEmail" placeholder="Email">
+                                <input type="tel" class="form-control" id="customerPhone" placeholder="Phone">
+                                <input type="email" class="form-control" id="customerEmail" placeholder="Email">
 
                                 <div id="couponError">
                                     @if( $errors->any() )
@@ -97,13 +99,13 @@
                                                 @endforeach
                                         </div>
                                     @endif
-                                </div>   
-                                
-                                <button id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
+                                </div>
+
+                                <button type="submit" id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
                                 <div id="paypal-button-container" style="display: none;"></div>
 
                             </div>
-                        <br>
+
                         <hr>
 
                         <div class="clearfix"></div>
@@ -279,7 +281,9 @@
                     $("#customerEmail").val().length == 0 
                      )
                 {
-                    $("#couponError").append('<p class="alert alert-danger">No Shipping Data Provided</p>');
+                    $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                        '<span aria-hidden="true">&times;</span>'+
+                        '</button>No Shipping Data Provided</div>');
                     return
                 }
 
@@ -299,7 +303,7 @@
                     }
                 }
 
-                if( positions.length > 0 ){                     
+                if( positions.length > 0 ){
 
                     $.ajax({
                         url: '/position-check',
@@ -319,14 +323,14 @@
 
                             if( typeof response === 'object' ){
                                 toPay = response.toPay;
-                                
+
                                 $(".buy-form :input").attr("disabled", true);
-                                
+
                                 $(".position-img-wrapper :input").attr("disabled", true);
 
                                 $("#proceedPayment").css('display', 'none');
                                 $("#paypal-button-container").css('display', 'block');
-                            }                            
+                            }
 
                         }
 
@@ -342,7 +346,7 @@
 
         });//document ready
 
-        paypal.Button.render({            
+        paypal.Button.render({
         env: 'sandbox', // sandbox | production
 
         // PayPal Client IDs - replace with your own
@@ -399,7 +403,7 @@
                     }
                 }
 
-                if( positions.length > 0 ){                     
+                if( positions.length > 0 ){
 
                     $.ajax({
                         url: '/payment-completed',

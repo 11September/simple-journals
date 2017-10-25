@@ -14,7 +14,7 @@
             margin: 0;
         }
 
-        .body-404{
+        body{
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -64,9 +64,8 @@
 
 </head>
 <body>
-<div class="body-404">
-    <h2>Access denied!</h2>
-    <a class="erorrs-links" href="{{ url('/') }}">On general</a>
-</div>
+{{--<div class="body-404">--}}
+    {{--<a class="erorrs-links" href="{{ url('/') }}">On general</a>--}}
+{{--</div>--}}
 </body>
 </html>

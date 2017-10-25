@@ -1,9 +1,14 @@
 @extends('layoults.layoult')
 
 @section('css')
-    <style>
-
-    </style>
+    @if(count($journals) <= 3)
+        <style>
+            .footer{
+                position: absolute;
+                bottom: 0;
+            }
+        </style>
+    @endif
 @endsection
 
 @section('content')
