@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.3
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1:3306
--- Время создания: Окт 19 2017 г., 18:31
--- Версия сервера: 5.7.19
--- Версия PHP: 7.1.7
+-- Хост: colordot.mysql.ukraine.com.ua
+-- Время создания: Окт 25 2017 г., 13:02
+-- Версия сервера: 5.6.27-75.0-log
+-- Версия PHP: 7.0.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `simple-journal`
+-- База данных: `colordot_cosmo`
 --
 
 -- --------------------------------------------------------
@@ -44,7 +44,8 @@ CREATE TABLE `advertisements` (
 --
 
 INSERT INTO `advertisements` (`id`, `journal_id`, `coupon`, `percent`, `link`, `title`, `created_at`, `updated_at`) VALUES
-(11, 2, 'darov', 24, NULL, 'changed', '2017-10-17 11:52:17', '2017-10-17 11:53:33');
+(15, 8, 'da', 20, NULL, 'dad', '2017-10-20 07:38:03', '2017-10-20 07:38:03'),
+(16, 9, 'da', 10, NULL, NULL, '2017-10-25 06:50:59', '2017-10-25 06:50:59');
 
 -- --------------------------------------------------------
 
@@ -73,18 +74,18 @@ CREATE TABLE `data_rows` (
 --
 
 INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, `required`, `browse`, `read`, `edit`, `add`, `delete`, `details`, `order`) VALUES
-(14, 2, 'id', 'number', 'id', 1, 0, 0, 0, 0, 0, '', 1),
-(15, 2, 'author_id', 'text', 'author_id', 1, 0, 0, 0, 0, 0, '', 2),
-(16, 2, 'title', 'text', 'title', 1, 1, 1, 1, 1, 1, '', 3),
-(17, 2, 'excerpt', 'text_area', 'excerpt', 1, 0, 1, 1, 1, 1, '', 4),
-(18, 2, 'body', 'rich_text_box', 'body', 1, 0, 1, 1, 1, 1, '', 5),
-(19, 2, 'slug', 'text', 'slug', 1, 0, 1, 1, 1, 1, '{\"slugify\":{\"origin\":\"title\"}}', 6),
-(20, 2, 'meta_description', 'text', 'meta_description', 1, 0, 1, 1, 1, 1, '', 7),
-(21, 2, 'meta_keywords', 'text', 'meta_keywords', 1, 0, 1, 1, 1, 1, '', 8),
-(22, 2, 'status', 'select_dropdown', 'status', 1, 1, 1, 1, 1, 1, '{\"default\":\"INACTIVE\",\"options\":{\"INACTIVE\":\"INACTIVE\",\"ACTIVE\":\"ACTIVE\"}}', 9),
-(23, 2, 'created_at', 'timestamp', 'created_at', 1, 1, 1, 0, 0, 0, '', 10),
-(24, 2, 'updated_at', 'timestamp', 'updated_at', 1, 0, 0, 0, 0, 0, '', 11),
-(25, 2, 'image', 'image', 'image', 0, 1, 1, 1, 1, 1, '', 12),
+(14, 2, 'id', 'number', 'id', 1, 0, 0, 0, 0, 0, NULL, 1),
+(15, 2, 'author_id', 'text', 'author_id', 1, 0, 0, 0, 0, 0, NULL, 2),
+(16, 2, 'title', 'text', 'title', 1, 1, 1, 1, 1, 1, NULL, 3),
+(17, 2, 'excerpt', 'text_area', 'excerpt', 0, 0, 1, 1, 1, 1, NULL, 4),
+(18, 2, 'body', 'rich_text_box', 'body', 0, 0, 1, 1, 1, 1, NULL, 7),
+(19, 2, 'slug', 'hidden', 'slug', 1, 0, 1, 1, 1, 1, '{\"slugify\":{\"origin\":\"title\"}}', 6),
+(20, 2, 'meta_description', 'text', 'meta_description', 0, 0, 1, 1, 1, 1, NULL, 8),
+(21, 2, 'meta_keywords', 'text', 'meta_keywords', 0, 0, 1, 1, 1, 1, NULL, 9),
+(22, 2, 'status', 'hidden', 'status', 1, 0, 1, 1, 1, 1, '{\"default\":\"INACTIVE\",\"options\":{\"INACTIVE\":\"INACTIVE\",\"ACTIVE\":\"ACTIVE\"}}', 10),
+(23, 2, 'created_at', 'timestamp', 'created_at', 0, 1, 1, 0, 0, 0, NULL, 11),
+(24, 2, 'updated_at', 'timestamp', 'updated_at', 0, 0, 0, 0, 0, 0, NULL, 12),
+(25, 2, 'image', 'image', 'image', 0, 1, 1, 1, 1, 1, NULL, 5),
 (26, 3, 'id', 'number', 'id', 1, 0, 0, 0, 0, 0, '', 1),
 (27, 3, 'name', 'text', 'name', 1, 1, 1, 1, 1, 1, '', 2),
 (28, 3, 'email', 'text', 'email', 1, 1, 1, 1, 1, 1, '', 3),
@@ -108,8 +109,7 @@ INSERT INTO `data_rows` (`id`, `data_type_id`, `field`, `type`, `display_name`, 
 (55, 7, 'name', 'text', 'Name', 1, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"required\",\"messages\":{\"required\":\"This :attribute field is a must.\"}}}', 2),
 (56, 7, 'description', 'rich_text_box', 'Description', 0, 1, 1, 1, 1, 1, NULL, 3),
 (57, 7, 'image', 'image', 'Image', 1, 1, 1, 1, 1, 1, '{\"resize\":{\"width\":\"1000\",\"height\":\"null\"},\"quality\":\"70%\",\"upsize\":true,\"thumbnails\":[{\"name\":\"medium\",\"scale\":\"50%\"},{\"name\":\"small\",\"scale\":\"25%\"},{\"name\":\"cropped\",\"crop\":{\"width\":\"300\",\"height\":\"250\"}}]}', 4),
-(58, 7, 'url', 'text', 'Url', 0, 1, 1, 1, 1, 1, '{\"validation\":{\"rule\":\"\",\"messages\":{\"required\":\"This :attribute field is a must.\"}}}', 5),
-(59, 7, 'created_at', 'timestamp', 'Created At', 0, 1, 1, 1, 0, 1, NULL, 6),
+(59, 7, 'created_at', 'timestamp', 'Created At', 0, 0, 0, 0, 0, 0, NULL, 6),
 (60, 7, 'updated_at', 'timestamp', 'Updated At', 0, 0, 0, 0, 0, 0, NULL, 7),
 (61, 7, 'status', 'select_dropdown', 'Status', 0, 1, 1, 1, 1, 1, '{\"default\":\"PUBLISHED\",\"options\":{\"PUBLISHED\":\"published\",\"DRAFT\":\"draft\",\"PENDING\":\"pending\"}}', 6),
 (62, 8, 'id', 'number', 'ID', 1, 0, 0, 0, 0, 0, '', 1),
@@ -191,7 +191,7 @@ CREATE TABLE `data_types` (
 --
 
 INSERT INTO `data_types` (`id`, `name`, `slug`, `display_name_singular`, `display_name_plural`, `icon`, `model_name`, `policy_name`, `controller`, `description`, `generate_permissions`, `server_side`, `created_at`, `updated_at`) VALUES
-(2, 'pages', 'pages', 'Page', 'Pages', 'voyager-file-text', 'TCG\\Voyager\\Models\\Page', NULL, '', '', 1, 0, '2017-10-06 09:57:30', '2017-10-06 09:57:30'),
+(2, 'pages', 'pages', 'Page', 'Pages', 'voyager-file-text', 'TCG\\Voyager\\Models\\Page', NULL, NULL, NULL, 1, 0, '2017-10-06 09:57:30', '2017-10-20 05:06:24'),
 (3, 'users', 'users', 'User', 'Users', 'voyager-person', 'TCG\\Voyager\\Models\\User', 'TCG\\Voyager\\Policies\\UserPolicy', '', '', 1, 0, '2017-10-06 09:57:30', '2017-10-06 09:57:30'),
 (5, 'menus', 'menus', 'Menu', 'Menus', 'voyager-list', 'TCG\\Voyager\\Models\\Menu', NULL, '', '', 1, 0, '2017-10-06 09:57:30', '2017-10-06 09:57:30'),
 (6, 'roles', 'roles', 'Role', 'Roles', 'voyager-lock', 'TCG\\Voyager\\Models\\Role', NULL, '', '', 1, 0, '2017-10-06 09:57:30', '2017-10-06 09:57:30'),
@@ -213,7 +213,6 @@ CREATE TABLE `journals` (
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci,
   `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `url` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `status` enum('PUBLISHED','DRAFT','PENDING','') COLLATE utf8_unicode_ci DEFAULT 'PUBLISHED',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -223,17 +222,17 @@ CREATE TABLE `journals` (
 -- Дамп данных таблицы `journals`
 --
 
-INSERT INTO `journals` (`id`, `name`, `description`, `image`, `url`, `status`, `created_at`, `updated_at`) VALUES
-(7, 'Glamour', 'Glamour journal', 'journals/October2017/Group 167.png', NULL, 'PUBLISHED', '2017-10-19 06:02:34', '2017-10-19 06:02:34'),
-(8, 'Bon Voyage', '<p style=\"text-align: center;\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>', 'journals/October2017/NoPath - Copy (25)1.png', NULL, 'PUBLISHED', '2017-10-19 06:03:00', '2017-10-19 07:15:49'),
-(9, 'AnOther', 'Another Journal', 'journals/October2017/Group 1691.png', NULL, 'PUBLISHED', '2017-10-19 06:05:00', '2017-10-19 06:07:03'),
-(10, 'Prestige', 'Prestige journal', 'journals/October2017/NoPath - Copy (27).png', NULL, 'PUBLISHED', '2017-10-19 06:08:41', '2017-10-19 06:08:41'),
-(11, 'Elle', 'Elle journal', 'journals/October2017/NoPath - Copy (28).png', NULL, 'PUBLISHED', '2017-10-19 06:09:48', '2017-10-19 06:09:48'),
-(12, 'Vogue', 'vogue journal', 'journals/October2017/NoPath - Copy (29).png', NULL, 'PUBLISHED', '2017-10-19 06:10:55', '2017-10-19 06:10:55'),
-(13, 'Example', 'Example journal', 'journals/October2017/gallery-1499720797-elle-august-cover-emilia-clarke.png', NULL, 'PUBLISHED', '2017-10-19 06:12:06', '2017-10-19 06:12:06'),
-(14, 'Example 2', 'Example 2 journal', 'journals/October2017/NoPath - Copy (30)@2x.png', NULL, 'PUBLISHED', '2017-10-19 06:12:49', '2017-10-19 06:12:49'),
-(15, 'Example 3', 'Example 2 journal', 'journals/October2017/NoPath - Copy (31).png', NULL, 'PUBLISHED', '2017-10-19 06:13:16', '2017-10-19 06:13:16'),
-(16, 'Cosmopolitan', 'Cosmopolitan  journal', 'journals/October2017/44cad1db6c0ca37afdce9e6c1af0e1782.jpg', NULL, 'PUBLISHED', '2017-10-19 06:14:00', '2017-10-19 06:18:42');
+INSERT INTO `journals` (`id`, `name`, `description`, `image`, `status`, `created_at`, `updated_at`) VALUES
+(7, 'Glamour', '<p>Glamour journal</p>', 'journals/October2017/Group 167.png', 'DRAFT', '2017-10-19 06:02:00', '2017-10-25 05:49:21'),
+(8, 'Bon Voyage', '<p style=\"text-align: center;\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n<p style=\"text-align: left;\">&nbsp;</p>\r\n<p style=\"text-align: left;\">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>', 'journals/October2017/NoPath - Copy (25)1.png', 'DRAFT', '2017-10-19 06:03:00', '2017-10-25 05:48:06'),
+(9, 'AnOther', 'Another Journal', 'journals/October2017/Group 1691.png', 'PUBLISHED', '2017-10-19 06:05:00', '2017-10-19 06:07:03'),
+(10, 'Prestige', 'Prestige journal', 'journals/October2017/NoPath - Copy (27).png', 'PUBLISHED', '2017-10-19 06:08:41', '2017-10-19 06:08:41'),
+(11, 'Elle', '<p>Elle journal</p>', 'journals/October2017/NoPath - Copy (28).png', 'PENDING', '2017-10-19 06:09:00', '2017-10-25 05:47:59'),
+(12, 'Vogue', '<p>vogue journal</p>', 'journals/October2017/NoPath - Copy (29).png', 'DRAFT', '2017-10-19 06:10:00', '2017-10-25 05:47:38'),
+(13, 'Example', '<p>Example journal</p>', 'journals/October2017/gallery-1499720797-elle-august-cover-emilia-clarke.png', 'DRAFT', '2017-10-19 06:12:00', '2017-10-25 05:47:29'),
+(14, 'Example 2', '<p>Example 2 journal</p>', 'journals/October2017/NoPath - Copy (30)@2x.png', 'DRAFT', '2017-10-19 06:12:00', '2017-10-25 05:45:59'),
+(15, 'Example 3', '<p>Example 2 journal</p>', 'journals/October2017/NoPath - Copy (31).png', 'DRAFT', '2017-10-19 06:13:00', '2017-10-25 05:45:48'),
+(16, 'Cosmopolitan', 'Cosmopolitan  journal', 'journals/October2017/44cad1db6c0ca37afdce9e6c1af0e1782.jpg', 'PUBLISHED', '2017-10-19 06:14:00', '2017-10-19 06:18:42');
 
 -- --------------------------------------------------------
 
@@ -287,16 +286,15 @@ INSERT INTO `menu_items` (`id`, `menu_id`, `title`, `url`, `target`, `icon_class
 (4, 1, 'Users', '', '_self', 'voyager-person', NULL, NULL, 3, '2017-10-06 09:57:30', '2017-10-06 09:57:30', 'voyager.users.index', NULL),
 (6, 1, 'Pages', '', '_self', 'voyager-file-text', NULL, NULL, 5, '2017-10-06 09:57:30', '2017-10-14 09:55:54', 'voyager.pages.index', NULL),
 (7, 1, 'Roles', '', '_self', 'voyager-lock', NULL, NULL, 2, '2017-10-06 09:57:30', '2017-10-06 09:57:30', 'voyager.roles.index', NULL),
-(8, 1, 'Tools', '', '_self', 'voyager-tools', NULL, NULL, 9, '2017-10-06 09:57:30', '2017-10-14 11:06:03', NULL, NULL),
-(9, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, NULL, 10, '2017-10-06 09:57:30', '2017-10-14 11:06:03', 'voyager.menus.index', NULL),
-(10, 1, 'Database', '', '_self', 'voyager-data', NULL, NULL, 11, '2017-10-06 09:57:30', '2017-10-14 11:06:03', 'voyager.database.index', NULL),
-(11, 1, 'Compass', '/admin/compass', '_self', 'voyager-compass', NULL, NULL, 12, '2017-10-06 09:57:30', '2017-10-14 11:06:03', NULL, NULL),
-(12, 1, 'Hooks', '/admin/hooks', '_self', 'voyager-hook', NULL, NULL, 13, '2017-10-06 09:57:30', '2017-10-14 11:06:03', NULL, NULL),
-(13, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 14, '2017-10-06 09:57:30', '2017-10-14 11:06:03', 'voyager.settings.index', NULL),
+(9, 1, 'Menu Builder', '', '_self', 'voyager-list', NULL, NULL, 10, '2017-10-06 09:57:30', '2017-10-19 12:38:38', 'voyager.menus.index', NULL),
+(10, 1, 'Database', '', '_self', 'voyager-data', NULL, NULL, 11, '2017-10-06 09:57:30', '2017-10-19 12:38:38', 'voyager.database.index', NULL),
+(11, 1, 'Compass', '/admin/compass', '_self', 'voyager-compass', NULL, NULL, 12, '2017-10-06 09:57:30', '2017-10-19 12:38:38', NULL, NULL),
+(12, 1, 'Hooks', '/admin/hooks', '_self', 'voyager-hook', NULL, NULL, 13, '2017-10-06 09:57:30', '2017-10-19 12:38:38', NULL, NULL),
+(13, 1, 'Settings', '', '_self', 'voyager-settings', NULL, NULL, 14, '2017-10-06 09:57:30', '2017-10-19 12:38:38', 'voyager.settings.index', NULL),
 (14, 1, 'Journals', '/admin/journals', '_self', 'voyager-book', '#000000', NULL, 6, '2017-10-06 10:18:49', '2017-10-14 11:06:03', NULL, ''),
 (18, 1, 'Advertisements', '/admin/advertisements', '_self', 'voyager-paypal', '#000000', NULL, 8, '2017-10-14 09:55:46', '2017-10-14 11:06:04', NULL, ''),
 (19, 1, 'Positions', '/admin/positions', '_self', 'voyager-list', '#000000', NULL, 7, '2017-10-14 10:50:35', '2017-10-14 11:06:04', NULL, ''),
-(20, 1, 'Sales', '/admin/sales', '_self', 'voyager-basket', '#000000', NULL, 15, '2017-10-19 12:04:13', '2017-10-19 12:04:13', NULL, '');
+(20, 1, 'Sales', '/admin/sales', '_self', 'voyager-basket', '#000000', NULL, 9, '2017-10-19 12:04:13', '2017-10-19 12:38:31', NULL, '');
 
 -- --------------------------------------------------------
 
@@ -365,7 +363,7 @@ CREATE TABLE `pages` (
 --
 
 INSERT INTO `pages` (`id`, `author_id`, `title`, `excerpt`, `body`, `image`, `slug`, `meta_description`, `meta_keywords`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 'about', 'about', '<pre style=\"color: #000000; font-family: \'Courier New\';\"><span style=\"color: #008000; background-color: #f7faff; font-weight: bold;\">about</span></pre>', 'pages/October2017/back.jpg', 'about', 'about', 'about', 'ACTIVE', '2017-10-12 11:59:46', '2017-10-12 11:59:46'),
+(1, 1, 'about', 'about', '<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\">COSMO PRESS is a French Publishing house, sorting more than 10 international magazines in 20 countries, featuring celebrities, fashion trends, fitness &amp; health and in depth lifestyle stories complimented by extraordinary photographs shot by the best photographers from around the globe.</span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\">&nbsp;</span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\">We bring you exclusive interviews with celebrities, artists, designers, and other creative people in the industry and cover fashion trends, and inspirations. Our goal is to create content that inspires you. We hope to introduce and connect you with some of the finest artists and professionals within every industry.<br /><br /></span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\">COSMO PRESS is a French Publishing house, sorting more than 10 international magazines in 20 countries, featuring celebrities, fashion trends, fitness &amp; health and in depth lifestyle stories complimented by extraordinary photographs shot by the best photographers from around the globe.</span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\">&nbsp;</span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\">We bring you exclusive interviews with celebrities, artists, designers, and other creative people in the industry and cover fashion trends, and inspirations. Our goal is to create content that inspires you. We hope to introduce and connect you with some of the finest artists and professionals within every industry.<br /></span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\"><br /><img src=\"http://cosmo-press.com//storage/pages/October2017/Logo1.png\" alt=\"\" width=\"300\" height=\"3\" /></span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\">COSMO PRESS is a French Publishing house, sorting more than 10 international magazines in 20 countries, featuring celebrities, fashion trends, fitness &amp; health and in depth lifestyle stories complimented by extraordinary photographs shot by the best photographers from around the globe.</span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\">&nbsp;</span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\">We bring you exclusive interviews with celebrities, artists, designers, and other creative people in the industry and cover fashion trends, and inspirations. Our goal is to create content that inspires you. We hope to introduce and connect you with some of the finest artists and professionals within every industry.<br /><br /></span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\">COSMO PRESS is a French Publishing house, sorting more than 10 international magazines in 20 countries, featuring celebrities, fashion trends, fitness &amp; health and in depth lifestyle stories complimented by extraordinary photographs shot by the best photographers from around the globe.</span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\">&nbsp;</span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\">We bring you exclusive interviews with celebrities, artists, designers, and other creative people in the industry and cover fashion trends, and inspirations. Our goal is to create content that inspires you. We hope to introduce and connect you with some of the finest artists and professionals within every industry.</span><span style=\"font-family: Georgia;\"><br /></span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-family: Georgia;\"><br /><img src=\"http://cosmo-press.com//storage/pages/October2017/Logo1.png\" alt=\"\" width=\"300\" height=\"3\" /></span></p>\r\n<p class=\"MsoNormal\" style=\"margin: 0px; color: #222222; font-family: arial, sans-serif; font-size: 12.8px; white-space: normal; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-origin: initial; background-clip: initial; text-align: center;\"><span style=\"font-size: 12.8px;\">&nbsp;</span>&nbsp;</p>', '', 'about', 'about', 'about', 'ACTIVE', '2017-10-12 11:59:46', '2017-10-25 06:17:44'),
 (2, 1, 'publication', 'publication', '<p style=\"text-align: center;\">About publication</p>\r\n<p><img style=\"display: block; margin-left: auto; margin-right: auto;\" src=\"http://localhost:8000/storage/pages/October2017/coding-min.jpg\" alt=\"\" width=\"375\" height=\"300\" /></p>\r\n<p style=\"text-align: center;\">This information has not any sens<br /><br /><strong style=\"margin: 0px; padding: 0px; color: #000000; font-family: \'Open Sans\', Arial, sans-serif; text-align: justify;\">Lorem Ipsum</strong><span style=\"color: #000000; font-family: \'Open Sans\', Arial, sans-serif; text-align: justify;\">&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span></p>\r\n<p style=\"text-align: center;\">&nbsp;</p>\r\n<p style=\"text-align: center;\"><span style=\"color: #000000; font-family: \'Open Sans\', Arial, sans-serif; text-align: justify;\"><img src=\"http://localhost:8000/storage/pages/October2017/bug-min.jpg\" alt=\"\" width=\"375\" height=\"300\" /></span></p>', NULL, 'publication', 'publication', 'publication', 'ACTIVE', '2017-10-18 10:49:47', '2017-10-18 10:53:28'),
 (3, 1, 'advertisement', 'advertisement', '<h2 style=\"margin: 0px 0px 10px; padding: 0px; font-weight: 400; line-height: 24px; font-family: DauphinPlain; font-size: 24px; color: #000000;\">What is Lorem Ipsum?</h2>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: #000000; font-family: \'Open Sans\', Arial, sans-serif;\"><strong style=\"margin: 0px; padding: 0px;\">Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: #000000; font-family: \'Open Sans\', Arial, sans-serif;\">&nbsp;</p>\r\n<h2 style=\"margin: 0px 0px 10px; padding: 0px; font-weight: 400; line-height: 24px; font-family: DauphinPlain; font-size: 24px; color: #000000;\">What is Lorem Ipsum?</h2>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: #000000; font-family: \'Open Sans\', Arial, sans-serif;\"><strong style=\"margin: 0px; padding: 0px;\">Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; text-align: justify; color: #000000; font-family: \'Open Sans\', Arial, sans-serif;\">&nbsp;</p>\r\n<h2 style=\"margin: 0px 0px 10px; padding: 0px; font-weight: 400; line-height: 24px; font-family: DauphinPlain; font-size: 24px; color: #000000; text-align: right;\">What is Lorem Ipsum?</h2>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; color: #000000; font-family: \'Open Sans\', Arial, sans-serif; text-align: right;\"><strong style=\"margin: 0px; padding: 0px;\">Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; color: #000000; font-family: \'Open Sans\', Arial, sans-serif; text-align: right;\">&nbsp;</p>\r\n<h2 style=\"margin: 0px 0px 10px; padding: 0px; font-weight: 400; line-height: 24px; font-family: DauphinPlain; font-size: 24px; color: #000000; text-align: right;\">What is Lorem Ipsum?</h2>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; color: #000000; font-family: \'Open Sans\', Arial, sans-serif; text-align: right;\"><strong style=\"margin: 0px; padding: 0px;\">Lorem Ipsum</strong>&nbsp;is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker i</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; color: #000000; font-family: \'Open Sans\', Arial, sans-serif; text-align: right;\">&nbsp;</p>\r\n<p style=\"margin: 0px 0px 15px; padding: 0px; color: #000000; font-family: \'Open Sans\', Arial, sans-serif; text-align: center;\"><img src=\"http://localhost:8000/storage/pages/October2017/bug-min1.jpg\" alt=\"\" width=\"375\" height=\"300\" /></p>', NULL, 'advertisement', 'advertisement', 'advertisement', 'ACTIVE', '2017-10-18 10:55:27', '2017-10-18 10:55:27');
 
@@ -536,15 +534,10 @@ INSERT INTO `permission_role` (`permission_id`, `role_id`) VALUES
 (59, 1),
 (59, 3),
 (60, 1),
-(60, 3),
 (61, 1),
-(61, 3),
 (62, 1),
-(62, 3),
 (63, 1),
-(63, 3),
 (64, 1),
-(64, 3),
 (65, 1),
 (65, 3),
 (66, 1),
@@ -568,11 +561,21 @@ CREATE TABLE `positions` (
   `description` text COLLATE utf8_unicode_ci,
   `advertisement_id` int(11) DEFAULT NULL,
   `price` double NOT NULL,
-  `status` enum('PUBLISHED','DRAFT','PENDING','') COLLATE utf8_unicode_ci DEFAULT 'PUBLISHED',
+  `status` enum('INSTOCK','SOLD') COLLATE utf8_unicode_ci DEFAULT 'INSTOCK',
   `image` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `positions`
+--
+
+INSERT INTO `positions` (`id`, `name`, `description`, `advertisement_id`, `price`, `status`, `image`, `created_at`, `updated_at`) VALUES
+(3, '1651', NULL, 15, 20, '', 'Ads15Journal8/Position3.jpeg', '2017-10-20 07:38:03', '2017-10-20 07:38:03'),
+(4, 'main page', NULL, 16, 20, '', 'Ads16Journal9/Position4.jpeg', '2017-10-25 06:50:59', '2017-10-25 06:50:59'),
+(5, 'second page header', NULL, 16, 17, '', 'Ads16Journal9/Position5.jpeg', '2017-10-25 06:50:59', '2017-10-25 06:50:59'),
+(6, 'back page footer', NULL, 16, 15, '', 'Ads16Journal9/Position6.jpeg', '2017-10-25 06:50:59', '2017-10-25 06:50:59');
 
 -- --------------------------------------------------------
 
@@ -640,13 +643,13 @@ INSERT INTO `settings` (`id`, `key`, `display_name`, `value`, `details`, `type`,
 (1, 'site.title', 'Site Title', 'Site Title', '', 'text', 1, 'Site'),
 (2, 'site.description', 'Site Description', 'Site Description', '', 'text', 2, 'Site'),
 (3, 'site.logo', 'Site Logo', '', '', 'image', 3, 'Site'),
-(4, 'site.google_analytics_tracking_id', 'Google Analytics Tracking ID', '', '', 'text', 4, 'Site'),
+(4, 'site.google_analytics_tracking_id', 'Google Analytics Tracking ID', '694305646632-l53utqf4orm5kbor4lat07oc03dn8k3v.apps.googleusercontent.com', '', 'text', 4, 'Site'),
 (5, 'admin.bg_image', 'Admin Background Image', 'settings/October2017/journal.jpg', '', 'image', 5, 'Admin'),
 (6, 'admin.title', 'Admin Title', 'Cosmo-press', '', 'text', 1, 'Admin'),
 (7, 'admin.description', 'Admin Description', 'Welcome to Cosmo-press', '', 'text', 2, 'Admin'),
 (8, 'admin.loader', 'Admin Loader', '', '', 'image', 3, 'Admin'),
 (9, 'admin.icon_image', 'Admin Icon Image', 'settings/October2017/Logo-Cosmo-Press.png', '', 'image', 4, 'Admin'),
-(10, 'admin.google_analytics_client_id', 'Google Analytics Client ID (used for admin dashboard)', '', '', 'text', 1, 'Admin');
+(10, 'admin.google_analytics_client_id', 'Google Analytics Client ID (used for admin dashboard)', '694305646632-l53utqf4orm5kbor4lat07oc03dn8k3v.apps.googleusercontent.com', '', 'text', 1, 'Admin');
 
 -- --------------------------------------------------------
 
@@ -688,8 +691,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role_id`, `name`, `email`, `avatar`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Admin', 'admin@admin.com', 'users/default.png', '$2y$10$2JFGeUtKfLjy0mchgNXmeO3EW3D6rmFGy0ekzLLx14n/sLqruqOG2', 'WyvGJXkSC6BqutNP8wqbwTaVNuGl9w2F3FEWPlUuDvB71X2S5oVsbRkoBpOh', '2017-10-06 10:07:36', '2017-10-06 10:07:37'),
-(2, 3, 'cosmo-press', 'cosmo-press@admin.com', 'users/October2017/Logo-Cosmo-Press.png', '$2y$10$kN9ih7NXvOfFMkTAGmRZ9uk3pmW5knKGryqhSZQqfI/09.ZdPk5kK', 'FDICMUfF8iRx3qbpvPTTR1xJ8i4KWkb6R74YPhhVfEXYGWnxTQZeRyUMsgB4', '2017-10-19 07:24:07', '2017-10-19 07:24:07');
+(1, 1, 'Admin', 'admin@admin.com', 'users/default.png', '$2y$10$2JFGeUtKfLjy0mchgNXmeO3EW3D6rmFGy0ekzLLx14n/sLqruqOG2', 'xwseDUulVUVRI6Y9I6G9ECWskV0V4kfKm4adRo2Q43aIAyD6B9YjqiXm9CT6', '2017-10-06 10:07:36', '2017-10-06 10:07:37'),
+(2, 3, 'cosmo-press', 'cosmo-press@admin.com', 'users/October2017/Logo-Cosmo-Press.png', '$2y$10$kN9ih7NXvOfFMkTAGmRZ9uk3pmW5knKGryqhSZQqfI/09.ZdPk5kK', 'jmGVGsrBMq8SwcNlssgW5H3Vx1W6F0Fx4j2Hslxi5l1HxGsUHp1TXfcnxQDw', '2017-10-19 07:24:07', '2017-10-19 07:24:07');
 
 --
 -- Индексы сохранённых таблиц
@@ -709,25 +712,10 @@ ALTER TABLE `data_rows`
   ADD KEY `data_rows_data_type_id_foreign` (`data_type_id`);
 
 --
--- Индексы таблицы `data_types`
---
-ALTER TABLE `data_types`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `data_types_name_unique` (`name`),
-  ADD UNIQUE KEY `data_types_slug_unique` (`slug`);
-
---
 -- Индексы таблицы `journals`
 --
 ALTER TABLE `journals`
   ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `menus`
---
-ALTER TABLE `menus`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `menus_name_unique` (`name`);
 
 --
 -- Индексы таблицы `menu_items`
@@ -746,28 +734,20 @@ ALTER TABLE `migrations`
 -- Индексы таблицы `pages`
 --
 ALTER TABLE `pages`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `pages_slug_unique` (`slug`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `password_resets`
 --
 ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
+  ADD KEY `password_resets_email_index` (`email`(191));
 
 --
 -- Индексы таблицы `permissions`
 --
 ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `permissions_key_index` (`key`);
-
---
--- Индексы таблицы `permission_groups`
---
-ALTER TABLE `permission_groups`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `permission_groups_name_unique` (`name`);
+  ADD KEY `permissions_key_index` (`key`(191));
 
 --
 -- Индексы таблицы `permission_role`
@@ -784,40 +764,6 @@ ALTER TABLE `positions`
   ADD PRIMARY KEY (`id`);
 
 --
--- Индексы таблицы `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `roles_name_unique` (`name`);
-
---
--- Индексы таблицы `sales`
---
-ALTER TABLE `sales`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `settings`
---
-ALTER TABLE `settings`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `settings_key_unique` (`key`);
-
---
--- Индексы таблицы `translations`
---
-ALTER TABLE `translations`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `translations_table_name_column_name_foreign_key_locale_unique` (`table_name`,`column_name`,`foreign_key`,`locale`);
-
---
--- Индексы таблицы `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
-
---
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
@@ -825,104 +771,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `advertisements`
 --
 ALTER TABLE `advertisements`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
---
--- AUTO_INCREMENT для таблицы `data_rows`
---
-ALTER TABLE `data_rows`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
---
--- AUTO_INCREMENT для таблицы `data_types`
---
-ALTER TABLE `data_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
---
--- AUTO_INCREMENT для таблицы `journals`
---
-ALTER TABLE `journals`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT для таблицы `menus`
---
-ALTER TABLE `menus`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT для таблицы `menu_items`
---
-ALTER TABLE `menu_items`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
---
--- AUTO_INCREMENT для таблицы `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
---
--- AUTO_INCREMENT для таблицы `pages`
---
-ALTER TABLE `pages`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT для таблицы `permissions`
---
-ALTER TABLE `permissions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
---
--- AUTO_INCREMENT для таблицы `permission_groups`
---
-ALTER TABLE `permission_groups`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT для таблицы `positions`
 --
 ALTER TABLE `positions`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
---
--- AUTO_INCREMENT для таблицы `roles`
---
-ALTER TABLE `roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT для таблицы `sales`
---
-ALTER TABLE `sales`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT для таблицы `settings`
---
-ALTER TABLE `settings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT для таблицы `translations`
---
-ALTER TABLE `translations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT для таблицы `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
---
--- Ограничения внешнего ключа сохраненных таблиц
---
-
---
--- Ограничения внешнего ключа таблицы `data_rows`
---
-ALTER TABLE `data_rows`
-  ADD CONSTRAINT `data_rows_data_type_id_foreign` FOREIGN KEY (`data_type_id`) REFERENCES `data_types` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `menu_items`
---
-ALTER TABLE `menu_items`
-  ADD CONSTRAINT `menu_items_menu_id_foreign` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE CASCADE;
-
---
--- Ограничения внешнего ключа таблицы `permission_role`
---
-ALTER TABLE `permission_role`
-  ADD CONSTRAINT `permission_role_permission_id_foreign` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `permission_role_role_id_foreign` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
