@@ -117,6 +117,8 @@
 
                         <hr class="red">
 
+                        <div class="clearfix"></div>
+
                         <div class="buy-form col-lg-12">
                             <div class="coupon-wrapper">
                                 <div class="coupon-input">
