@@ -81,7 +81,7 @@
                             @endforeach                            
                             <input type="hidden" name="newAds" id="newAds">
                             <input type="hidden" name="positionsToDelete" id="positionsToDelete">
-                            <div id="position-images" style="display: none;"></div>                            
+                            <div id="position-images" style="display: block;"></div>                            
                         </div>
                         <!-- panel-body -->                        
                     </form>
@@ -115,6 +115,9 @@
 
                                 <div class="new-positin-price-wrapper" style="margin: 0 15px;">
 
+                                    <label for="new-position-name">Name:</label>
+                                    <input id="new-position-name" class="form-control" type="text" name="newPositionName">
+
                                     <label for="newPositionPrice">Price <i class="fa fa-eur" aria-hidden="true"></i> :</label>
                                     <input id="new-position-price" class="form-control" type="text" name="newPositionPrice">
 
@@ -137,33 +140,38 @@
                         <h2>Added Positions</h2>
                     </div>
 
-                    <div class="recently-added-positions panel-body" style="height: 200px; padding: 0 20px 0;">
-                        <div id="addedPositions" class="wrapper" style="display: flex; height: 90%; justify-content: flex-start;">
+                    <div class="recently-added-positions panel-body" style="height: 220px; padding: 0 20px 0;">
+                        <div id="addedPositions" class="wrapper" style="display: flex; justify-content: flex-start;">
 
                             @foreach ($relPositions as $viewId=> $position)
                                 
-                                <div id="added-position-{{ $position->id }}" class="positions-wrapper" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #eee; display: flex; justify-content: space-between;">
-                                    <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
-                                        <img id="added-position-img-{{ $position->id }}" src="{{ asset('storage/' . $position->image) }}" alt="Position Image" style="height: 100%; width: 100%">                            
-                                    </div>  
+                                <div id="added-position-{{ $position->id }}" style="width: 20%; height: 80%; padding: 10px; margin-right: 20px; border: 1px solid #eee; text-align: center;">
 
-                                    <div class="" style="height: 100%; display: flex; flex-direction: column; margin: 0 10px; justify-content: space-around;">
-                                        <!-- <input class="btn btn-primary save" id="new-position-img" type="file" name="newPositionImg" > -->
-                                        <div class="added-position-price-wrapper" style="">
+                                    <div class="positions-wrapper" style="display: flex; justify-content: space-between;">   
+                                        <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
+                                            <img id="added-position-img-{{ $position->id }}" src="{{ asset('storage/' . $position->image) }}" alt="Position Image" style="height: 100%; width: 100%">                            
+                                        </div>  
 
-                                            <label for="newPositionPrice">Price:</label>
-                                            <!-- <input class="form-control" type="text" name="newPositionPrice"> -->
-                                            <p id="added-position-price-{{ $position->id }}">{{ $position->price }}</p>                                   
-                                            <i class="fa fa-eur" aria-hidden="true"></i> 
+                                        <div class="" style="display: flex; flex-direction: column; justify-content: space-around;">
 
+                                            <div class="added-position-price-wrapper" style="margin: 0 20px;">
+
+                                                <label for="newPositionPrice">Price:</label>
+                                                <p id="added-position-price-{{ $position->id }}">{{ $position->price }}</p>                                   
+                                                <i class="fa fa-eur" aria-hidden="true"></i> 
+
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="" style="height: 100%; display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
-                                        <i id="edit-position-${positionId}" class="fa fa-pencil" aria-hidden="true" style="cursor: pointer" onclick="editRecent({{ $position->id }})"></i>
-                                        <i id="delete-position-${positionId}" class="fa fa-times" aria-hidden="true" style="cursor: pointer" onclick="deleteFromRecent({{ $position->id }})"></i>           
+                                        <div class="" style="display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
+                                            <i id="edit-position-${positionId}" class="fa fa-pencil" aria-hidden="true" style="cursor: pointer" onclick="editRecent({{ $position->id }})"></i>
+                                            <i id="delete-position-${positionId}" class="fa fa-times" aria-hidden="true" style="cursor: pointer" onclick="deleteFromRecent({{ $position->id }})"></i>           
+                                        </div>
+                                        <input type="hidden" value="{{ $position->id }}" name="existing-position">
                                     </div>
-                                    <input type="hidden" value="{{ $position->id }}" name="existing-position">
+                                    <div style="margin-top: 10px;">
+                                        <p id="added-position-name-{{ $position->id }}" >{{ $position->name }}</p>
+                                    </div>
                                 </div>
 
                             @endforeach
@@ -236,7 +244,9 @@
 
         function clearForm (){
             $("#new-position-img").val('');
-                $("#new-position-img-view").attr('src', '');
+            $("#new-position-img-view").attr('src', '');
+            $("#new-position-price").val('');
+            $("#new-position-name").val('');
         }
 
         function editRecent(positionId){
@@ -245,6 +255,7 @@
             $("#new-position-header").text('Edit Position ' + positionId);
             $("#new-position-img-view").attr('src', $("#added-position-img-"+positionId).attr('src') );
             $("#new-position-price").val($("#added-position-price-"+positionId).text());
+            $("#new-position-name").val($("#added-position-name-"+positionId).text());
             $("#new-position-img").val('');
         }
 
@@ -343,33 +354,41 @@
                 let patt = new RegExp("^[^0][^a-zA-Z]$");
                 let priceTest = patt.test(str);
 
-                if( $("#new-position-price").val() && priceTest && $("#new-position-img").val() && !updatePosition ) {
-                    positionId++;
-                    var newPosPrice = $("#new-position-price").val();
+                var newPosPrice = $("#new-position-price").val();
+                var newPosName = $("#new-position-name").val();
 
-                    newAdsPositions[positionId] = { position_id: positionId, price: newPosPrice} ;
+                if( newPosPrice && newPosName && priceTest && $("#new-position-img").val() && !updatePosition ) {
+
+                    positionId++;
+                    
+                    newAdsPositions[positionId] = { position_id: positionId, price: newPosPrice, name: newPosName} ;
 
                     $("#addedPositions").append(`
-                        <div id="added-position-${positionId}" class="positions-wrapper" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #eee; display: flex; justify-content: space-between;">
-                            <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
-                                <img id="added-position-img-${positionId}" src="" alt="Position Image" style="height: 100%; width: 100%">                            
-                            </div>  
+                        <div id="added-position-${positionId}" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #eee; text-align: center;">
+                            <div class="positions-wrapper" style="height: 80%; display: flex; justify-content: space-between;">     
+                                <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
+                                    <img id="added-position-img-${positionId}" src="" alt="Position Image" style="height: 100%; width: 100%">                            
+                                </div>  
 
-                            <div class="" style="height: 100%; display: flex; flex-direction: column; justify-content: space-around;">
-                                <!-- <input class="btn btn-primary save" id="new-position-img" type="file" name="newPositionImg" > -->
-                                <div class="added-position-price-wrapper" style="">
+                                <div class="" style="display: flex; flex-direction: column; justify-content: space-around;">
 
-                                    <label for="newPositionPrice">Price:</label>
-                                    <!-- <input class="form-control" type="text" name="newPositionPrice"> -->
-                                    <p id="added-position-price-${positionId}">${newPosPrice}</p>                                   
-                                    <i class="fa fa-eur" aria-hidden="true"></i> 
+                                    <div class="added-position-price-wrapper" style="margin: 0 20px;">
 
+                                        <label for="newPositionPrice">Price:</label>
+
+                                        <p id="added-position-price-${positionId}">${newPosPrice}</p>                                   
+                                        <i class="fa fa-eur" aria-hidden="true"></i> 
+
+                                    </div>
+                                </div>
+
+                                <div class="" style="display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
+                                    <i id="edit-position-${positionId}" class="fa fa-pencil" aria-hidden="true" style="cursor: pointer" onclick="editRecent(${positionId})"></i>
+                                    <i id="delete-position-${positionId}" class="fa fa-times" aria-hidden="true" style="cursor: pointer" onclick="deleteFromRecent(${positionId})"></i>           
                                 </div>
                             </div>
-
-                            <div class="" style="height: 100%; display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
-                                <i id="edit-position-${positionId}" class="fa fa-pencil" aria-hidden="true" style="cursor: pointer" onclick="editRecent(${positionId})"></i>
-                                <i id="delete-position-${positionId}" class="fa fa-times" aria-hidden="true" style="cursor: pointer" onclick="deleteFromRecent(${positionId})"></i>           
+                            <div style="margin-top: 10px;">
+                                <p id="added-position-name-${positionId}" >${newPosName}</p>
                             </div>
                         </div>`
                     );
@@ -386,9 +405,10 @@
 
                     clearForm();
                     
-                }else if($("#new-position-price").val() && priceTest && updatePosition) {
+                }else if( newPosPrice && newPosName && priceTest && updatePosition) {
 
-                    $("#added-position-price-"+updatePositionId).text($("#new-position-price").val());                    
+                    $("#added-position-price-"+updatePositionId).text($("#new-position-price").val());
+                    $("#added-position-name-"+updatePositionId).text($("#new-position-name").val());  
 
                     if( $("#new-position-img").val().length > 0 ){
                         $("#position-" +updatePositionId+ "-img").remove();
@@ -396,7 +416,6 @@
                         forSubmitInput.attr("id", "position-" +updatePositionId+ "-img").attr("name", "position-" +updatePositionId+ "-img");                   
                         $("#position-images").append(forSubmitInput);                        
                     }
-                    
 
                     if( $("#new-position-img").val() ){
                         readURL($("#new-position-img").prop('files'), $("#added-position-img-"+updatePositionId));
@@ -407,6 +426,7 @@
                         if( typeof position !== 'undefined' ){
                             if( position.position_id == updatePositionId ){
                                 position.price = $("#new-position-price").val();
+                                position.name = $("#new-position-name").val();
                             }
                         }
 
@@ -425,24 +445,11 @@
                 $("#new-position-img").val('');
                 $("#new-position-img-view").attr('src', '');
                 $("#new-position-price").val('');
+                $("#new-position-name").val('');
                 $("#new-position-header").text('Add New Position');
                 updatePositionId = '';
                 updatePosition = false;
-            });            
-
-            // $.ajaxSetup({
-            //     headers: {
-            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //     }
-            // });
-
-            // $("#submitNewAds").on("click", function(){
-            //     $.ajax({
-            //         url: 
-            //         method: "POST",
-
-            //     });
-            // });
+            });
 
         });
     </script>

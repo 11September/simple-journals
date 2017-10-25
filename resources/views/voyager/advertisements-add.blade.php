@@ -35,9 +35,6 @@
 
                     <!-- CSRF TOKEN -->
                         {{ csrf_field() }}
-
-                        
-
                         <div class="panel-body">                            
 
                             @if (count($errors) > 0)
@@ -114,6 +111,9 @@
                                 <input class="btn btn-primary save" id="new-position-img" type="file" name="newPositionImg" >
 
                                 <div class="new-positin-price-wrapper" style="">
+                                    
+                                    <label for="new-position-name">Name:</label>
+                                    <input id="new-position-name" class="form-control" type="text" name="newPositionName">
 
                                     <label for="newPositionPrice">Price <i class="fa fa-eur" aria-hidden="true"></i> :</label>
                                     <input id="new-position-price" class="form-control" type="text" name="newPositionPrice">
@@ -202,6 +202,8 @@
         }
 
         function clearForm(){
+            $("#new-position-price").val('');
+            $("#new-position-name").val('');
             $("#new-position-img").val('');
             $("#new-position-img-view").attr('src', '');
         }
@@ -212,6 +214,7 @@
             $("#new-position-header").text('Edit Position ' + positionId);
             $("#new-position-img-view").attr('src', $("#added-position-img-"+positionId).attr('src') );
             $("#new-position-price").val($("#added-position-price-"+positionId).text());
+            $("#new-position-name").val($("#added-position-name-"+positionId).text());
             $("#new-position-img").remove();
             $("#add-new-pos-form").prepend($("#position-"+positionId+"-img").clone()
                 .attr("id", "new-position-img")
@@ -310,35 +313,42 @@
                 let priceTest = patt.test(str);
                 console.log(priceTest);
 
-                if( $("#new-position-price").val() && priceTest && $("#new-position-img").val() && !updatePosition ){
+                var newPosPrice = $("#new-position-price").val();
+                var newPosName = $("#new-position-name").val();
+
+                if( newPosPrice && priceTest && newPosName && $("#new-position-img").val() && !updatePosition ){
 
                     positionId++;
 
-                    var newPosPrice = $("#new-position-price").val();
-
-                    newAdsPositions[positionId] = { position_id: positionId, price: newPosPrice} ;
+                    newAdsPositions[positionId] = { position_id: positionId, price: newPosPrice, name: newPosName};
 
                     $("#addedPositions").append(`
-                        <div id="added-position-${positionId}" class="positions-wrapper" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #eee; display: flex; justify-content: space-between;">
-                            <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
-                                <img id="added-position-img-${positionId}" src="" alt="Position Image" style="height: 100%; width: 100%">
-                            </div>  
+                        <div id="added-position-${positionId}" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #eee; text-align: center;">
+                            <div class="positions-wrapper" style="display: flex; justify-content: space-between;">                            
+                                <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
+                                    <img id="added-position-img-${positionId}" src="" alt="Position Image" style="height: 100%; width: 100%">
+                                </div>  
 
-                            <div class="" style="height: 100%; display: flex; flex-direction: column; justify-content: space-around;">
-                                <div class="added-position-price-wrapper" style="">
+                                <div class="" style="display: flex; flex-direction: column; justify-content: space-around;">
+                                
+                                    <div class="added-position-price-wrapper" style="margin: 0 20px;">
 
-                                    <label for="newPositionPrice">Price:</label>
-                                    <p id="added-position-price-${positionId}">${newPosPrice}</p>
-                                    <i class="fa fa-eur" aria-hidden="true"></i> 
+                                        <label for="newPositionPrice">Price:</label>
+                                        <p id="added-position-price-${positionId}">${newPosPrice}</p>
+                                        <i class="fa fa-eur" aria-hidden="true"></i> 
 
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="" style="height: 100%; display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
-                                <i id="edit-position-${positionId}" class="fa fa-pencil" aria-hidden="true" style="cursor: pointer" onclick="editRecent(${positionId})"></i>
-                                <i id="delete-position-${positionId}" class="fa fa-times" aria-hidden="true" style="cursor: pointer" onclick="deleteFromRecent(${positionId})"></i>           
+                                <div class="" style="display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
+                                    <i id="edit-position-${positionId}" class="fa fa-pencil" aria-hidden="true" style="cursor: pointer" onclick="editRecent(${positionId})"></i>
+                                    <i id="delete-position-${positionId}" class="fa fa-times" aria-hidden="true" style="cursor: pointer" onclick="deleteFromRecent(${positionId})"></i>           
+                                </div>
+                                <div style="display: none;" id="position-${positionId}-img"></div>
                             </div>
-                            <div style="display: none;" id="position-${positionId}-img"></div>
+                            <div style="margin-top: 10px;">
+                                <p id="added-position-name-${positionId}" >${newPosName}</p>
+                            </div>
                         </div>`
                     );
                     $("#position-"+positionId+"-img").append($("#new-position-img").clone()) ;
@@ -351,7 +361,7 @@
 
                     clearForm();
                     
-                }else if($("#new-position-price").val() && priceTest && $("#new-position-img").val() && updatePosition){
+                }else if( newPosPrice && newPosName && priceTest && $("#new-position-img").val() && updatePosition){
 
                     $("#added-position-price-"+updatePositionId).text($("#new-position-price").val());
 
@@ -362,6 +372,7 @@
 
                     readURL($("#new-position-img").prop('files'), $("#added-position-img-"+updatePositionId));
                     newAdsPositions[updatePositionId].price = $("#new-position-price").val();
+                    newAdsPositions[updatePositionId].name = $("#new-position-name").val();
                     updatePositionId = '';
                     updatePosition = false;
                     $("#new-position-header").text('Add New Position');
@@ -375,24 +386,11 @@
                 $("#new-position-img").val('');
                 $("#new-position-img-view").attr('src', '');
                 $("#new-position-price").val('');
+                $("#new-position-name").val('');
                 $("#new-position-header").text('Add New Position');
                 updatePositionId = '';
                 updatePosition = false;
             });            
-
-            // $.ajaxSetup({
-            //     headers: {
-            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //     }
-            // });
-
-            // $("#submitNewAds").on("click", function(){
-            //     $.ajax({
-            //         url: 
-            //         method: "POST",
-
-            //     });
-            // });
 
         });
     </script>
