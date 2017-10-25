@@ -277,8 +277,8 @@
             $("#proceedPayment").on('click', function () {
 
                 if( $("#customerName").val().length == 0 ||
-                    $("#customerPhone").val().length == 0 ||
-                    $("#customerEmail").val().length == 0
+                    $("#customerPhone").val().length < 11 ||
+                    $("#customerEmail").val().length == 0 
                      )
                 {
                     $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
@@ -317,6 +317,7 @@
                         success: function (response) {
 
                             if( typeof response === 'string' ){
+                                $("#couponError").empty();
                                 $("#couponError").append('<p class="alert alert-danger">'+response+'</p>');
                             }
 
