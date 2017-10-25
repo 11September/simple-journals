@@ -59,7 +59,7 @@
                                                 <img class="accept-image" src="{{ asset('/images/accept.png') }}">
                                             </div>
 
-                                            <input class="position-chose" name="position{{ $position->id }}"
+                                            <input id="position-{{ $position->id }}-chose" class="position-chose" name="position{{ $position->id }}"
                                                    type="checkbox" posid="{{ $position->id }}"
                                                    value="{{ $position->price }}">
                                         </div>
@@ -222,34 +222,14 @@
         }
 
         function rewritePositions(positions, percent) {
+            $('.position-img-wrapper').find(".accept-image-wrapper").css('display', 'none');
+            $('.position-img-wrapper').find('input:checkbox').prop("checked", false);
 
             $.each(positions, function (i, position) {
-                console.log(position.id);
+
                 $("#poistion-price-"+position.id).text( position.price );
 
-                // $("#positions-wrapper").append(
-                //     `
-                //     <div class="positions-block" id="block-position-${position.id}">
-
-                //         <div class="position-img-wrapper">
-                //             <img class="media-object" src="{{ asset('storage') }}/${position.image}"
-                //                  alt="Image">
-
-                //             <div class="accept-image-wrapper">
-                //                 <img class="accept-image" src="{{ asset('/images/accept.png') }}" >
-                //             </div>
-
-                //             <input class="position-chose" name="position${position.id}"
-                //                    type="checkbox" posid="${position.id}"
-                //                    value="${position.price}">
-                //         </div>
-                //         <div class="position-text">
-                //             <span class="position-price label label-danger">${position.price}
-                //                     <i class="fa fa-eur" aria-hidden="true"></i> for ${position.name}</span>
-                //         </div>
-                //     </div>
-                //     `
-                // );
+                $("#position-"+position.id+"-chose").val( position.price );
 
             });
 
@@ -262,17 +242,17 @@
             currentPrice = 0;
             for (var key in $(".position-chose")) {
 
-                if ($(".position-chose").hasOwnProperty(key)) {
-                    if ($(".position-chose")[key].checked) {
+                if ( $(".position-chose").hasOwnProperty(key) ) {
+                    if ( $(".position-chose")[key].checked ) {
                         currentPrice += parseFloat($(".position-chose")[key].value);
-                        $("#total_price").text(currentPrice);
+                        $("#total_price").text( Math.round(currentPrice) );
                     }
                 }
             }
 
             if (currentPrice === 0) {
                 currentPrice = sum;
-                $("#total_price").text(currentPrice);
+                $("#total_price").text( Math.round(currentPrice) );
             }
 
         }
