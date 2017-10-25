@@ -12,11 +12,9 @@
                 @if(isset($advertisement->journal->image))
                     <div class="wrapper-item-single-journal">
                         <div class="item-journal">
-                            <a href="{{ action('JournalsController@show', $advertisement->journal->id) }}">
-                                <img src="{{ asset('storage/' . $advertisement->journal->image) }}"
-                                     alt="{{ $advertisement->journal->title }}"
-                                     class="img-fluid">
-                            </a>
+                            <img src="{{ asset('storage/' . $advertisement->journal->image) }}"
+                                 alt="{{ $advertisement->journal->title }}"
+                                 class="img-fluid">
                         </div>
                     </div>
                 @endif
@@ -59,14 +57,16 @@
                                                 <img class="accept-image" src="{{ asset('/images/accept.png') }}">
                                             </div>
 
-                                            <input id="position-{{ $position->id }}-chose" class="position-chose" name="position{{ $position->id }}"
+                                            <input id="position-{{ $position->id }}-chose" class="position-chose"
+                                                   name="position{{ $position->id }}"
                                                    type="checkbox" posid="{{ $position->id }}"
                                                    value="{{ $position->price }}">
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="position-text">
-                                            <span id="poistion-price-{{ $position->id }}">{{ $position->price }} </span> <i class="fa fa-eur" aria-hidden="true"></i>
+                                            <span id="poistion-price-{{ $position->id }}">{{ $position->price }} </span>
+                                            <i class="fa fa-eur" aria-hidden="true"></i>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -79,9 +79,9 @@
 
 
                                     @if(!$loop->last)
-                                    <div class="col-md-12">
-                                        <hr>
-                                    </div>
+                                        <div class="col-md-12">
+                                            <hr>
+                                        </div>
                                     @endif
 
                                     <div class="clearfix"></div>
@@ -229,9 +229,9 @@
 
             $.each(positions, function (i, position) {
 
-                $("#poistion-price-"+position.id).text( position.price );
+                $("#poistion-price-" + position.id).text(position.price);
 
-                $("#position-"+position.id+"-chose").val( position.price );
+                $("#position-" + position.id + "-chose").val(position.price);
 
             });
 
@@ -244,17 +244,17 @@
             currentPrice = 0;
             for (var key in $(".position-chose")) {
 
-                if ( $(".position-chose").hasOwnProperty(key) ) {
-                    if ( $(".position-chose")[key].checked ) {
+                if ($(".position-chose").hasOwnProperty(key)) {
+                    if ($(".position-chose")[key].checked) {
                         currentPrice += parseFloat($(".position-chose")[key].value);
-                        $("#total_price").text( Math.round(currentPrice) );
+                        $("#total_price").text(Math.round(currentPrice));
                     }
                 }
             }
 
             if (currentPrice === 0) {
                 currentPrice = sum;
-                $("#total_price").text( Math.round(currentPrice) );
+                $("#total_price").text(Math.round(currentPrice));
             }
 
         }

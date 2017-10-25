@@ -456,3 +456,7 @@ button:focus {outline:0;}
 .thumb-image{
     width:100%;
 }
+
+.paypal-button-logo{
+    height: 20px;
+}
