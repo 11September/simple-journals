@@ -323,7 +323,7 @@
                     newAdsPositions[positionId] = { position_id: positionId, price: newPosPrice, name: newPosName};
 
                     $("#addedPositions").append(`
-                        <div id="added-position-${positionId}" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #eee; text-align: center;">
+                        <div id="added-position-${positionId}" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #DC1818; text-align: center;">
                             <div class="positions-wrapper" style="display: flex; justify-content: space-between;">                            
                                 <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
                                     <img id="added-position-img-${positionId}" src="" alt="Position Image" style="height: 100%; width: 100%">
