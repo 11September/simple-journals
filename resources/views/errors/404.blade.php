@@ -6,7 +6,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>404</title>
+    <title>Not found!</title>
 
     <style>
 
@@ -15,7 +15,7 @@
             margin: 0;
         }
 
-        .body-404{
+        body {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -24,8 +24,11 @@
             height: 100vh;
             font-size: 80px;
             background: url("{{ asset('errors/404.jpg') }}") no-repeat;
-            background-size: cover;
-            color: black;
+            -moz-background-size: 100%; /* Firefox 3.6+ */
+            -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+            -o-background-size: 100%; /* Opera 9.6+ */
+            /*background-size: 100%; !* Современные браузеры *!*/
+            color: bisque;
             font-weight: bold;
         }
 

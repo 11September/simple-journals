@@ -70,6 +70,8 @@
                                 @endforeach
                             </div>
 
+                            <hr>
+
                             <div class="buy-form col-lg-12">
                                 <div class="coupon-wrapper">
                                     <div class="coupon-input">
@@ -97,13 +99,13 @@
                                                 @endforeach
                                         </div>
                                     @endif
-                                </div>   
-                                
+                                </div>
+
                                 <button id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
                                 <div id="paypal-button-container" style="display: none;"></div>
 
                             </div>
-                        <br>
+
                         <hr>
 
                         <div class="clearfix"></div>
@@ -276,7 +278,7 @@
 
                 if( $("#customerName").val().length == 0 ||
                     $("#customerPhone").val().length == 0 ||
-                    $("#customerEmail").val().length == 0 
+                    $("#customerEmail").val().length == 0
                      )
                 {
                     $("#couponError").append('<p class="alert alert-danger">No Shipping Data Provided</p>');
@@ -299,7 +301,7 @@
                     }
                 }
 
-                if( positions.length > 0 ){                     
+                if( positions.length > 0 ){
 
                     $.ajax({
                         url: '/position-check',
@@ -318,14 +320,14 @@
 
                             if( typeof response === 'object' ){
                                 toPay = response.toPay;
-                                
+
                                 $(".buy-form :input").attr("disabled", true);
-                                
+
                                 $(".position-img-wrapper :input").attr("disabled", true);
 
                                 $("#proceedPayment").css('display', 'none');
                                 $("#paypal-button-container").css('display', 'block');
-                            }                            
+                            }
 
                         }
 
@@ -341,7 +343,7 @@
 
         });//document ready
 
-        paypal.Button.render({            
+        paypal.Button.render({
         env: 'sandbox', // sandbox | production
 
         // PayPal Client IDs - replace with your own
@@ -398,7 +400,7 @@
                     }
                 }
 
-                if( positions.length > 0 ){                     
+                if( positions.length > 0 ){
 
                     $.ajax({
                         url: '/payment-completed',

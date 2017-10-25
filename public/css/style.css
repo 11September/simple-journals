@@ -248,10 +248,23 @@ button:focus {outline:0;}
 }
 
 .buy-form{
+    margin-top: 25px;
     display: flex;
     justify-content: space-around;
     align-items: stretch;
     flex-direction: column;
+}
+
+.buy-form .form-control:first-child{
+    margin-top: 0;
+}
+
+.buy-form .form-control{
+    margin-top: 20px;
+}
+
+#proceedPayment{
+    margin-top: 20px;
 }
 
 .coupon-wrapper{
