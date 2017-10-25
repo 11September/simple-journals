@@ -43,7 +43,6 @@
 
             <div class="content">
                 {!! $page->body !!}
-                {{ iconv_strlen($page->body) }}
             </div>
         </div>
     </div>
