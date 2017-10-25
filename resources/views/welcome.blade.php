@@ -3,9 +3,11 @@
 @section('css')
     @if(count($journals) <= 3)
         <style>
-            .footer{
-                position: absolute;
-                bottom: 0;
+            @media (min-width: 768px) {
+                .footer{
+                    position: absolute;
+                    bottom: 0;
+                }
             }
         </style>
     @endif
@@ -45,8 +47,6 @@
         </div>
 
     </div>
-
-
 
 
 @endsection

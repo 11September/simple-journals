@@ -84,13 +84,12 @@ button:focus {outline:0;}
 }
 
 .wrapper-body {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 30px;
+    padding-bottom: 20px;
 }
 
 .wrapper-item {
-    padding: 5px;
-    margin-top: 20px;
+    padding: 0;
 }
 
 .item img {
@@ -319,7 +318,7 @@ button:focus {outline:0;}
 
 @media (max-width: 600px) {
     .item {
-        margin: 20px 40px;
+        margin: 15px 25px;
     }
 }
 
