@@ -174,7 +174,7 @@
             }, 7000);
         }
 
-        function rewritePositions(positions, percent, _sum) {
+        function rewritePositions(positions, percent) {
             $("#positions-wrapper").empty();
 
             $.each(positions, function (i, position) {
@@ -205,8 +205,7 @@
 
             });
 
-            sum = _sum
-            $("#total_price").text(_sum);
+            $("#total_price").text('0');
             $('#couponSuccess').append('<p class="alert alert-success">You Refunded ' + percent + '%</p>');
 
         }
@@ -267,7 +266,7 @@
                         }
                         if (typeof response === 'object') {
                             couponStatus = true;
-                            rewritePositions(response[0].positions, response[0].percent, response[1]);
+                            rewritePositions(response[0].positions, response[0].percent);
                         }
                     }
                 });
