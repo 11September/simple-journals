@@ -9,7 +9,7 @@
     @if($text < 10000)
         <style>
             .footer{
-                position: absolute;
+                position: fixed;
                 bottom: 0;
             }
         </style>

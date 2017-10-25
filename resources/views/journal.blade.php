@@ -17,7 +17,7 @@
                         </a>
                     </div>
 
-                    <h3 class="heading-journal">About {{ $journal->name }}</h3>
+                    <h3 class="heading-journal"><a href="{{ action('JournalsController@advertisement', $journal->id) }}">CLICK IMAGE TO ORDER</a></h3>
 
                     <div class="content">
                         {!! $journal->description !!}
