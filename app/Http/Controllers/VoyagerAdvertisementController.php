@@ -137,7 +137,7 @@ class VoyagerAdvertisementController extends Controller
         $lastId = $relPositions[count($relPositions) - 1]->id;
         
         foreach ($relPositions as $key => $position) {
-            $newAdsPositions[$position->id] = ['position_id' => $position->id, 'price' => $position->price];
+            $newAdsPositions[$position->id] = ['position_id' => $position->id, 'price' => $position->price, 'name' => $position->name];
             // array_push($newAdsPositions, new class { public $position_id = $position->id; public $price = $position->price; });
         }
 
@@ -169,7 +169,6 @@ class VoyagerAdvertisementController extends Controller
             $newAds = array_filter(json_decode($request->newAds));
             $posToDelete = array_filter(json_decode($request->positionsToDelete));
             $posToDelete = array_combine($posToDelete, $posToDelete);
-
             $advertisement = Advertisement::find($id);
 
             if( $advertisement->journal_id !== (integer)$request->journal_id ){
@@ -206,7 +205,7 @@ class VoyagerAdvertisementController extends Controller
                     
                     $updatePosition->price = $position->price;                
                     $updatePosition->advertisement_id = $advertisement->id;
-                    $updatePosition->name =$position->name;
+                    $updatePosition->name = $position->name;
                     $updatePosition->save();
 
                     if( $positionImage ){
