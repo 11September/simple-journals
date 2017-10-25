@@ -1,14 +1,14 @@
 @extends('layoults.layoult')
 
 @section('css')
-    @if(iconv_strlen($page->body) < 1200)
+    {{--@if(iconv_strlen($page->body) < 1200)--}}
         <style>
             .footer{
-                position: absolute;
+                position: fixed;
                 bottom: 0;
             }
         </style>
-    @endif
+    {{--@endif--}}
 @endsection
 
 @section('title')
@@ -38,7 +38,6 @@
 
             <div class="content">
                 {!! $page->body !!}
-                {!! iconv_strlen($page->body) !!}
             </div>
         </div>
     </div>
