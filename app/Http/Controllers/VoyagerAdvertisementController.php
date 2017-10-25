@@ -209,7 +209,7 @@ class VoyagerAdvertisementController extends Controller
                     $updatePosition->save();
 
                     if( $positionImage ){
-                        $updatePosition->image = 'public/Ads'.$advertisement->id.'Journal'.$request->journal_id.'/Position'.$updatePosition->id.'.'.$positionImage->extension();
+                        $updatePosition->image = 'Ads'.$advertisement->id.'Journal'.$request->journal_id.'/Position'.$updatePosition->id.'.'.$positionImage->extension();
                     }
 
                     $updatePosition->save();
