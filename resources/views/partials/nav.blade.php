@@ -4,7 +4,7 @@
         <div class="menu-wrapper">
 
             <a id="navbar-logo" class="navbar-brand" href="{{ url('/') }}">
-                <img class="logo" src="{{ asset('images/Logo-Cosmo-Press.png') }}" alt="logo">
+                <img class="logo" src="{{ asset('images/Logo.png') }}" alt="logo">
             </a>
 
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
