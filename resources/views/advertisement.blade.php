@@ -350,7 +350,8 @@
                             }
 
                             if (typeof response === 'object') {
-                                toPay = response.toPay;
+
+                                toPay = Math.round(response.toPay);
 
                                 $(".buy-form :input").attr("disabled", true);
 
@@ -370,7 +371,6 @@
                         '</button>No Positions Selected</div>');
                 }
             });
-
 
         });//document ready
 

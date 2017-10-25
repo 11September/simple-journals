@@ -93,8 +93,8 @@ class JournalsController extends Controller
             //return back()->with('error', 'No Shipping Data Provided');
         }
 
-        if( $request->couponStatus === 'true' ){
-            $percent = Advertisement::find( $request->advertisement )->pluck( 'percent' )->first();
+        if( $request->coupon_status === 'true' ){
+            $percent = Advertisement::where( 'journal_id', $request->journal_id )->pluck( 'percent' )->first();
         }
 
         $i = 0;
@@ -103,14 +103,14 @@ class JournalsController extends Controller
 
             $prices[$i] = Position::where([['id', '=', $posId], ['status', '=', 'INSTOCK']])->pluck('price')->first();
             
-            if (isset($percent)) {
+            if ( isset($percent) ) {
                 $prices[$i] = $prices[$i] - $prices[$i] * $percent * 0.01;
-            }
-
-            $toPay = array_sum($prices);
+            }            
 
             $i++;
         }
+
+        $toPay = array_sum($prices);
 
         return response()->json( ['toPay' => $toPay] );//, 'ids' => $ids
         // return view('paypal', compact('toPay', 'redirectTo'));
