@@ -224,8 +224,6 @@
         }
 
         function rewritePositions(positions, percent) {
-            $('.position-img-wrapper').find(".accept-image-wrapper").css('display', 'none');
-            $('.position-img-wrapper').find('input:checkbox').prop("checked", false);
 
             $.each(positions, function (i, position) {
 
@@ -251,7 +249,7 @@
                     }
                 }
             }
-
+            
             if (currentPrice === 0) {
                 currentPrice = sum;
                 $("#total_price").text(Math.round(currentPrice));
@@ -297,6 +295,7 @@
                         if (typeof response === 'object') {
                             couponStatus = true;
                             rewritePositions(response[0].positions, response[0].percent);
+                            selectedPrice();
                         }
                     }
                 });
@@ -304,16 +303,6 @@
             });
 
             $("#proceedPayment").on('click', function () {
-
-                if ($("#customerName").val().length == 0 ||
-                    $("#customerPhone").val().length < 11 ||
-                    $("#customerEmail").val().length == 0
-                ) {
-                    $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-                        '<span aria-hidden="true">&times;</span>' +
-                        '</button>No Shipping Data Provided</div>');
-                    return
-                }
 
                 let customerData = {
                     name: $("#customerName").val(),
@@ -343,13 +332,22 @@
                             journal_id: advertisement.journal_id,
                         },
                         success: function (response) {
-
+                            
                             if (typeof response === 'string') {
                                 $("#couponError").empty();
                                 $("#couponError").append('<p class="alert alert-danger">' + response + '</p>');
                             }
 
                             if (typeof response === 'object') {
+                                console.log(response);
+                                if( ("errors" in response) ){
+                                    $("#couponError").empty();
+
+                                    $.each(response.errors, function (i, error) {
+                                        $("#couponError").append('<p class="alert alert-danger">' + error[0] + '</p>');
+                                    });
+                                    return
+                                }
 
                                 toPay = Math.round(response.toPay);
 

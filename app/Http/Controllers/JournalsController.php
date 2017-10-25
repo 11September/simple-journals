@@ -83,13 +83,13 @@ class JournalsController extends Controller
         $validator = Validator::make($request->customer, 
             [ 
                 "name" => "required", 
-                "phone" => "required|min:11|numeric",
+                "phone" => "required|numeric",
                 "email" => "required|email",
             ]
         );
 
         if ($validator->fails()) {
-            return response()->json( 'No Shipping Data Provided' );
+            return response()->json( ['errors' => $validator->errors()] );
             //return back()->with('error', 'No Shipping Data Provided');
         }
 

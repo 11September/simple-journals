@@ -253,6 +253,10 @@ button:focus {outline:0;}
     width: 100%;
 }
 
+#couponSuccess{
+    margin-top: 15px;
+}
+
 .buy-form{
     margin-top: 25px;
     display: flex;
