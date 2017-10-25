@@ -88,8 +88,8 @@
                             <div class="buy-form col-lg-12">
 
                                 <input type="text" class="form-control" id="customerName" placeholder="First name">
-                                <input type="text" class="form-control" id="customerPhone" placeholder="Phone">
-                                <input type="text" class="form-control" id="customerEmail" placeholder="Email">
+                                <input type="tel" class="form-control" id="customerPhone" placeholder="Phone">
+                                <input type="email" class="form-control" id="customerEmail" placeholder="Email">
 
                                 <div id="couponError">
                                     @if( $errors->any() )
@@ -101,7 +101,7 @@
                                     @endif
                                 </div>
 
-                                <button id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
+                                <button type="submit" id="proceedPayment" class="btn btn-primary">Proceed To Payment</button>
                                 <div id="paypal-button-container" style="display: none;"></div>
 
                             </div>
@@ -281,7 +281,9 @@
                     $("#customerEmail").val().length == 0
                      )
                 {
-                    $("#couponError").append('<p class="alert alert-danger">No Shipping Data Provided</p>');
+                    $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+                        '<span aria-hidden="true">&times;</span>'+
+                        '</button>No Shipping Data Provided</div>');
                     return
                 }
 

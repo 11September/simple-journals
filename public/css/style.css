@@ -255,6 +255,10 @@ button:focus {outline:0;}
     flex-direction: column;
 }
 
+#couponError{
+    margin-top: 20px;
+}
+
 .buy-form .form-control:first-child{
     margin-top: 0;
 }
