@@ -74,6 +74,10 @@ button:focus {outline:0;}
     margin-left: auto !important;
 }
 
+.logo{
+    width: 220px;
+}
+
 #logo-block {
     text-align: center;
     margin-top: 70px;
@@ -257,6 +261,13 @@ button:focus {outline:0;}
 /* page about journal */
 
 /* media */
+@media (max-width: 900px) {
+    .nav-item .nav-link{
+        font-size: 17px;
+    }
+}
+
+
 @media (max-width: 768px) {
     .navbar-nav{
         margin-top: 20px;
