@@ -66,7 +66,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="position-text">
-                                            <p>{{ $position->price }} <i class="fa fa-eur" aria-hidden="true"></i></p>
+                                            <span id="poistion-price-{{ $position->id }}">{{ $position->price }} </span> <i class="fa fa-eur" aria-hidden="true"></i>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -223,39 +223,39 @@
             }, 7000);
         }
 
-        function rewritePositions(positions, percent, _sum) {
-            $("#positions-wrapper").empty();
+        function rewritePositions(positions, percent) {
 
             $.each(positions, function (i, position) {
+                console.log(position.id);
+                $("#poistion-price-"+position.id).text( position.price );
 
-                $("#positions-wrapper").append(
-                    `
-                    <div class="positions-block" id="block-position-${position.id}">
+                // $("#positions-wrapper").append(
+                //     `
+                //     <div class="positions-block" id="block-position-${position.id}">
 
-                        <div class="position-img-wrapper">
-                            <img class="media-object" src="{{ asset('storage') }}/${position.image}"
-                                 alt="Image">
+                //         <div class="position-img-wrapper">
+                //             <img class="media-object" src="{{ asset('storage') }}/${position.image}"
+                //                  alt="Image">
 
-                            <div class="accept-image-wrapper">
-                                <img class="accept-image" src="{{ asset('/images/accept.png') }}" >
-                            </div>
+                //             <div class="accept-image-wrapper">
+                //                 <img class="accept-image" src="{{ asset('/images/accept.png') }}" >
+                //             </div>
 
-                            <input class="position-chose" name="position${position.id}"
-                                   type="checkbox" posid="${position.id}"
-                                   value="${position.price}">
-                        </div>
-                        <div class="position-text">
-                            <span class="position-price label label-danger">${position.price}
-                                    <i class="fa fa-eur" aria-hidden="true"></i> for ${position.name}</span>
-                        </div>
-                    </div>
-                    `
-                );
+                //             <input class="position-chose" name="position${position.id}"
+                //                    type="checkbox" posid="${position.id}"
+                //                    value="${position.price}">
+                //         </div>
+                //         <div class="position-text">
+                //             <span class="position-price label label-danger">${position.price}
+                //                     <i class="fa fa-eur" aria-hidden="true"></i> for ${position.name}</span>
+                //         </div>
+                //     </div>
+                //     `
+                // );
 
             });
 
-            sum = _sum
-            $("#total_price").text(_sum);
+            $("#total_price").text('0');
             $('#couponSuccess').append('<p class="alert alert-success">You Refunded ' + percent + '%</p>');
 
         }
@@ -316,7 +316,7 @@
                         }
                         if (typeof response === 'object') {
                             couponStatus = true;
-                            rewritePositions(response[0].positions, response[0].percent, response[1]);
+                            rewritePositions(response[0].positions, response[0].percent);
                         }
                     }
                 });
