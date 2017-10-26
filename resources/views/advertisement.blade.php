@@ -129,7 +129,9 @@
                             <button type="submit" id="proceedPayment" class="btn btn-primary">Proceed To Payment
                             </button>
                             <div id="paypal-button-container" style="display: none;">
-                                <div class="visa"></div>
+                                <div class="visa">
+                                    <img src="{{ asset('icon_visa.png') }}" alt="visa">
+                                </div>
                             </div>
 
                         </div>
