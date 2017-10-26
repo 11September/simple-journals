@@ -332,6 +332,10 @@ button:focus {outline:0;}
         padding-top: 20px;
     }
 
+    .wrapper-journal{
+        margin: 20px 0 40px 0;
+    }
+
     .navbar-nav{
         margin-top: 20px;
     }
