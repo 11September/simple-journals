@@ -129,9 +129,6 @@
                             <button type="submit" id="proceedPayment" class="btn btn-primary">Proceed To Payment
                             </button>
                             <div id="paypal-button-container" style="display: none;">
-                                <div class="visa">
-                                    <img src="{{ asset('images/icon_visa.png') }}" alt="visa">
-                                </div>
                             </div>
 
                         </div>
@@ -374,7 +371,7 @@
             // - paypal.FUNDING.ELV
 
             funding: {
-                allowed: [ paypal.FUNDING.CARD ],
+                allowed: [ paypal.FUNDING.CARD, paypal.FUNDING.CREDIT ],
                 disallowed: [ ]
             },
 
