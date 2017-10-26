@@ -33,6 +33,10 @@ button:focus {outline:0;}
     width:100%;
 }
 
+.responsive-image{
+    width: 45% !important;
+}
+
 .navbar-toggler{
     position: absolute;
     top: 20px;
@@ -258,8 +262,8 @@ button:focus {outline:0;}
 
 .media-object{
     width: 100%;
-    /*max-width: 165px;*/
-    /*max-height: 230px;*/
+    max-width: 165px;
+    max-height: 230px;
 }
 
 #couponSuccess{
