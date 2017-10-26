@@ -225,14 +225,16 @@ button:focus {outline:0;}
     display: inherit;
 }
 
-/*.position-img-wrapper{*/
-    /*width: 30%;*/
-    /*position: relative;*/
-    /*cursor: pointer;*/
-    /*display: flex;*/
-    /*justify-content: space-between;*/
-    /*align-items: flex-start;*/
-/*}*/
+.position-img-container{
+    text-align: center;
+}
+
+.position-img-wrapper{
+    position: relative;
+    cursor: pointer;
+    max-width: 165px;
+    max-height: 230px;
+}
 
 .position-chose{
     display: none;
@@ -251,6 +253,8 @@ button:focus {outline:0;}
 
 .media-object{
     width: 100%;
+    max-width: 165px;
+    max-height: 230px;
 }
 
 #couponSuccess{

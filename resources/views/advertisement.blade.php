@@ -49,12 +49,14 @@
                             <div class="row">
                                 @foreach($advertisement->positions as $position)
                                     <div class="col-md-4">
-                                        <div class="position-img-wrapper">
-                                            <img class="media-object" src="{{ asset('storage/' . $position->image) }}"
-                                                 alt="Image">
+                                        <div class="position-img-container">
+                                            <div class="position-img-wrapper">
+                                                <img class="media-object" src="{{ asset('storage/' . $position->image) }}"
+                                                     alt="Image">
 
-                                            <div class="accept-image-wrapper">
-                                                <img class="accept-image" src="{{ asset('/images/accept.png') }}">
+                                                <div class="accept-image-wrapper">
+                                                    <img class="accept-image" src="{{ asset('/images/accept.png') }}">
+                                                </div>
                                             </div>
 
                                             <input id="position-{{ $position->id }}-chose" class="position-chose"
@@ -264,7 +266,7 @@
 
             selectedPrice();
 
-            $("#positions-wrapper").on('click', '.position-img-wrapper', function () {
+            $(".position-img-container").on('click', function () {
                 if (!$(this).find('input:checkbox').attr("disabled")) {
                     if ($(this).find('input:checkbox').prop("checked")) {
                         $(this).find(".accept-image-wrapper").css('display', 'none');
