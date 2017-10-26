@@ -339,7 +339,7 @@
                             }
 
                             if (typeof response === 'object') {
-                                console.log(response);
+                                
                                 if( ("errors" in response) ){
                                     $("#couponError").empty();
 
@@ -377,6 +377,26 @@
 
             // PayPal Client IDs - replace with your own
             // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+
+            style: {
+                layout: 'vertical',  // horizontal | vertical
+                size:   'medium',    // medium | large | responsive
+                shape:  'rect',      // pill | rect
+                color:  'gold'       // gold | blue | silver | black
+            },
+
+            // Specify allowed and disallowed funding sources
+            //
+            // Options:
+            // - paypal.FUNDING.CARD
+            // - paypal.FUNDING.CREDIT
+            // - paypal.FUNDING.ELV
+
+            funding: {
+                allowed: [ paypal.FUNDING.CARD ],
+                disallowed: [ ]
+            },
+
             client: {
                 sandbox: 'AZMB-J6m13UNxagLZXBFkiCEYj91thLcQ_e-CxvdwphvuEW9qoqpPiKMBVZp0QsryKF1eoeR6ET7Rhk8',
                 production: '<insert production client id>'
