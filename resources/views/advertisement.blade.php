@@ -43,8 +43,7 @@
 
                     <div class="container">
                         <div class="" id="positions-wrapper"
-                             style="display: flex; align-items: flex-start; flex-direction: column;">
-
+                             style="display: flex; align-items: center; flex-direction: column;">
 
                             <div class="row">
                                 @foreach($advertisement->positions as $position)

@@ -237,8 +237,8 @@ button:focus {outline:0;}
 .position-img-wrapper{
     position: relative;
     cursor: pointer;
-    max-width: 165px;
-    max-height: 230px;
+    /*max-width: 165px;*/
+    /*max-height: 230px;*/
 }
 
 .position-chose{
@@ -258,8 +258,8 @@ button:focus {outline:0;}
 
 .media-object{
     width: 100%;
-    max-width: 165px;
-    max-height: 230px;
+    /*max-width: 165px;*/
+    /*max-height: 230px;*/
 }
 
 #couponSuccess{
@@ -335,6 +335,18 @@ button:focus {outline:0;}
 
     .wrapper-item {
         padding: 0;
+    }
+
+    .position-text{
+        padding: 10% 0 !important;
+    }
+
+    .coupon-wrapper{
+        flex-direction: column;
+    }
+
+    .coupon-input{
+        margin-bottom: 20px;
     }
 }
 
@@ -472,4 +484,14 @@ button:focus {outline:0;}
 
 .paypal-button-logo{
     height: 20px;
+}
+
+.position-text{
+    padding: 50% 0;
+}
+
+.position-text span{
+    color: #DC1818;
+    font-size: 20px;
+    font-weight: bold;
 }
