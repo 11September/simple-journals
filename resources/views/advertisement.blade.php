@@ -6,7 +6,7 @@
 
 @section('content')
 
-    @if(isset($advertisement) &&  $advertisement)
+    @if(isset($advertisement) && $advertisement->positions->count() != 0)
         <div class="wrapper-body">
             <div class="text-center">
                 @if(isset($advertisement->journal->image))

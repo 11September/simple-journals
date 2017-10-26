@@ -38,7 +38,7 @@ class JournalsController extends Controller
         $advertisement = Advertisement::where('journal_id', $id)->with(['positions' => function ($query) {
             $query->where('status', '=', 'INSTOCK');}, 'journal'])->first();
 
-        if (!$advertisement) {
+        if (!$advertisement || $advertisement->positions->count() == 0) {
             $journal = Journal::where('id', $id)->where('status', '=', "PUBLISHED")->first();
         }
 
