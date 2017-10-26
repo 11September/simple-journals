@@ -81,7 +81,7 @@
                             @endforeach                            
                             <input type="hidden" name="newAds" id="newAds">
                             <input type="hidden" name="positionsToDelete" id="positionsToDelete">
-                            <div id="position-images" style="display: block;"></div>                            
+                            <div id="position-images" style="display: none;"></div>                            
                         </div>
                         <!-- panel-body -->                        
                     </form>
@@ -140,12 +140,12 @@
                         <h2>Added Positions</h2>
                     </div>
 
-                    <div class="recently-added-positions panel-body" style="height: 220px; padding: 0 20px 0;">
+                    <div class="recently-added-positions panel-body" style="height: 320px; padding: 0 20px 0;">
                         <div id="addedPositions" class="wrapper" style="display: flex; justify-content: flex-start;">
 
                             @foreach ($relPositions as $viewId=> $position)
                                 
-                                <div id="added-position-{{ $position->id }}" style="width: 20%; height: 80%; padding: 10px; margin-right: 20px; border: 1px solid #eee; text-align: center;">
+                                <div id="added-position-{{ $position->id }}" style="width: 20%; height: 80%; padding: 10px; margin-right: 20px; border: 1px solid black; text-align: center;">
 
                                     <div class="positions-wrapper" style="display: flex; justify-content: space-between;">   
                                         <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
@@ -364,7 +364,7 @@
                     newAdsPositions[positionId] = { position_id: positionId, price: newPosPrice, name: newPosName} ;
 
                     $("#addedPositions").append(`
-                        <div id="added-position-${positionId}" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #eee; text-align: center;">
+                        <div id="added-position-${positionId}" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #DC1818; text-align: center;">
                             <div class="positions-wrapper" style="height: 80%; display: flex; justify-content: space-between;">     
                                 <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
                                     <img id="added-position-img-${positionId}" src="" alt="Position Image" style="height: 100%; width: 100%">                            
