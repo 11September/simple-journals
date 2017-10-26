@@ -12,7 +12,7 @@
                     <div class="item-journal">
                         <a class="item-link" href="{{ action('JournalsController@advertisement', $journal->id) }}">
                             <img src="{{ asset('storage/' . $journal->image) }}"
-                                 class="img-fluid"
+                                 class="img-fluid responsive-image"
                                  alt="{{ $journal->name }}">
                         </a>
                     </div>

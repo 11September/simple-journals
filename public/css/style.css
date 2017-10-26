@@ -33,6 +33,10 @@ button:focus {outline:0;}
     width:100%;
 }
 
+.responsive-image{
+    width: 45% !important;
+}
+
 .navbar-toggler{
     position: absolute;
     top: 20px;
@@ -88,8 +92,13 @@ button:focus {outline:0;}
 }
 
 .wrapper-body {
-    padding-top: 50px;
-    padding-bottom: 50px;
+    padding-top: 40px;
+    /*margin-bottom: 80px;*/
+}
+
+.wrapper-page{
+    padding-top: 40px;
+    margin-bottom: 50px;
 }
 
 .wrapper-item {
@@ -101,7 +110,7 @@ button:focus {outline:0;}
 }
 
 .center-pagination {
-    margin: 70px 0 110px 0;
+    margin: 30px 0 30px 0;
     align-items: center;
     justify-content: center;
     font-size: 22px;
@@ -167,15 +176,15 @@ button:focus {outline:0;}
 }
 
 .wrapper-body-magazines{
-    padding-top: 80px;
+    padding-top: 40px;
 }
 
 .wrapper-journal {
-    margin: 70px 0 100px 0;
+    margin: 40px 0 40px 0;
 }
 
 .wrapper-item-single-journal {
-    padding: 15px 20px 50px 20px;
+    padding: 15px 20px 20px 20px;
     background-color: white;
 }
 
@@ -225,14 +234,16 @@ button:focus {outline:0;}
     display: inherit;
 }
 
-/*.position-img-wrapper{*/
-    /*width: 30%;*/
-    /*position: relative;*/
-    /*cursor: pointer;*/
-    /*display: flex;*/
-    /*justify-content: space-between;*/
-    /*align-items: flex-start;*/
-/*}*/
+.position-img-container{
+    text-align: center;
+}
+
+.position-img-wrapper{
+    position: relative;
+    cursor: pointer;
+    /*max-width: 165px;*/
+    /*max-height: 230px;*/
+}
 
 .position-chose{
     display: none;
@@ -251,6 +262,8 @@ button:focus {outline:0;}
 
 .media-object{
     width: 100%;
+    max-width: 165px;
+    max-height: 230px;
 }
 
 #couponSuccess{
@@ -304,7 +317,7 @@ button:focus {outline:0;}
 }
 
 .accept-image{
-    width: 100%;
+    width: 50%;
     height: 100%;
 }
 
@@ -315,6 +328,18 @@ button:focus {outline:0;}
 }
 
 @media (max-width: 768px) {
+    .wrapper-body-magazines{
+        padding-top: 20px;
+    }
+
+    .wrapper-body{
+        padding-top: 20px;
+    }
+
+    .wrapper-journal{
+        margin: 20px 0 40px 0;
+    }
+
     .navbar-nav{
         margin-top: 20px;
     }
@@ -326,6 +351,18 @@ button:focus {outline:0;}
 
     .wrapper-item {
         padding: 0;
+    }
+
+    .position-text{
+        padding: 10% 0 !important;
+    }
+
+    .coupon-wrapper{
+        flex-direction: column;
+    }
+
+    .coupon-input{
+        margin-bottom: 20px;
     }
 }
 
@@ -463,4 +500,38 @@ button:focus {outline:0;}
 
 .paypal-button-logo{
     height: 20px;
+}
+
+.position-text{
+    padding: 25% 0;
+}
+
+.position-text span{
+    color: #DC1818;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#paypal-button-container{
+    position: relative;
+}
+
+.visa{
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    width: 80px;
+    height: 30px;
+    background-image: url(../images/icon_visa.png) !important;
+}
+
+.xcomponent-outlet{
+    width: 240px !important;
+    height: 40px !important;
+}
+
+.paypal-button .paypal-button-logo, .paypal-button .paypal-button-text{
+    width: 40px !important;
+    height: 30px !important;
+    background-image: url(../images/icon_visa.png) !important;
 }

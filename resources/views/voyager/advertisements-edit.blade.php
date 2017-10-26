@@ -351,7 +351,7 @@
             $("#addNewPosition").on("click", function(){
                 
                 let str = $("#new-position-price").val();
-                let patt = new RegExp("^[^0][^a-zA-Z]$");
+                let patt = new RegExp("^[1-9]+$");
                 let priceTest = patt.test(str);
 
                 var newPosPrice = $("#new-position-price").val();

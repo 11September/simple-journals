@@ -6,7 +6,7 @@
 
 @section('content')
 
-    @if(isset($advertisement) &&  $advertisement)
+    @if(isset($advertisement) && $advertisement->positions->count() != 0)
         <div class="wrapper-body">
             <div class="text-center">
                 @if(isset($advertisement->journal->image))
@@ -14,7 +14,7 @@
                         <div class="item-journal">
                             <img src="{{ asset('storage/' . $advertisement->journal->image) }}"
                                  alt="{{ $advertisement->journal->title }}"
-                                 class="img-fluid">
+                                 class="img-fluid responsive-image">
                         </div>
                     </div>
                 @endif
@@ -43,18 +43,19 @@
 
                     <div class="container">
                         <div class="" id="positions-wrapper"
-                             style="display: flex; align-items: flex-start; flex-direction: column;">
-
+                             style="display: flex; align-items: center; flex-direction: column;">
 
                             <div class="row">
                                 @foreach($advertisement->positions as $position)
                                     <div class="col-md-4">
-                                        <div class="position-img-wrapper">
-                                            <img class="media-object" src="{{ asset('storage/' . $position->image) }}"
-                                                 alt="Image">
+                                        <div class="position-img-container">
+                                            <div class="position-img-wrapper">
+                                                <img class="media-object responsive-image" src="{{ asset('storage/' . $position->image) }}"
+                                                     alt="Image">
 
-                                            <div class="accept-image-wrapper">
-                                                <img class="accept-image" src="{{ asset('/images/accept.png') }}">
+                                                <div class="accept-image-wrapper">
+                                                    <img class="accept-image" src="{{ asset('/images/accept.png') }}">
+                                                </div>
                                             </div>
 
                                             <input id="position-{{ $position->id }}-chose" class="position-chose"
@@ -86,30 +87,6 @@
 
                                     <div class="clearfix"></div>
 
-                                    {{--<div class="positions-block" id="block-position-{{ $position->id }}">--}}
-
-                                    {{--<div class="position-img-wrapper">--}}
-                                    {{--<img class="media-object" src="{{ asset('storage/' . $position->image) }}"--}}
-                                    {{--alt="Image">--}}
-
-                                    {{--<div class="accept-image-wrapper">--}}
-                                    {{--<img class="accept-image" src="{{ asset('/images/accept.png') }}" >--}}
-                                    {{--</div>--}}
-
-                                    {{--<input class="position-chose" name="position{{ $position->id }}"--}}
-                                    {{--type="checkbox" posid="{{ $position->id }}"--}}
-                                    {{--value="{{ $position->price }}">--}}
-                                    {{--</div>--}}
-                                    {{--<div class="position-text">--}}
-                                    {{--<p>{{ $position->price }} <i class="fa fa-eur" aria-hidden="true"></i></p>--}}
-                                    {{--</div>--}}
-
-                                    {{--<div class="position-text">--}}
-                                    {{--<p>--}}
-                                    {{--{{ $position->name }}--}}
-                                    {{--</p>--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
                                 @endforeach
                             </div>
 
@@ -151,7 +128,11 @@
 
                             <button type="submit" id="proceedPayment" class="btn btn-primary">Proceed To Payment
                             </button>
-                            <div id="paypal-button-container" style="display: none;"></div>
+                            <div id="paypal-button-container" style="display: none;">
+                                <div class="visa">
+                                    <img src="{{ asset('images/icon_visa.png') }}" alt="visa">
+                                </div>
+                            </div>
 
                         </div>
 
@@ -187,7 +168,7 @@
                             <a class="item-link"
                                href="{{ action('JournalsController@advertisement', $journal->id) }}">
                                 <img src="{{ asset('storage/' . $journal->image) }}"
-                                     class="img-fluid"
+                                     class="img-fluid responsive-image"
                                      alt="{{ $journal->title }}">
                             </a>
                         </div>
@@ -264,7 +245,7 @@
 
             selectedPrice();
 
-            $("#positions-wrapper").on('click', '.position-img-wrapper', function () {
+            $(".position-img-container").on('click', function () {
                 if (!$(this).find('input:checkbox').attr("disabled")) {
                     if ($(this).find('input:checkbox').prop("checked")) {
                         $(this).find(".accept-image-wrapper").css('display', 'none');

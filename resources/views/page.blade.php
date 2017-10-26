@@ -31,7 +31,7 @@
 
 @section('content')
 
-    <div class="wrapper-body">
+    <div class="wrapper-page">
         <div class="text-center">
             @if($page->image)
                 <div class="image">
