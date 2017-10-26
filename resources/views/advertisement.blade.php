@@ -130,7 +130,7 @@
                             </button>
                             <div id="paypal-button-container" style="display: none;">
                                 <div class="visa">
-                                    <img src="{{ asset('icon_visa.png') }}" alt="visa">
+                                    <img src="{{ asset('images/icon_visa.png') }}" alt="visa">
                                 </div>
                             </div>
 
