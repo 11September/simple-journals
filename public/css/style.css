@@ -180,11 +180,11 @@ button:focus {outline:0;}
 }
 
 .wrapper-journal {
-    margin: 70px 0 100px 0;
+    margin: 40px 0 40px 0;
 }
 
 .wrapper-item-single-journal {
-    padding: 15px 20px 50px 20px;
+    padding: 15px 20px 20px 20px;
     background-color: white;
 }
 
