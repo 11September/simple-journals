@@ -128,7 +128,9 @@
 
                             <button type="submit" id="proceedPayment" class="btn btn-primary">Proceed To Payment
                             </button>
-                            <div id="paypal-button-container" style="display: none;"></div>
+                            <div id="paypal-button-container" style="display: none;">
+                                <div class="visa"></div>
+                            </div>
 
                         </div>
 

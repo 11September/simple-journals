@@ -511,3 +511,24 @@ button:focus {outline:0;}
     font-size: 20px;
     font-weight: bold;
 }
+
+#paypal-button-container{
+    position: relative;
+}
+
+.visa{
+    position: absolute;
+    bottom: 0;
+    margin: 0 auto;
+}
+
+.xcomponent-outlet{
+    width: 240px !important;
+    height: 40px !important;
+}
+
+.paypal-button .paypal-button-logo, .paypal-button .paypal-button-text{
+    width: 40px !important;
+    height: 30px !important;
+    background-image: url(../images/icon_visa.png) !important;
+}
