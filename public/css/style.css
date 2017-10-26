@@ -518,8 +518,11 @@ button:focus {outline:0;}
 
 .visa{
     position: absolute;
-    bottom: 0;
-    margin: 0 auto;
+    bottom: 8px;
+    left: 50%;
+    width: 80px;
+    height: 30px;
+    background-image: url(../images/icon_visa.png) !important;
 }
 
 .xcomponent-outlet{
