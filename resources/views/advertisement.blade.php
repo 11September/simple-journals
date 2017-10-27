@@ -330,7 +330,7 @@
                                     });
                                     return
                                 }
-
+                                $("#couponError").empty();
                                 toPay = Math.round(response.toPay);
 
                                 $(".buy-form :input").attr("disabled", true);
