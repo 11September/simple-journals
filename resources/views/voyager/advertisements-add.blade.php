@@ -100,7 +100,7 @@
                         <h2 id="new-position-header">Add New Position</h2>
                     </div>
 
-                    <div class="recently-added-position panel-body" style="height: 300px; padding-bottom: 30px;">
+                    <div class="recently-added-position panel-body" style="height: 500px; padding-bottom: 30px;">
                         
                         <div class="new-position-img col-lg-4" style="height: 100%; margin: 0 0 20px; border: 1px solid grey;">
                             <img id="new-position-img-view" src="" alt="Position Image" style="height: 100%; width: 100%">                            

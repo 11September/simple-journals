@@ -313,7 +313,9 @@
                             
                             if (typeof response === 'string') {
                                 $("#couponError").empty();
-                                $("#couponError").append('<p class="alert alert-danger">' + response + '</p>');
+                                $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                                    '<span aria-hidden="true">&times;</span>\n' +
+                                    '</button>'+response+'</div>');
                             }
 
                             if (typeof response === 'object') {
@@ -322,7 +324,9 @@
                                     $("#couponError").empty();
 
                                     $.each(response.errors, function (i, error) {
-                                        $("#couponError").append('<p class="alert alert-danger">' + error[0] + '</p>');
+                                        $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                                            '<span aria-hidden="true">&times;</span>\n' +
+                                            '</button>'+error[0]+'</div>');
                                     });
                                     return
                                 }
