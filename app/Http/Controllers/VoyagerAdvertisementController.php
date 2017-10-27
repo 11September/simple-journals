@@ -185,7 +185,7 @@ class VoyagerAdvertisementController extends Controller
             $advertisement->journal_id = $request->journal_id;
             $advertisement->coupon = $request->coupon;
             $advertisement->percent = $request->percent;
-            $advertisement->link = $request->link;
+//            $advertisement->link = $request->link;
             $advertisement->title = $request->title;
             $advertisement->save();
 
@@ -289,7 +289,7 @@ class VoyagerAdvertisementController extends Controller
             $newAdvertisement->journal_id = $request->journal_id;
             $newAdvertisement->coupon = $request->coupon;
             $newAdvertisement->percent = $request->percent;
-            $newAdvertisement->link = $request->link;
+//            $newAdvertisement->link = $request->link;
             $newAdvertisement->title = $request->title;
             $newAdvertisement->save();
             

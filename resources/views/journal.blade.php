@@ -1,7 +1,26 @@
 @extends('layoults.layoult')
 
 @section('css')
+    @php
+        $text = iconv_strlen($journal->name);
+        $text = ( int ) $text;
 
+        $description = iconv_strlen($journal->description);
+        $description = ( int ) $description;
+    @endphp
+
+    @if($description < 400)
+        {{--<style>--}}
+            {{--.footer{--}}
+                {{--position: fixed;--}}
+                {{--bottom: 0;--}}
+            {{--}--}}
+
+            {{--.wrapper-journal{--}}
+                {{--margin: 40px 0 90px 0;--}}
+            {{--}--}}
+        {{--</style>--}}
+    @endif
 @endsection
 
 @section('content')
