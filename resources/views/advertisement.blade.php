@@ -47,7 +47,14 @@
 
                             <div class="row">
                                 @foreach($advertisement->positions as $position)
-                                    <div class="col-md-4">
+
+                                    @if(!$loop->first)
+                                        <div class="col-md-12" id="position-hr-id-{{ $position->id }}">
+                                            <hr>
+                                        </div>
+                                    @endif
+
+                                    <div class="col-md-4" id="position-img-id-{{ $position->id }}">
                                         <div class="position-img-container">
                                             <div class="position-img-wrapper">
                                                 <img class="media-object responsive-image" src="{{ asset('storage/' . $position->image) }}"
@@ -64,13 +71,13 @@
                                                    value="{{ $position->price }}">
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4" id="position-price-id-{{ $position->id }}">
                                         <div class="position-text">
                                             <span id="poistion-price-{{ $position->id }}">{{ $position->price }} </span>
                                             <i class="fa fa-eur" aria-hidden="true"></i>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4" id="position-name-id-{{ $position->id }}">
                                         <div class="position-text">
                                             <p>
                                                 {{ $position->name }}
@@ -78,14 +85,7 @@
                                         </div>
                                     </div>
 
-
-                                    @if(!$loop->last)
-                                        <div class="col-md-12">
-                                            <hr>
-                                        </div>
-                                    @endif
-
-                                    <div class="clearfix"></div>
+                                    <div class="clearfix" id="position-clear-id-{{ $position->id }}"></div>
 
                                 @endforeach
                             </div>
@@ -445,7 +445,17 @@
                             success: function (response) {
 
                                 $.each(response, function (index, value) {
-                                    $("#block-position-" + value).remove();
+                                    $("#position-img-id-" + value).remove();
+                                    $("#position-price-id-" + value).remove();
+                                    $("#position-name-id-" + value).remove();
+                                    $("#position-hr-id-" + value).remove();
+                                    $("#position-clear-id-" + value).remove();
+
+                                    $("#customerName").val('');
+                                    $("#customerEmail").val('');
+                                    $("#customerPhone").val('');
+
+                                    $(".buy-form :input").attr("disabled", false);
                                 });
 
                             }
