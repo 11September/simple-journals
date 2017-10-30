@@ -124,8 +124,8 @@
 
                         <div class="col-lg-2" style="height: 100%; ;display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
                             
-                            <i id="clearAddingPosition" class="fa fa-times fa-3x" style="cursor: pointer;" aria-hidden="true"></i>
-                            <i id="addNewPosition" class="fa fa-check-circle-o fa-3x" style="cursor: pointer;" aria-hidden="true"></i>
+                            <span id="clearAddingPosition" class="icon voyager-trash" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span>
+                            <span class="icon voyager-check" id="addNewPosition" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span>
 
                         </div>
                     </div>
@@ -137,8 +137,8 @@
                         <h2>Recently Added</h2>
                     </div>
 
-                    <div class="recently-added-positions panel-body" style="height: 400px; padding: 0 20px 0;">
-                        <div id="addedPositions" class="wrapper" style="display: flex; height: 90%; justify-content: flex-start;">
+                    <div class="recently-added-positions panel-body" style="height: auto; padding: 0 20px 20px;">
+                        <div id="addedPositions" class="wrapper" style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
                         </div>
                     </div>
                         
@@ -323,31 +323,32 @@
                     newAdsPositions[positionId] = { position_id: positionId, price: newPosPrice, name: newPosName};
 
                     $("#addedPositions").append(`
-                        <div id="added-position-${positionId}" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #DC1818; text-align: center;">
-                            <div class="positions-wrapper" style="display: flex; justify-content: space-between;">                            
+                        <div id="added-position-${positionId}" style="width: 20%; height: 80%; padding: 10px; margin-right: 20px; border: 1px solid #DC1818; text-align: center;">
+                            <div class="positions-wrapper" style="height: 80%; display: flex; flex-direction: column; justify-content: space-between;">                            
                                 <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
                                     <img id="added-position-img-${positionId}" src="" alt="Position Image" style="max-width: 165px; max-height: 230px; height: 100%; width: 100%">
                                 </div>  
+    
+                                <div style="margin-top: 10px;">
+                                    <p id="added-position-name-${positionId}" >${newPosName}</p>
+                                </div>
 
                                 <div class="" style="display: flex; flex-direction: column; justify-content: space-around;">
                                 
                                     <div class="added-position-price-wrapper" style="margin: 0 20px;">
 
                                         <label for="newPositionPrice">Price:</label>
-                                        <p id="added-position-price-${positionId}">${newPosPrice}</p>
+                                        <span id="added-position-price-${positionId}">${newPosPrice}</span>
                                         <i class="fa fa-eur" aria-hidden="true"></i> 
 
                                     </div>
                                 </div>
 
-                                <div class="" style="display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
-                                    <i id="edit-position-${positionId}" class="fa fa-pencil" aria-hidden="true" style="cursor: pointer" onclick="editRecent(${positionId})"></i>
-                                    <i id="delete-position-${positionId}" class="fa fa-times" aria-hidden="true" style="cursor: pointer" onclick="deleteFromRecent(${positionId})"></i>           
+                                <div class="" style="display: flex; align-items: flex-end; justify-content: space-around;">
+                                    <span id="edit-position-${positionId}" class="icon voyager-check" aria-hidden="true" style="cursor: pointer; font-size: 20px;" onclick="editRecent(${positionId})"></span>
+                                    <span id="delete-position-${positionId}" class="icon voyager-x" aria-hidden="true" style="cursor: pointer; font-size: 20px;" onclick="deleteFromRecent(${positionId})"></span>           
                                 </div>
                                 <div style="display: none;" id="position-${positionId}-img"></div>
-                            </div>
-                            <div style="margin-top: 10px;">
-                                <p id="added-position-name-${positionId}" >${newPosName}</p>
                             </div>
                         </div>`
                     );
