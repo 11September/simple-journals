@@ -498,9 +498,9 @@ button:focus {outline:0;}
     width:100%;
 }
 
-.paypal-button-logo{
+/*.paypal-button-logo{
     height: 20px;
-}
+}*/
 
 .position-text{
     padding: 25% 0;
@@ -511,7 +511,7 @@ button:focus {outline:0;}
     font-size: 20px;
     font-weight: bold;
 }
-
+/*
 #paypal-button-container{
     position: relative;
 }
@@ -534,4 +534,4 @@ button:focus {outline:0;}
     width: 40px !important;
     height: 30px !important;
     background-image: url(../images/icon_visa.png) !important;
-}
+}*/

@@ -103,7 +103,7 @@
                     <div class="recently-added-position panel-body" style="height: 300px; padding-bottom: 30px;">
                         
                         <div class="new-position-img col-lg-4" style="height: 100%; margin: 0 0 20px; border: 1px solid grey;">
-                            <img id="new-position-img-view" src="" alt="Position Image" style="height: 100%; width: 100%">                            
+                            <img id="new-position-img-view" src="" alt="Position Image" style="height: 100%; width: 100%;">
                         </div>
                         
                         <div class="col-lg-6" id="add-new-pos-form" style="height: 100%; display: flex; flex-direction: column; justify-content: space-around;">
@@ -137,7 +137,7 @@
                         <h2>Recently Added</h2>
                     </div>
 
-                    <div class="recently-added-positions panel-body" style="height: 200px; padding: 0 20px 0;">
+                    <div class="recently-added-positions panel-body" style="height: 400px; padding: 0 20px 0;">
                         <div id="addedPositions" class="wrapper" style="display: flex; height: 90%; justify-content: flex-start;">
                         </div>
                     </div>
@@ -192,7 +192,7 @@
             if (input && input[0]) {
                 var reader = new FileReader();
 
-                reader.onload = function (e) {                
+                reader.onload = function (e) {
                     img
                         .attr('src', e.target.result);
                 };
@@ -326,7 +326,7 @@
                         <div id="added-position-${positionId}" style="width: 20%; padding: 10px; margin-right: 20px; border: 1px solid #DC1818; text-align: center;">
                             <div class="positions-wrapper" style="display: flex; justify-content: space-between;">                            
                                 <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
-                                    <img id="added-position-img-${positionId}" src="" alt="Position Image" style="height: 100%; width: 100%">
+                                    <img id="added-position-img-${positionId}" src="" alt="Position Image" style="max-width: 165px; max-height: 230px; height: 100%; width: 100%">
                                 </div>  
 
                                 <div class="" style="display: flex; flex-direction: column; justify-content: space-around;">

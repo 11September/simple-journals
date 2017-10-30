@@ -82,7 +82,7 @@ class JournalsController extends Controller
 
         $validator = Validator::make($request->customer, 
             [ 
-                "name" => "required", 
+                "name" => "required|min:4",
                 "phone" => "required|numeric",
                 "email" => "required|email",
             ]

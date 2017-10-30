@@ -129,9 +129,6 @@
                             <button type="submit" id="proceedPayment" class="btn btn-primary">Proceed To Payment
                             </button>
                             <div id="paypal-button-container" style="display: none;">
-                                <div class="visa">
-                                    <img src="{{ asset('images/icon_visa.png') }}" alt="visa">
-                                </div>
                             </div>
 
                         </div>
@@ -316,20 +313,24 @@
                             
                             if (typeof response === 'string') {
                                 $("#couponError").empty();
-                                $("#couponError").append('<p class="alert alert-danger">' + response + '</p>');
+                                $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                                    '<span aria-hidden="true">&times;</span>\n' +
+                                    '</button>'+response+'</div>');
                             }
 
                             if (typeof response === 'object') {
-                                console.log(response);
+                                
                                 if( ("errors" in response) ){
                                     $("#couponError").empty();
 
                                     $.each(response.errors, function (i, error) {
-                                        $("#couponError").append('<p class="alert alert-danger">' + error[0] + '</p>');
+                                        $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                                            '<span aria-hidden="true">&times;</span>\n' +
+                                            '</button>'+error[0]+'</div>');
                                     });
                                     return
                                 }
-
+                                $("#couponError").empty();
                                 toPay = Math.round(response.toPay);
 
                                 $(".buy-form :input").attr("disabled", true);
@@ -358,6 +359,26 @@
 
             // PayPal Client IDs - replace with your own
             // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+
+            style: {
+                layout: 'vertical',  // horizontal | vertical
+                size:   'medium',    // medium | large | responsive
+                shape:  'rect',      // pill | rect
+                color:  'gold'       // gold | blue | silver | black
+            },
+
+            // Specify allowed and disallowed funding sources
+            //
+            // Options:
+            // - paypal.FUNDING.CARD
+            // - paypal.FUNDING.CREDIT
+            // - paypal.FUNDING.ELV
+
+            funding: {
+                allowed: [ paypal.FUNDING.CARD, paypal.FUNDING.CREDIT ],
+                disallowed: [ ]
+            },
+
             client: {
                 sandbox: 'AZMB-J6m13UNxagLZXBFkiCEYj91thLcQ_e-CxvdwphvuEW9qoqpPiKMBVZp0QsryKF1eoeR6ET7Rhk8',
                 production: '<insert production client id>'
