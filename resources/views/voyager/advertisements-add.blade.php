@@ -15,6 +15,27 @@
 @stop
 
 @section('content')
+
+<style>
+    @media (max-width: 600px) {
+        .add-pos-buttons {
+            flex-direction: row !important;
+            margin-top: 10px;
+        }
+        #clearAddingPosition, #addNewPosition{
+            font-size: 30px !important;
+        }
+        .added-postition-block{
+            width: auto !important;
+            margin-bottom: 10px;
+            margin-right: 0px !important;
+        }
+        .added-positions-wrapper{
+            justify-content: center !important;
+        }
+
+    }
+</style>
     
 <script src="https://use.fontawesome.com/cbd5cc9d38.js"></script>
 
@@ -100,13 +121,13 @@
                         <h2 id="new-position-header">Add New Position</h2>
                     </div>
 
-                    <div class="recently-added-position panel-body" style="height: 300px; padding-bottom: 30px;">
+                    <div class="recently-added-position panel-body" style="height: 310px; padding-bottom: 30px;">
                         
-                        <div class="new-position-img col-lg-4" style="height: 100%; margin: 0 0 20px; border: 1px solid grey;">
+                        <div class="new-position-img col-lg-4" style="height: 230px; margin: 0 0 20px; border: 1px solid grey;">
                             <img id="new-position-img-view" src="" alt="Position Image" style="height: 100%; width: 100%;">
                         </div>
                         
-                        <div class="col-lg-6" id="add-new-pos-form" style="height: 100%; display: flex; flex-direction: column; justify-content: space-around;">
+                        <div class="col-lg-6" id="add-new-pos-form" style="height: 230px; display: flex; flex-direction: column; justify-content: space-around;">
                                                         
                                 <input class="btn btn-primary save" id="new-position-img" type="file" name="newPositionImg" >
 
@@ -122,7 +143,7 @@
 
                         </div>
 
-                        <div class="col-lg-2" style="height: 100%; ;display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
+                        <div class="col-lg-2 add-pos-buttons" style="height: 230px; display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
                             
                             <span id="clearAddingPosition" class="icon voyager-trash" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span>
                             <span class="icon voyager-check" id="addNewPosition" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span>
@@ -138,7 +159,7 @@
                     </div>
 
                     <div class="recently-added-positions panel-body" style="height: auto; padding: 0 20px 20px;">
-                        <div id="addedPositions" class="wrapper" style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
+                        <div id="addedPositions" class="wrapper added-positions-wrapper" style="display: flex; flex-wrap: wrap; justify-content: flex-start;">
                         </div>
                     </div>
                         
@@ -323,14 +344,14 @@
                     newAdsPositions[positionId] = { position_id: positionId, price: newPosPrice, name: newPosName};
 
                     $("#addedPositions").append(`
-                        <div id="added-position-${positionId}" style="width: 20%; height: 80%; padding: 10px; margin-right: 20px; border: 1px solid #DC1818; text-align: center;">
+                        <div id="added-position-${positionId}" class="added-postition-block" style="width: 20%; max-width: 100%; height: 80%; padding: 10px; margin-right: 20px; border: 1px solid #DC1818; text-align: center;">
                             <div class="positions-wrapper" style="height: 80%; display: flex; flex-direction: column; justify-content: space-between;">                            
                                 <div class="new-position-img" style="height: 100%; border: 2px dashed #eee; padding: 5px;">
                                     <img id="added-position-img-${positionId}" src="" alt="Position Image" style="max-width: 165px; max-height: 230px; height: 100%; width: 100%">
                                 </div>  
     
                                 <div style="margin-top: 10px;">
-                                    <p id="added-position-name-${positionId}" >${newPosName}</p>
+                                    <p id="added-position-name-${positionId}" style="word-wrap: break-word;" >${newPosName}</p>
                                 </div>
 
                                 <div class="" style="display: flex; flex-direction: column; justify-content: space-around;">
@@ -345,7 +366,7 @@
                                 </div>
 
                                 <div class="" style="display: flex; align-items: flex-end; justify-content: space-around;">
-                                    <span id="edit-position-${positionId}" class="icon voyager-check" aria-hidden="true" style="cursor: pointer; font-size: 20px;" onclick="editRecent(${positionId})"></span>
+                                    <span id="edit-position-${positionId}" class="icon voyager-pen" aria-hidden="true" style="cursor: pointer; font-size: 20px;" onclick="editRecent(${positionId})"></span>
                                     <span id="delete-position-${positionId}" class="icon voyager-x" aria-hidden="true" style="cursor: pointer; font-size: 20px;" onclick="deleteFromRecent(${positionId})"></span>           
                                 </div>
                                 <div style="display: none;" id="position-${positionId}-img"></div>
