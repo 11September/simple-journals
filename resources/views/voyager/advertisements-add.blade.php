@@ -17,6 +17,14 @@
 @section('content')
 
 <style>
+    .add-pos-buttons{
+        padding: 0 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row-reverse;
+    }
+
     @media (max-width: 600px) {
         .add-pos-buttons {
             flex-direction: row !important;
@@ -28,12 +36,23 @@
         .added-postition-block{
             width: auto !important;
             margin-bottom: 10px;
-            margin-right: 0px !important;
+            margin-right: 0 !important;
         }
         .added-positions-wrapper{
             justify-content: center !important;
         }
 
+        .recently-added-position{
+            height: 580px !important;
+        }
+
+        .add-pos-buttons{
+            height:auto !important;
+        }
+
+        .new-position-img{
+            height: 100px !important;
+        }
     }
 </style>
     
@@ -121,7 +140,7 @@
                         <h2 id="new-position-header">Add New Position</h2>
                     </div>
 
-                    <div class="recently-added-position panel-body" style="height: 310px; padding-bottom: 30px;">
+                    <div class="recently-added-position panel-body" style="padding-bottom: 30px;">
                         
                         <div class="new-position-img col-lg-4" style="height: 230px; margin: 0 0 20px; border: 1px solid grey;">
                             <img id="new-position-img-view" src="" alt="Position Image" style="height: 100%; width: 100%;">
@@ -143,7 +162,7 @@
 
                         </div>
 
-                        <div class="col-lg-2 add-pos-buttons" style="height: 230px; display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
+                        <div class="col-lg-2 add-pos-buttons">
                             
                             <span id="clearAddingPosition" class="icon voyager-trash" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span>
                             <span class="icon voyager-check" id="addNewPosition" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span>

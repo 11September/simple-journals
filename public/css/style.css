@@ -34,7 +34,11 @@ button:focus {outline:0;}
 }
 
 .responsive-image{
-    width: 45% !important;
+    width: 100% !important;
+}
+
+.responsive-image-journal{
+    width:50%;
 }
 
 .navbar-toggler{
@@ -262,8 +266,8 @@ button:focus {outline:0;}
 
 .media-object{
     width: 100%;
-    max-width: 165px;
-    max-height: 230px;
+    max-width: 250px;
+    max-height: 340px;
 }
 
 #couponSuccess{
@@ -317,7 +321,7 @@ button:focus {outline:0;}
 }
 
 .accept-image{
-    width: 50%;
+    width: 100%;
     height: 100%;
 }
 

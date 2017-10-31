@@ -14,7 +14,7 @@
                         <div class="item-journal">
                             <img src="{{ asset('storage/' . $advertisement->journal->image) }}"
                                  alt="{{ $advertisement->journal->title }}"
-                                 class="img-fluid responsive-image">
+                                 class="img-fluid responsive-image-journal">
                         </div>
                     </div>
                 @endif
@@ -57,7 +57,7 @@
                                     <div class="col-md-4" id="position-img-id-{{ $position->id }}">
                                         <div class="position-img-container">
                                             <div class="position-img-wrapper">
-                                                <img class="media-object responsive-image" src="{{ asset('storage/' . $position->image) }}"
+                                                <img class="media-object responsive-image-journal" src="{{ asset('storage/' . $position->image) }}"
                                                      alt="Image">
 
                                                 <div class="accept-image-wrapper">
@@ -165,7 +165,7 @@
                             <a class="item-link"
                                href="{{ action('JournalsController@advertisement', $journal->id) }}">
                                 <img src="{{ asset('storage/' . $journal->image) }}"
-                                     class="img-fluid responsive-image"
+                                     class="img-fluid responsive-image-journal"
                                      alt="{{ $journal->title }}">
                             </a>
                         </div>
