@@ -21,6 +21,7 @@
         .add-pos-buttons {
             flex-direction: row !important;
             margin-top: 10px;
+            height: auto !important;
         }
         #clearAddingPosition, #addNewPosition{
             font-size: 30px !important;
@@ -124,7 +125,7 @@
                         <h2 id="new-position-header">Add New Position</h2>
                     </div>
 
-                    <div class="recently-added-position panel-body" style="height: 310px; padding-bottom: 30px;">
+                    <div class="recently-added-position panel-body" style="height: auto; padding-bottom: 30px;">
                         
                         <div class="new-position-img col-lg-4" style="height: 230px; margin: 0 0 20px; border: 1px solid grey;">
                             <img id="new-position-img-view" src="" alt="Position Image" style="height: 100%; width: 100%"">                            

@@ -8,7 +8,17 @@
 
     @if(isset($advertisement) && $advertisement->positions->count() != 0)
         <div class="wrapper-body">
-            <div class="text-center">
+            
+            <div class="text-center" style="position: relative;">
+    
+                <div id="alert-of-paymetn" style="display: none; position: absolute; z-index: 90; top: 87%;
+                left: 25%;" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button id="dismiss-success-payment-success" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                </div>
+
                 @if(isset($advertisement->journal->image))
                     <div class="wrapper-item-single-journal">
                         <div class="item-journal">
@@ -147,6 +157,7 @@
     @if(isset($journal) && $journal)
         <div class="wrapper-journal">
             <div class="noAdvertisements center">
+
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -156,6 +167,7 @@
                         example text is going to run a bit longer so that you can see how spacing within an
                         alert works with this kind of content.</p>
                 </div>
+
             </div>
 
             <div class="text-center">
@@ -258,8 +270,9 @@
             });
 
             $("#submitCoupon").on('click', function () {
-                let coupon = $("#couponBody").val();
 
+                let coupon = $("#couponBody").val();
+               
                 $.ajax({
                     url: '/coupon',
                     type: 'GET',
@@ -272,6 +285,7 @@
                         }
                         if (typeof response === 'object') {
                             couponStatus = true;
+                            $('.coupon-input :input').attr("disabled", true);
                             rewritePositions(response[0].positions, response[0].percent);
                             selectedPrice();
                         }
@@ -407,7 +421,7 @@
 
                 // Make a call to the REST api to execute the payment
                 return actions.payment.execute().then(function () {
-                    window.alert('Payment Complete!');
+                    // window.alert('Payment Complete!');
 
                     $.ajaxSetup({
                         headers: {
@@ -431,7 +445,7 @@
                         }
                     }
 
-                    if (positions.length > 0) {
+                    // if (positions.length > 0) {
 
                         $.ajax({
                             url: '/payment-completed',
@@ -455,17 +469,29 @@
                                     $("#customerEmail").val('');
                                     $("#customerPhone").val('');
 
+                                    $("#total_price").text('0');
+                                    $("#paypal-button-container").css('display', 'none');
+                                    $("#proceedPayment").css('display', 'block');
+
                                     $(".buy-form :input").attr("disabled", false);
+
+                                    $("#couponBody").attr("disabled", true);
+                                    $("#total_price").attr("disabled", true);
+
+                                    $("#alert-of-paymetn").css('display', 'block');
+
+                                    setTimeout(function(){ $("#dismiss-success-payment-success").trigger( "click" ); }, 2100);
+                                    
                                 });
 
                             }
                         });
 
-                    } else {
-                        $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
-                            '<span aria-hidden="true">&times;</span>\n' +
-                            '</button>No Positions Selected</div>');
-                    }
+                    // } else {
+                    //     $("#couponError").append('<div class="alert alert-danger alert-dismissible fade show" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">\n' +
+                    //         '<span aria-hidden="true">&times;</span>\n' +
+                    //         '</button>No Positions Selected</div>');
+                    // }
 
                 });
 
