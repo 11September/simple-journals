@@ -55,7 +55,7 @@
                         <div class="" id="positions-wrapper"
                              style="display: flex; align-items: center; flex-direction: column;">
 
-                            <div class="row">
+                            <div class="row" id="positions-row">
                                 @foreach($advertisement->positions as $position)
 
                                     @if(!$loop->first)
@@ -464,6 +464,10 @@
                                     $("#position-name-id-" + value).remove();
                                     $("#position-hr-id-" + value).remove();
                                     $("#position-clear-id-" + value).remove();
+
+                                    if( $('#positions-row').children().length == 0 ){
+                                        $(".red").remove();
+                                    }
 
                                     $("#customerName").val('');
                                     $("#customerEmail").val('');
