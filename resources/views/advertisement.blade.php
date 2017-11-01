@@ -465,10 +465,6 @@
                                     $("#position-hr-id-" + value).remove();
                                     $("#position-clear-id-" + value).remove();
 
-                                    if( $('#positions-row').children().length == 0 ){
-                                        $(".red").remove();
-                                    }
-
                                     $("#customerName").val('');
                                     $("#customerEmail").val('');
                                     $("#customerPhone").val('');
@@ -486,6 +482,11 @@
 
                                     setTimeout(function(){ $("#dismiss-success-payment-success").trigger( "click" ); }, 2100);
                                     
+                                    if( $('#positions-row').children().length == 0 ){
+                                        $(".red").remove();
+                                        setTimeout(function(){ window.location = '{{ url()->current() }}'; }, 1500);
+                                    }
+
                                 });
 
                             }
