@@ -128,7 +128,7 @@
                     <div class="recently-added-position panel-body" style="height: auto; padding-bottom: 30px;">
                         
                         <div class="new-position-img col-lg-4" style="height: 230px; margin: 0 0 20px; border: 1px solid grey;">
-                            <img id="new-position-img-view" src="" alt="Position Image" style="height: 100%; width: 100%"">                            
+                            <img id="new-position-img-view" src="" alt="Position Image" style="height: 100%; width: 100%">
                         </div>
                         
                         <div class="col-lg-6" id="add-new-pos-form" style="height: 230px; display: flex; flex-direction: column; justify-content: space-around;">
@@ -373,8 +373,7 @@
             //addding new
 
             $("#submitNewAds").on("click", function(e){
-
-                if( newAdsPositions.length > 0 ){                    
+                if( newAdsPositions.length > 0 ){
                     $("#newAds").val(JSON.stringify(newAdsPositions));
                     $("#positionsToDelete").val(JSON.stringify(deletePositions));
                     $("#mainForm").submit();
@@ -382,7 +381,6 @@
                     $(".recently-added").css('border', '1px solid red');
                     toastr.error("Add Positions");
                 }
-                 
             });
             
             var positionId = {!! $lastId !!};

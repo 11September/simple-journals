@@ -131,11 +131,11 @@ class VoyagerAdvertisementController extends Controller
         $advertisement = Advertisement::find($id);
 
         $newAdsPositions = [];
-        
+
         $relPositions = Position::where("advertisement_id", '=', $id)->get();
 
         $lastId = $relPositions[count($relPositions) - 1]->id;
-        
+
         foreach ($relPositions as $key => $position) {
             $newAdsPositions[$position->id] = ['position_id' => $position->id, 'price' => $position->price, 'name' => $position->name];
             // array_push($newAdsPositions, new class { public $position_id = $position->id; public $price = $position->price; });
@@ -153,17 +153,27 @@ class VoyagerAdvertisementController extends Controller
 
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
+        $data = call_user_func([$dataType->model_name, 'findOrFail'], $id);
         // Check permission
-        Voyager::canOrFail('add_' . $dataType->name);
+        $this->authorize('edit', $data);
 
         //Validate fields with ajax
-        
-        $val = $this->validateBread($request->all(), $dataType->addRows);
 
-        if ($val->fails()) {
-            return response()->json(['errors' => $val->messages()]);
+        $messages = [
+            'journal_id.unique' => 'Advertisement with this journal exists. Please select another one!',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            "journal_id" => 'required|unique:advertisements,journal_id,'.$id.',journal_id',
+            "coupon" => "required",
+            "percent" => "required",
+            "title" => "required|min:4",
+        ], $messages);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages()]);
         }
-        
+
         if (!$request->ajax()) {
 
             $newAds = array_filter(json_decode($request->newAds));
@@ -175,13 +185,13 @@ class VoyagerAdvertisementController extends Controller
                 Storage::deleteDirectory('public/Ads'.$advertisement->id.'Journal'.$advertisement->journal_id);
             }
 
-            foreach ($posToDelete as $posId) {             
-                $matchingFiles = preg_grep('/Position'.$posId.'\.*/', Storage::files('public/Ads'.$advertisement->id.'Journal'.$advertisement->journal_id));                
+            foreach ($posToDelete as $posId) {
+                $matchingFiles = preg_grep('/Position'.$posId.'\.*/', Storage::files('public/Ads'.$advertisement->id.'Journal'.$advertisement->journal_id));
                 Storage::delete( $matchingFiles );
-  
-                Position::where( [ ['id', '=', $posId] , ['advertisement_id', '=', $advertisement->id] ] )->delete();                
+
+                Position::where( [ ['id', '=', $posId] , ['advertisement_id', '=', $advertisement->id] ] )->delete();
             }
-            
+
             $advertisement->journal_id = $request->journal_id;
             $advertisement->coupon = $request->coupon;
             $advertisement->percent = $request->percent;
@@ -194,16 +204,16 @@ class VoyagerAdvertisementController extends Controller
             foreach ($positions as $positionIndex => $position) {
                 if( !array_key_exists( $position->position_id, $posToDelete )){
                     $positionImage = $request->file('position-'.$position->position_id.'-img') ? $request->file('position-'.$position->position_id.'-img') : false ;
-                                            
-                    $updatePosition = Position::where( [ ["advertisement_id", "=", $id], 
-                                                      ["id", "=", $position->position_id] 
+
+                    $updatePosition = Position::where( [ ["advertisement_id", "=", $id],
+                                                      ["id", "=", $position->position_id]
                                                     ])->first();
 
                     if ( !$updatePosition ){
                         $updatePosition = new Position();
                     }
-                    
-                    $updatePosition->price = $position->price;                
+
+                    $updatePosition->price = $position->price;
                     $updatePosition->advertisement_id = $advertisement->id;
                     $updatePosition->name = $position->name;
                     $updatePosition->save();
@@ -266,25 +276,42 @@ class VoyagerAdvertisementController extends Controller
     }
 
     public function store(Request $request)
-    {            
-        
+    {
+
         $slug = $this->getSlug($request);
-        
+
         $dataType = Voyager::model('DataType')->where('slug', '=', $slug)->first();
 
         // Check permission
         $this->authorize('edit', app($dataType->model_name));
 
         // Validate fields with ajax
-        $val = $this->validateBread($request->all(), $dataType->addRows);
 
-        if ($val->fails()) {
-            return response()->json(['errors' => $val->messages()]);
+        $messages = [
+            'journal_id.unique' => 'Advertisement with this journal exists. Please select another one!',
+        ];
+
+        $validator = Validator::make($request->all(), [
+            "journal_id" => "required|unique:advertisements,journal_id",
+            "coupon" => "",
+            "percent" => "",
+            "title" => "required|min:4",
+        ], $messages);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->messages()]);
         }
+
+
+//        $val = $this->validateBread($request->all(), $dataType->addRows);
+//
+//        if ($val->fails()) {
+//            return response()->json(['errors' => $val->messages()]);
+//        }
 
         if (!$request->ajax()) {
             $newAds = array_filter(json_decode($request->newAds));
-            
+
             $newAdvertisement = new Advertisement();
             $newAdvertisement->journal_id = $request->journal_id;
             $newAdvertisement->coupon = $request->coupon;
@@ -292,21 +319,21 @@ class VoyagerAdvertisementController extends Controller
 //            $newAdvertisement->link = $request->link;
             $newAdvertisement->title = $request->title;
             $newAdvertisement->save();
-            
+
             $positions = $newAds;
 
             foreach ($positions as $id => $position) {
                 $positionImage = $request->file('position-'.$position->position_id.'-img');
 
                 $newPosition = new Position();
-                $newPosition->price = $position->price;                
+                $newPosition->price = $position->price;
                 $newPosition->advertisement_id = $newAdvertisement->id;
                 $newPosition->name = $position->name;
                 $newPosition->save();
-                
+
                 $newPosition->image = 'Ads'.$newAdvertisement->id.'Journal'.$request->journal_id.'/Position'.$newPosition->id.'.'.$positionImage->extension();
                 $newPosition->save();
-                
+
                 $positionImage->storeAs(
                     'public/Ads'.$newAdvertisement->id.'Journal'.$request->journal_id, 'Position'.$newPosition->id.'.'.$positionImage->extension()
                 );
