@@ -146,8 +146,14 @@
 
                         <div class="col-lg-2 add-pos-buttons" style="height: 230px; display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
                             
-                            <span id="clearAddingPosition" class="icon voyager-trash" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span>
-                            <span class="icon voyager-check" id="addNewPosition" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span>
+                            <!-- <span id="clearAddingPosition" class="icon voyager-trash" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span> -->
+                            <a id="clearAddingPosition" title="Delete" class="btn btn-sm btn-danger delete">
+                                <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm"></span>
+                            </a>
+                            <!-- <span class="icon voyager-check" id="addNewPosition" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span> -->
+                            <a id="addNewPosition" title="Edit" class="btn btn-sm btn-primary edit">
+                                <i class="voyager-check"></i> <span class="hidden-xs hidden-sm"></span>
+                            </a>
 
                         </div>
                     </div>
@@ -333,7 +339,6 @@
                 let str = $("#new-position-price").val();
                 let patt = new RegExp("^[1-9][0-9]*$");
                 let priceTest = patt.test(str);
-                console.log(priceTest);
 
                 var newPosPrice = $("#new-position-price").val();
                 var newPosName = $("#new-position-name").val();
@@ -367,8 +372,14 @@
                                 </div>
 
                                 <div class="" style="display: flex; align-items: flex-end; justify-content: space-around;">
-                                    <span id="edit-position-${positionId}" class="icon voyager-pen" aria-hidden="true" style="cursor: pointer; font-size: 20px;" onclick="editRecent(${positionId})"></span>
-                                    <span id="delete-position-${positionId}" class="icon voyager-x" aria-hidden="true" style="cursor: pointer; font-size: 20px;" onclick="deleteFromRecent(${positionId})"></span>           
+                                    
+                                    <a id="edit-position-${positionId}" title="Delete" onclick="editRecent(${positionId})" class="btn btn-sm btn-primary edit">
+                                        <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm"></span>
+                                    </a>
+                                    <a id="delete-position-${positionId}" title="Edit" onclick="deleteFromRecent(${positionId})" class="btn btn-sm btn-danger delete">
+                                        <i class="voyager-x"></i> <span class="hidden-xs hidden-sm"></span>
+                                    </a>
+                                  
                                 </div>
                                 <div style="display: none;" id="position-${positionId}-img"></div>
                             </div>
@@ -387,6 +398,7 @@
                 }else if( newPosPrice && newPosName && priceTest && $("#new-position-img").val() && updatePosition){
 
                     $("#added-position-price-"+updatePositionId).text($("#new-position-price").val());
+                    $("#added-position-name-"+updatePositionId).text($("new-position-name").val());
 
                     $("#position-" +updatePositionId+ "-img").remove();
                     let forSubmitInput = $("#new-position-img").clone();

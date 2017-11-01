@@ -149,8 +149,15 @@
 
                         <div class="col-lg-2 add-pos-buttons" style="height: 230px; display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
                             
-                            <span id="clearAddingPosition" class="icon voyager-trash" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span>
-                            <span class="icon voyager-check" id="addNewPosition" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span>
+                            <!-- <span id="clearAddingPosition" class="icon voyager-trash" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span> -->
+                            <!-- <span class="icon voyager-check" id="addNewPosition" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span> -->
+
+                            <a id="clearAddingPosition" title="Delete" class="btn btn-sm btn-danger delete">
+                                <i class="voyager-trash"></i> <span class="hidden-xs hidden-sm"></span>
+                            </a>
+                            <a id="addNewPosition" title="Edit" class="btn btn-sm btn-primary edit">
+                                <i class="voyager-check"></i> <span class="hidden-xs hidden-sm"></span>
+                            </a>
 
                         </div>
                     </div>
@@ -190,9 +197,14 @@
                                         </div>
 
                                         <div class="" style="display: flex; align-items: flex-end; justify-content: space-around;">
+                                            
+                                            <a id="edit-position-${positionId}" title="Delete" onclick="editRecent({{ $position->id }})" class="btn btn-sm btn-primary edit">
+                                                <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm"></span>
+                                            </a>
+                                            <a id="delete-position-${positionId}" title="Edit" onclick="deleteFromRecent({{ $position->id }})" class="btn btn-sm btn-danger delete">
+                                                <i class="voyager-x"></i> <span class="hidden-xs hidden-sm"></span>
+                                            </a>
 
-                                            <span class="icon voyager-pen" id="edit-position-${positionId}" aria-hidden="true" style="cursor: pointer; font-size: 20px;" onclick="editRecent({{ $position->id }})"></span>
-                                            <span id="delete-position-${positionId}" class="icon voyager-x" aria-hidden="true" style="cursor: pointer; font-size: 20px;" onclick="deleteFromRecent({{ $position->id }})"></span>           
                                         </div>
                                         <input type="hidden" value="{{ $position->id }}" name="existing-position">
                                     </div>
@@ -413,8 +425,14 @@
                                 </div>
 
                                 <div class="" style="display: flex; align-items: flex-end; justify-content: space-around;">
-                                    <span id="edit-position-${positionId}" class="icon voyager-pen" style="cursor: pointer; font-size: 20px;" onclick="editRecent(${positionId})"></span>
-                                    <span id="delete-position-${positionId}" class="icon voyager-x" aria-hidden="true" style="cursor: pointer; font-size: 20px;" onclick="deleteFromRecent(${positionId})"></span>           
+                                
+                                    <a id="edit-position-${positionId}" title="Delete" onclick="editRecent(${positionId})" class="btn btn-sm btn-primary edit">
+                                        <i class="voyager-edit"></i> <span class="hidden-xs hidden-sm"></span>
+                                    </a>
+                                    <a id="delete-position-${positionId}" title="Edit" onclick="deleteFromRecent(${positionId})" class="btn btn-sm btn-danger delete">
+                                        <i class="voyager-x"></i> <span class="hidden-xs hidden-sm"></span>
+                                    </a>  
+
                                 </div>
                             </div>
                         </div>`
