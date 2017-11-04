@@ -144,7 +144,7 @@
 
                         </div>
 
-                        <div class="col-lg-2 add-pos-buttons" style="height: 230px; display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
+                        <div class="col-lg-2 add-pos-buttons" style="height: 230px; display: flex; align-items: center; justify-content: space-around;">
                             
                             <!-- <span id="clearAddingPosition" class="icon voyager-trash" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span> -->
                             <a id="clearAddingPosition" title="Delete" class="btn btn-sm btn-danger delete">
@@ -310,6 +310,8 @@
                 $('#confirm_delete_modal').modal('hide');
             });
             $('[data-toggle="tooltip"]').tooltip();
+
+
 
             if($("#new-position-img").prop('files')){
                 readURL($("#new-position-img").prop('files'), $("#new-position-img-view"));

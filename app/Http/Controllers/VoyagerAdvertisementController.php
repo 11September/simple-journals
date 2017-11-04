@@ -164,9 +164,9 @@ class VoyagerAdvertisementController extends Controller
         ];
 
         $validator = Validator::make($request->all(), [
-            "journal_id" => 'required|unique:advertisements,journal_id,'.$id.',journal_id',
-            "coupon" => "required",
-            "percent" => "required",
+            //"journal_id" => 'required|unique:advertisements,journal_id,'.$id.',journal_id',
+            "coupon" => "",
+            "percent" => "",
             "title" => "required|min:4",
         ], $messages);
 
@@ -301,13 +301,6 @@ class VoyagerAdvertisementController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->messages()]);
         }
-
-
-//        $val = $this->validateBread($request->all(), $dataType->addRows);
-//
-//        if ($val->fails()) {
-//            return response()->json(['errors' => $val->messages()]);
-//        }
 
         if (!$request->ajax()) {
             $newAds = array_filter(json_decode($request->newAds));

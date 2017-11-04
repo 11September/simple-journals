@@ -57,7 +57,6 @@
 
                     <!-- CSRF TOKEN -->
                         {{ csrf_field() }}
-                    
                         <div class="panel-body">
 
                             @if (count($errors) > 0)
@@ -147,7 +146,7 @@
 
                         </div>
 
-                        <div class="col-lg-2 add-pos-buttons" style="height: 230px; display: flex; align-items: flex-end; flex-direction: column; justify-content: space-around;">
+                        <div class="col-lg-2 add-pos-buttons" style="height: 230px; display: flex; align-items: center; justify-content: space-around;">
                             
                             <!-- <span id="clearAddingPosition" class="icon voyager-trash" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span> -->
                             <!-- <span class="icon voyager-check" id="addNewPosition" style="cursor: pointer; font-size: 40px;" aria-hidden="true"></span> -->
@@ -276,8 +275,6 @@
                     img
                         .attr('src', e.target.result);
                 };
-
-                
             }
         }
 
@@ -416,8 +413,8 @@
                                     <div class="added-position-price-wrapper" style="margin: 0 20px;">
 
                                         <label for="newPositionPrice">Price:</label>
-                                        <span id="added-position-price-${positionId}">${newPosPrice}</span>                                   
-                                        <i class="fa fa-eur" aria-hidden="true"></i> 
+                                        <span id="added-position-price-${positionId}">${newPosPrice}</span>
+                                        <i class="fa fa-eur" aria-hidden="true"></i>
 
                                     </div>
                                 </div>
