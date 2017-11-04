@@ -25,13 +25,13 @@
             }
 
             #clearAddingPosition, #addNewPosition {
-                font-size: 30px !important;
+                font-size: 18px !important;
             }
 
             .added-postition-block {
                 width: auto !important;
                 margin-bottom: 10px;
-                margin-right: 0px !important;
+                margin-right: 0 !important;
             }
 
             .added-positions-wrapper {

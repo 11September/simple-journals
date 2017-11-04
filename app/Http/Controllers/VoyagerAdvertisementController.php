@@ -48,7 +48,7 @@ class VoyagerAdvertisementController extends Controller
 
                 if (isset($options->validation->messages)) {
                     foreach ($options->validation->messages as $key => $msg) {
-                        $messages[$row->field.'.'.$key] = $msg;
+                        $messages[$row->field . '.' . $key] = $msg;
                     }
                 }
             }
@@ -118,8 +118,13 @@ class VoyagerAdvertisementController extends Controller
 
         // $dataTypeContent = Object::where('id', $id)->with('category', 'region', 'documents', 'customer', 'contractor', 'city')->first();
 
-        $dataTypeContent = Advertisement::where('id', $id)->with('journal', 'positions')->first();
-
+        $dataTypeContent = Advertisement::where('id', $id)->with(array
+            ('positions' => function ($query) {
+                    $query->where('status', '=', 'INSTOCK');
+                },
+            'journal'
+                )
+        )->first();
 
         $view = 'voyager.advertisements-edit';
 
@@ -132,7 +137,7 @@ class VoyagerAdvertisementController extends Controller
 
         $newAdsPositions = [];
 
-        $relPositions = Position::where("advertisement_id", '=', $id)->get();
+        $relPositions = Position::where("advertisement_id", '=', $id)->where('status', '=', 'INSTOCK')->get();
 
         $lastId = $relPositions[count($relPositions) - 1]->id;
 
@@ -182,15 +187,15 @@ class VoyagerAdvertisementController extends Controller
             $posToDelete = array_combine($posToDelete, $posToDelete);
             $advertisement = Advertisement::find($id);
 
-            if( $advertisement->journal_id !== (integer)$request->journal_id ){
-                Storage::deleteDirectory('public/Ads'.$advertisement->id.'Journal'.$advertisement->journal_id);
+            if ($advertisement->journal_id !== (integer)$request->journal_id) {
+                Storage::deleteDirectory('public/Ads' . $advertisement->id . 'Journal' . $advertisement->journal_id);
             }
 
             foreach ($posToDelete as $posId) {
-                $matchingFiles = preg_grep('/Position'.$posId.'\.*/', Storage::files('public/Ads'.$advertisement->id.'Journal'.$advertisement->journal_id));
-                Storage::delete( $matchingFiles );
+                $matchingFiles = preg_grep('/Position' . $posId . '\.*/', Storage::files('public/Ads' . $advertisement->id . 'Journal' . $advertisement->journal_id));
+                Storage::delete($matchingFiles);
 
-                Position::where( [ ['id', '=', $posId] , ['advertisement_id', '=', $advertisement->id] ] )->delete();
+                Position::where([['id', '=', $posId], ['advertisement_id', '=', $advertisement->id]])->delete();
             }
 
             $advertisement->journal_id = $request->journal_id;
@@ -203,14 +208,14 @@ class VoyagerAdvertisementController extends Controller
             $positions = $newAds;
 
             foreach ($positions as $positionIndex => $position) {
-                if( !array_key_exists( $position->position_id, $posToDelete )){
-                    $positionImage = $request->file('position-'.$position->position_id.'-img') ? $request->file('position-'.$position->position_id.'-img') : false ;
+                if (!array_key_exists($position->position_id, $posToDelete)) {
+                    $positionImage = $request->file('position-' . $position->position_id . '-img') ? $request->file('position-' . $position->position_id . '-img') : false;
 
-                    $updatePosition = Position::where( [ ["advertisement_id", "=", $id],
-                                                      ["id", "=", $position->position_id]
-                                                    ])->first();
+                    $updatePosition = Position::where([["advertisement_id", "=", $id],
+                        ["id", "=", $position->position_id]
+                    ])->first();
 
-                    if ( !$updatePosition ){
+                    if (!$updatePosition) {
                         $updatePosition = new Position();
                     }
 
@@ -219,15 +224,15 @@ class VoyagerAdvertisementController extends Controller
                     $updatePosition->name = $position->name;
                     $updatePosition->save();
 
-                    if( $positionImage ){
-                        $updatePosition->image = 'Ads'.$advertisement->id.'Journal'.$request->journal_id.'/Position'.$updatePosition->id.'.'.$positionImage->extension();
+                    if ($positionImage) {
+                        $updatePosition->image = 'Ads' . $advertisement->id . 'Journal' . $request->journal_id . '/Position' . $updatePosition->id . '.' . $positionImage->extension();
                     }
 
                     $updatePosition->save();
 
-                    if( $positionImage ){
+                    if ($positionImage) {
                         $positionImage->storeAs(
-                            'public/Ads'.$advertisement->id.'Journal'.$request->journal_id, 'Position'.$updatePosition->id.'.'.$positionImage->extension()
+                            'public/Ads' . $advertisement->id . 'Journal' . $request->journal_id, 'Position' . $updatePosition->id . '.' . $positionImage->extension()
                         );
                     }
                 }
@@ -317,7 +322,7 @@ class VoyagerAdvertisementController extends Controller
             $positions = $newAds;
 
             foreach ($positions as $id => $position) {
-                $positionImage = $request->file('position-'.$position->position_id.'-img');
+                $positionImage = $request->file('position-' . $position->position_id . '-img');
 
                 $newPosition = new Position();
                 $newPosition->price = $position->price;
@@ -325,17 +330,17 @@ class VoyagerAdvertisementController extends Controller
                 $newPosition->name = $position->name;
                 $newPosition->save();
 
-                $newPosition->image = 'Ads'.$newAdvertisement->id.'Journal'.$request->journal_id.'/Position'.$newPosition->id.'.'.$positionImage->extension();
+                $newPosition->image = 'Ads' . $newAdvertisement->id . 'Journal' . $request->journal_id . '/Position' . $newPosition->id . '.' . $positionImage->extension();
                 $newPosition->save();
 
                 $positionImage->storeAs(
-                    'public/Ads'.$newAdvertisement->id.'Journal'.$request->journal_id, 'Position'.$newPosition->id.'.'.$positionImage->extension()
+                    'public/Ads' . $newAdvertisement->id . 'Journal' . $request->journal_id, 'Position' . $newPosition->id . '.' . $positionImage->extension()
                 );
             }
             return redirect()
                 ->route("voyager.{$dataType->slug}.index")
                 ->with([
-                    'message'    => __('voyager.generic.successfully_added_new')." {$dataType->display_name_singular}",
+                    'message' => __('voyager.generic.successfully_added_new') . " {$dataType->display_name_singular}",
                     'alert-type' => 'success',
                 ]);
         }
