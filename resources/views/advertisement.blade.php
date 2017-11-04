@@ -247,11 +247,11 @@
 
         }
 
+        $('.position-img-container').find(".accept-image-wrapper").css('display', 'none');
+        $('.position-img-container').find('input:checkbox').prop("checked", false);
+
         $('document').ready(function () {
-
-            $('.position-img-wrapper').find(".accept-image-wrapper").css('display', 'none');
-            $('.position-img-wrapper').find('input:checkbox').prop("checked", false);
-
+            
             selectedPrice();
 
             $(".position-img-container").on('click', function () {

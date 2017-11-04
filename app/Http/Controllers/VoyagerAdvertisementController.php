@@ -171,7 +171,8 @@ class VoyagerAdvertisementController extends Controller
         ], $messages);
 
         if ($validator->fails()) {
-            return response()->json(['errors' => $validator->messages()]);
+            return back()->with(['errors' => $validator->messages()]);
+            //return response()->json(['errors' => $validator->messages()]);
         }
 
         if (!$request->ajax()) {

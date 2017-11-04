@@ -120,11 +120,13 @@ class JournalsController extends Controller
     {
 
         $positionIds = array_filter( $request->positions );
+        $positionNames = '';
 
         foreach ($positionIds as $posId) {
-            $soldPosition = Position::where([['id', '=', $posId], ['status', '=', 'INSTOCK']])->first();
+            $soldPosition = Position::where( [ ['id', '=', $posId], ['status', '=', 'INSTOCK'] ] )->first();
             $soldPosition->status = 'SOLD';
             $soldPosition->save();
+            $positionNames .= $soldPosition->name . ', ';
         }
 
         $sale = new Sale();
@@ -134,6 +136,7 @@ class JournalsController extends Controller
         $sale->phone = $request->customer['phone'];
         $sale->total_price = $request->toPay;
         $sale->purchase_time = date('m/d/Y h:i:s a');
+        $sale->positions = $positionNames;
         $sale->save();
 
         return response()->json( $positionIds );
