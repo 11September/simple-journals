@@ -126,7 +126,6 @@ class VoyagerAdvertisementController extends Controller
                 )
         )->first();
 
-
         $view = 'voyager.advertisements-edit';
 
         if (view()->exists("voyager::$slug.edit-add")) {
@@ -138,7 +137,7 @@ class VoyagerAdvertisementController extends Controller
 
         $newAdsPositions = [];
 
-        $relPositions = Position::where("advertisement_id", '=', $id)->get();
+        $relPositions = Position::where("advertisement_id", '=', $id)->where('status', '=', 'INSTOCK')->get();
 
         $lastId = $relPositions[count($relPositions) - 1]->id;
 
