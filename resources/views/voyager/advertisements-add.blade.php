@@ -24,7 +24,7 @@
             height: auto !important;
         }
         #clearAddingPosition, #addNewPosition{
-            font-size: 30px !important;
+            font-size: 18px !important;
         }
         .added-postition-block{
             width: auto !important;

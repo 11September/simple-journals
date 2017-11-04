@@ -261,9 +261,9 @@ button:focus {outline:0;}
 }
 
 .media-object{
-    width: 100%;
-    max-width: 165px;
-    max-height: 230px;
+    /*width: 100%;*/
+    /*max-width: 165px;*/
+    /*max-height: 230px;*/
 }
 
 #couponSuccess{
