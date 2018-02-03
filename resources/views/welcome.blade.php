@@ -4,7 +4,7 @@
     @if(count($journals) <= 3)
         <style>
             @media (min-width: 768px) {
-                .footer{
+                .footer {
                     position: absolute;
                     bottom: 0;
                 }
@@ -24,10 +24,19 @@
                     <div class="wrapper-item">
                         <div class="item effect-picture">
                             <div class="preview bw">
-                                <a href="{{ action('JournalsController@show', $journal->id) }}">
-                                    <img class="preview img-fluid" src="{{ asset('storage/' . $journal->image) }}"
-                                         alt="{{ $journal->name }}">
-                                </a>
+
+                                @if($journal->hyperlink)
+                                    <a href="$journal->hyperlink">
+                                        <img class="preview img-fluid" src="{{ asset('storage/' . $journal->image) }}"
+                                             alt="{{ $journal->name }}">
+                                    </a>
+                                @else
+                                    <a href="{{ action('JournalsController@show', $journal->id) }}">
+                                        <img class="preview img-fluid" src="{{ asset('storage/' . $journal->image) }}"
+                                             alt="{{ $journal->name }}">
+                                    </a>
+                                @endif
+
                             </div>
                         </div>
 
