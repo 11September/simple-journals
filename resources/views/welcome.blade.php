@@ -26,7 +26,7 @@
                             <div class="preview bw">
 
                                 @if($journal->hyperlink)
-                                    <a href="$journal->hyperlink">
+                                    <a href="{{ $journal->hyperlink }}">
                                         <img class="preview img-fluid" src="{{ asset('storage/' . $journal->image) }}"
                                              alt="{{ $journal->name }}">
                                     </a>
