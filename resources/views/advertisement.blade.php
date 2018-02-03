@@ -158,15 +158,17 @@
         <div class="wrapper-journal">
             <div class="noAdvertisements center">
 
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h4 class="alert-heading">Sorry advertisements not found!</h4>
-                    <p class="text-center">Aww yeah, you successfully read this important alert message. This
-                        example text is going to run a bit longer so that you can see how spacing within an
-                        alert works with this kind of content.</p>
-                </div>
+                @if(!$journal->hyperlink)
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="alert-heading">Sorry advertisements not found!</h4>
+                        <p class="text-center">Aww yeah, you successfully read this important alert message. This
+                            example text is going to run a bit longer so that you can see how spacing within an
+                            alert works with this kind of content.</p>
+                    </div>
+                @endif
 
             </div>
 
@@ -174,12 +176,23 @@
                 @if($journal->image)
                     <div class="wrapper-item-single-journal">
                         <div class="item-journal">
-                            <a class="item-link"
-                               href="{{ action('JournalsController@advertisement', $journal->id) }}">
-                                <img src="{{ asset('storage/' . $journal->image) }}"
-                                     class="img-fluid responsive-image"
-                                     alt="{{ $journal->title }}">
-                            </a>
+
+                            @if($journal->hyperlink)
+                                <a class="item-link" target="_blank"
+                                   href="{{ $journal->hyperlink }}">
+                                    <img src="{{ asset('storage/' . $journal->image) }}"
+                                         class="img-fluid responsive-image"
+                                         alt="{{ $journal->title }}">
+                                </a>
+                            @else
+                                <a class="item-link"
+                                   href="{{ action('JournalsController@advertisement', $journal->id) }}">
+                                    <img src="{{ asset('storage/' . $journal->image) }}"
+                                         class="img-fluid responsive-image"
+                                         alt="{{ $journal->title }}">
+                                </a>
+                            @endif
+
                         </div>
 
                         @if($journal->name)
