@@ -24,19 +24,10 @@
                     <div class="wrapper-item">
                         <div class="item effect-picture">
                             <div class="preview bw">
-
-                                @if($journal->hyperlink)
-                                    <a href="{{ $journal->hyperlink }}">
-                                        <img class="preview img-fluid" src="{{ asset('storage/' . $journal->image) }}"
-                                             alt="{{ $journal->name }}">
-                                    </a>
-                                @else
-                                    <a href="{{ action('JournalsController@show', $journal->id) }}">
-                                        <img class="preview img-fluid" src="{{ asset('storage/' . $journal->image) }}"
-                                             alt="{{ $journal->name }}">
-                                    </a>
-                                @endif
-
+                                <a href="{{ action('JournalsController@show', $journal->id) }}">
+                                    <img class="preview img-fluid" src="{{ asset('storage/' . $journal->image) }}"
+                                         alt="{{ $journal->name }}">
+                                </a>
                             </div>
                         </div>
 
