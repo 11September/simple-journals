@@ -20,7 +20,7 @@
                     <div class="wrapper-item">
                         <div class="item effect-picture">
                             <div class="preview bw">
-                                <a href="{{ action('JournalsController@show', $journal->id) }}">
+                                <a href={{ action('JournalsController@advertisement', $journal->id) }}">
                                     <img class="preview img-fluid" src="{{ asset('storage/' . $journal->image) }}"
                                          alt="{{ $journal->name }}">
                                 </a>
