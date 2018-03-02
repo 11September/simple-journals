@@ -7,124 +7,96 @@
             color: #111111;
         }
 
-        .blog_blade_href{
+        .blog_blade_href {
             margin: 0 0 30px;
         }
 
-        .blog_blade_href:hover{
+        .blog_blade_href:hover {
             box-shadow: 0 0 15px 10px rgba(221, 221, 221, 1);
             transition-duration: .3s;
-
         }
 
-        .blog_blade_img{
+        .blog_blade_img {
             padding-left: 0;
         }
 
-        .blog_blade_img img{
+        .blog_blade_img img {
             width: 100%;
             height: 540px;
         }
 
-        .blog_blade_text{
+        .blog_blade_text {
             height: 540px;
             padding: 40px;
             overflow: hidden;
-            box-shadow:inset 0px -190px 190px -50px #F6F6F6;
+            box-shadow: inset 0 -190px 190px -50px #F6F6F6;
         }
 
-        .blog_blade_text h2{
+        .blog_blade_text h2 {
+            text-align: center;
             padding: 0 0 20px;
             font-weight: bold;
         }
 
-        .blog_blade_text p{
-            text-align: left;
-            position:relative;
-            z-index:-1;
+        .blog_blade_text .post-content {
+            max-width: 100%;
+            position: relative;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .post-item-link {
+            width: 100%;
         }
     </style>
     {{--@php--}}
-        {{--$text = iconv_strlen($page->body);--}}
-        {{--$text = ( int ) $text;--}}
+    {{--$text = iconv_strlen($page->body);--}}
+    {{--$text = ( int ) $text;--}}
     {{--@endphp--}}
 
     {{--@if($text < 10000)--}}
-        {{--<style>--}}
-            {{--.footer{--}}
-                {{--position: fixed;--}}
-                {{--bottom: 0;--}}
-            {{--}--}}
-        {{--</style>--}}
+    {{--<style>--}}
+    {{--.footer{--}}
+    {{--position: fixed;--}}
+    {{--bottom: 0;--}}
+    {{--}--}}
+    {{--</style>--}}
     {{--@endif--}}
 @endsection
 
 @section('content')
 
     <div class="wrapper-page">
-        <div class="text-center">
-            
-            <!-- Пост 1 -->
-            <a href="{{ url('/news/1') }}">
-                <div class="row blog_blade_href">
-                    <div class="col-lg-6 blog_blade_img">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-                    <div class="col-lg-6 blog_blade_text">
-                        <h2>FEBRUARY 2018 – 2019</h2>
-                        <p>
-                            WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
 
-                             WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                            WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                             WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                            WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-                        </p>
-                    </div>
+        @foreach($posts as $post)
+            <div class="wrapper-one-post">
+                <div class="blog_blade_href">
+                    {{--<a class="post-item-link" href="{{ action('PostsController@show', $post->id) }}">--}}
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 blog_blade_img">
+                                <img src="{{ asset('storage/' . $post->image_main) }}">
+                            </div>
+                            <div class="col-lg-6 col-md-6 blog_blade_text">
+                                <h2>{{ $post->title }}</h2>
+                                <div class="post-content">
+                                    {{--{{ $post->body }}--}}
+                                    {!! $post->body !!}
+                                </div>
+                            </div>
+                        </div>
+                    {{--</a>--}}
                 </div>
-            </a>
-            <!-- Пост 1 end -->
+            </div>
+        @endforeach
 
-            <!-- Пост 2 -->
-            <a href="{{ url('/news/1') }}">
-                <div class="row blog_blade_href">
-                    <div class="col-lg-6 blog_blade_img">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-                    <div class="col-lg-6 blog_blade_text">
-                        <h2>FEBRUARY 2018 – 2019</h2>
-                        <p>
-                            WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                             WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                            WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                             WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                            WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-                        </p>
-                    </div>
+        <div class="row center-pagination">
+            <nav aria-label="Page navigation example">
+                <div class="justify-content-center">
+                    {{ $posts->links() }}
                 </div>
-            </a>
-            <!-- Пост 2 end -->
-
-
-
+            </nav>
         </div>
+
     </div>
 
 @endsection

@@ -17,10 +17,9 @@
 
         .blog_blade_img img{
             width: 50%;
-            height: 100vh;
+            /*height: 100vh;*/
             position: fixed;
-            position: fixed;
-            top: 0;
+            top: 80px;
             left: 0;
         }
 
@@ -33,7 +32,7 @@
             font-weight: bold;
         }
 
-        .blog_blade_text p{
+        .blog_blade_text .single-post{
             text-align: left;
             position:relative;
             z-index:-1;
@@ -72,43 +71,19 @@
             <a href="{{ url('/news/1') }}">
                 <div class="row blog_blade_href">
                     <div class="col-lg-6 blog_blade_img">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
+
+                        @if($post->image_post)
+                            <img src="{{ asset('storage/' . $post->image_post) }}">
+                        @else
+                            <img src="{{ asset('storage/' . $post->image_main) }}">
+                        @endif
+
                     </div>
                     <div class="col-lg-6 blog_blade_text">
-                        <h2>FEBRUARY 2018 – 2019</h2>
-                        <p>
-                            WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                             WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                            WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                             WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                            WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                            WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                             WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                            WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                             WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-
-                            WELAB Magazine – February 2018 
-                            This Issue Includes: Avinash Singh, Mallika Mehta, Ethan Paisley, London King, Maximillian Orlando, Zoolicious, Cooly Beans, Pothead Janey, Dr. Gee, and Johnnie James.
-                        </p>
-
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
+                        <h2>{{ $post->title }}</h2>
+                        <div class="single-post">
+                            {!! $post->body !!}
+                        </div>
 
                         <span>Комментарий</span>
                     </div>
