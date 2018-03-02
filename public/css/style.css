@@ -59,7 +59,7 @@ button:focus {outline:0;}
 
 .nav-item .nav-link {
     text-align: center;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: normal;
     color: #111111;
     font-family: Montserrat-Regular, 'Comic Sans MS', cursive;
@@ -323,7 +323,7 @@ button:focus {outline:0;}
 
 @media (max-width: 900px) {
     .nav-item .nav-link{
-        font-size: 17px;
+        font-size: 16px;
     }
 }
 
