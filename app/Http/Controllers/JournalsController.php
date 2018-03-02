@@ -13,10 +13,9 @@ use Illuminate\Support\Facades\Validator;
 
 class JournalsController extends Controller
 {
-
     public function index()
     {
-        $journals = Journal::where('status', '=', "PUBLISHED")->paginate(9);
+        $journals = Journal::latest()->where('status', '=', "PUBLISHED")->paginate(9);
 
         return view('welcome', compact('journals'));
     }
@@ -28,7 +27,7 @@ class JournalsController extends Controller
 
     public function magazines()
     {
-        $journals = Journal::where('status', '=', "PUBLISHED")->paginate(9);
+        $journals = Journal::latest()->where('status', '=', "PUBLISHED")->paginate(9);
 
         return view('magazines', compact('journals'));
     }

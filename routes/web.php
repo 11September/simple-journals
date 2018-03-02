@@ -14,6 +14,9 @@ Route::post('/payment-completed', 'JournalsController@paymentCompleted');
 
 Route::get('/page-{slug}', 'PagesController@page');
 
+Route::get('/news', 'PostsController@index');
+Route::get('/news/{post}', 'PostsController@show');
+
 Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });

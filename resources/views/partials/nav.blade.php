@@ -33,6 +33,10 @@
                         <a class="nav-link {{ Request::is('page-publication') ? 'active' : '' }}"
                            href="{{ url('page-publication') }}">Publication <span class="sr-only"></span></a>
                     </li>
+                    <li class="nav-item {{ Request::is('news') ? 'active' : '' }}">
+                        <a class="nav-link {{ Request::is('news') ? 'active' : '' }}"
+                           href="{{ url('news') }}">Blog <span class="sr-only"></span></a>
+                    </li>
                     <li class="nav-item {{ Request::is('advertising') ? 'active' : '' }}">
                         <a class="nav-link {{ Request::is('page-advertisement') ? 'active' : '' }}"
                            href="{{ url('page-advertisement') }}">Advertising <span class="sr-only"></span></a>

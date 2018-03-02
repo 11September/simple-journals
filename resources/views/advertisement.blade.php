@@ -196,7 +196,7 @@
                         </div>
 
                         @if($journal->name)
-                            <h3 class="heading-journal">About {{ $journal->name }}</h3>
+                            <h3 class="heading-journal">Click image to buy magazine</h3>
                         @endif
 
                         <div class="content">
