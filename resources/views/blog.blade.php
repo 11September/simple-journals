@@ -49,7 +49,7 @@
             width: 50%;
         }
 
-        .blog_blade_text figure a{
+        .blog_blade_text figure a {
             width: 100%;
         }
 
@@ -58,8 +58,8 @@
                 width: 100%;
             }
 
-            .post-item-link img{
-                height: 400px; 
+            .post-item-link img {
+                height: 400px;
             }
         }
 
@@ -89,8 +89,8 @@
                     <a class="post-item-link" href="{{ action('PostsController@show', $post->id) }}">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 blog_blade_img">
-                                <!-- <img src="{{ asset('storage/' . $post->image_main) }}"> -->
-                                 <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
+                                <img src="{{ asset('storage/' . $post->image_main) }}">
+                                {{--<img src="{{ asset('images/SMALL_COVER-1.jpg') }}">--}}
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12 blog_blade_text">
                                 <h2>{{ $post->title }}</h2>

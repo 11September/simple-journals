@@ -37,6 +37,7 @@
             text-align: left;
             position:relative;
             z-index:-1;
+            overflow: hidden;
         }
 
         .blog_blade_text img{
