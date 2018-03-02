@@ -17,7 +17,7 @@
         }
 
         .blog_blade_img {
-            padding-left: 0;
+            /*padding-left: 0;*/
         }
 
         .blog_blade_img img {
@@ -39,15 +39,30 @@
         }
 
         .blog_blade_text .post-content {
-            max-width: 100%;
+            /*max-width: 100%;*/
             position: relative;
             z-index: -1;
             overflow: hidden;
         }
 
         .post-item-link {
+            width: 50%;
+        }
+
+        .blog_blade_text figure a{
             width: 100%;
         }
+
+        @media (max-width: 768px) {
+            .post-item-link {
+                width: 100%;
+            }
+
+            .post-item-link img{
+                height: 400px; 
+            }
+        }
+
     </style>
     {{--@php--}}
     {{--$text = iconv_strlen($page->body);--}}
@@ -71,20 +86,20 @@
         @foreach($posts as $post)
             <div class="wrapper-one-post">
                 <div class="blog_blade_href">
-                    {{--<a class="post-item-link" href="{{ action('PostsController@show', $post->id) }}">--}}
+                    <a class="post-item-link" href="{{ action('PostsController@show', $post->id) }}">
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 blog_blade_img">
-                                <img src="{{ asset('storage/' . $post->image_main) }}">
+                            <div class="col-lg-12 col-md-12 col-sm-12 blog_blade_img">
+                                <!-- <img src="{{ asset('storage/' . $post->image_main) }}"> -->
+                                 <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
                             </div>
-                            <div class="col-lg-6 col-md-6 blog_blade_text">
+                            <div class="col-lg-6 col-md-6 col-sm-12 blog_blade_text">
                                 <h2>{{ $post->title }}</h2>
                                 <div class="post-content">
-                                    {{--{{ $post->body }}--}}
                                     {!! $post->body !!}
                                 </div>
                             </div>
                         </div>
-                    {{--</a>--}}
+                    </a>
                 </div>
             </div>
         @endforeach

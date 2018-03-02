@@ -17,7 +17,7 @@
 
         .blog_blade_img img{
             width: 50%;
-            /*height: 100vh;*/
+            height: calc(100% - 140px); 
             position: fixed;
             top: 80px;
             left: 0;
@@ -25,6 +25,7 @@
 
         .blog_blade_text{
             padding: 30px 30px 30px 60px;
+            margin-left: 50%;
         }
 
         .blog_blade_text h2{
@@ -64,7 +65,7 @@
 
 @section('content')
 
-            <div class="wrapper-page">
+    <div class="wrapper-page">
         <div class="text-center">
             
 
@@ -73,9 +74,11 @@
                     <div class="col-lg-6 blog_blade_img">
 
                         @if($post->image_post)
-                            <img src="{{ asset('storage/' . $post->image_post) }}">
+                            <!-- <img src="{{ asset('storage/' . $post->image_post) }}"> -->
+                            <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
                         @else
-                            <img src="{{ asset('storage/' . $post->image_main) }}">
+                            <!-- <img src="{{ asset('storage/' . $post->image_main) }}"> -->
+                            <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
                         @endif
 
                     </div>
