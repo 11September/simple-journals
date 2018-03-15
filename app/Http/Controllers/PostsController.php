@@ -9,7 +9,7 @@ class PostsController extends Controller
 {
     public function index()
     {
-        $posts = Post::latest()->where('status', '=', "Published")->paginate(1);
+        $posts = Post::latest()->where('status', '=', "Published")->paginate(8);
 
         return view('blog', compact('posts'));
     }

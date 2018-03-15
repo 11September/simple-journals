@@ -2,7 +2,7 @@
 
 @section('css')
     <style type="text/css">
-        body{
+        body {
             /*background-color: transparent;*/
         }
 
@@ -11,38 +11,38 @@
             color: #111111;
         }
 
-        .wrapper-page{
+        .wrapper-page {
             background-color: #fff;
         }
 
-        .header_bg{
+        .header_bg {
             background: url('{{ asset('images/blogs_bg.png') }}');
             height: 344px;
         }
 
-        .row{
+        .row {
             margin: 0;
         }
 
-        .pink{
+        .pink {
             color: #f171ac;
         }
 
         .wrapper-page {
-             padding-top: 0; 
+            padding-top: 0;
         }
 
-        .post_items{
+        .post_items {
             clear: left;
             padding: 0;
         }
 
-        .post_items img{
+        .post_items img {
             width: 100%;
             height: 500px;
         }
 
-        .post_items h2{
+        .post_items h2 {
             text-align: left;
             padding-top: 40px;
             font-size: 30px;
@@ -55,41 +55,40 @@
             white-space: nowrap;
         }
 
-        .post_items_img.hover{
+        .post_items_img.hover {
             display: none;
         }
 
-        .post_items:first-child h2{
+        .post_items:first-child h2 {
             color: #f171ac;
         }
 
-        .post_items:nth-child(4n) .post_items_img.active{
+        .post_items:nth-child(4n) .post_items_img.active {
             display: none;
         }
 
-        .post_items:nth-child(4n) .post_items_img.hover{
+        .post_items:nth-child(4n) .post_items_img.hover {
             display: block;
         }
 
-        .post_items:nth-child(4n+3) .post_items_img.active{
+        .post_items:nth-child(4n+3) .post_items_img.active {
             display: none;
         }
 
-        .post_items:nth-child(4n+3) .post_items_img.hover{
+        .post_items:nth-child(4n+3) .post_items_img.hover {
             display: block;
         }
 
-
-        .post_items_img{
+        .post_items_img {
             padding-left: 0;
             padding-right: 0;
         }
 
-        .post_items_text{
+        .post_items_text {
             text-align: center;
         }
 
-        .post_items_text p{
+        .post_items_text .post-content {
             color: #9b9b9b;
             font-weight: 500;
             font-size: 18px;
@@ -100,7 +99,12 @@
             text-align: left;
         }
 
-        .post_items_text span{
+        .post-content > p, .post-content > div, .post-content > div > p {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .post_items_text span a {
             text-transform: uppercase;
             background-color: #c21a3d;
             padding: 18px 75px;
@@ -108,23 +112,23 @@
             font-size: 20px;
         }
 
-        .post_items_text span:hover{
+        .post_items_text span:hover a{
             background-color: #f171ac;
         }
 
-        .row.center-pagination{
+        .row.center-pagination {
             border-top: 2px solid #ffa0f4;
         }
 
-        .center-pagination li:first-child{
+        .center-pagination li:first-child {
             display: none;
         }
 
-        .center-pagination li:last-child{
+        .center-pagination li:last-child {
             display: none;
         }
 
-        .center-pagination li{
+        .center-pagination li {
             text-decoration: none !important;
             text-align: center;
             width: 60px;
@@ -136,14 +140,17 @@
             margin-top: 15px;
         }
 
-        .center-pagination li.active{
+        .center-pagination li.active {
             background-color: #c01b3d !important;
             color: #fff !important;
-            background-color: #c21a3d;
         }
 
-        .row.center-pagination{
+        .row.center-pagination {
             background-color: #f5f5f5;
+        }
+
+        .pagination li:hover a{
+            color: #c01b3d;
         }
 
         @media (max-width: 1200px) {
@@ -153,7 +160,7 @@
         }
 
         @media (max-width: 992px) {
-             .post_items{
+            .post_items {
                 text-align: center;
                 padding-top: 25px;
                 padding-bottom: 50px;
@@ -161,10 +168,10 @@
 
             .post_items img {
                 width: 50%;
-                height: 400;
+                height: 400px;
             }
 
-            .post_items h2{
+            .post_items h2 {
                 text-align: center;
             }
 
@@ -174,19 +181,19 @@
                 padding-right: 30px;
             }
 
-            .post_items:nth-child(4n) .post_items_img.active{
+            .post_items:nth-child(4n) .post_items_img.active {
                 display: block;
             }
 
-            .post_items:nth-child(4n) .post_items_img.hover{
+            .post_items:nth-child(4n) .post_items_img.hover {
                 display: none;
             }
 
-            .post_items:nth-child(4n+3) .post_items_img.active{
+            .post_items:nth-child(4n+3) .post_items_img.active {
                 display: block;
             }
 
-            .post_items:nth-child(4n+3) .post_items_img.hover{
+            .post_items:nth-child(4n+3) .post_items_img.hover {
                 display: none;
             }
         }
@@ -194,12 +201,12 @@
         @media (max-width: 768px) {
             .post_items img {
                 width: 70%;
-                height: 400;
+                height: 400px;
             }
         }
 
         @media (max-width: 480px) {
-            .header_bg{
+            .header_bg {
                 display: none;
             }
 
@@ -231,9 +238,6 @@
 @endsection
 
 @section('content')
-
-@foreach($posts as $post)
-
     <!--  end container -->
     </div>
 
@@ -242,287 +246,48 @@
     <div class="wrapper-page">
 
         <div class="row">
-            
-            <div class="col-lg-6 post_items">
-                <a href="#">
-                <div class="row">
-                    
-                    <div class="col-lg-6 post_items_img active">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
+            @foreach($posts as $post)
+                <div class="col-lg-6 post_items">
 
-                    <div class="col-lg-6 post_items_text">
-                        <h2>{{ $post->title }}</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
+                    <div class="row">
 
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-                        </p>
-                        <span>Read more</span>
-                    </div>
+                        <div class="col-lg-6 post_items_img active">
+                            <img src="{{ asset('storage/' . $post->image_main) }}">
+                        </div>
 
-                    <div class="col-lg-6 post_items_img hover">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
+                        <div class="col-lg-6 post_items_text">
+                            <h2>{{ $post->title }}</h2>
+                            <div class="post-content">
+                                {!! $post->body !!}
+                            </div>
 
-                </div>
-                </a>
-            </div>
+                            <div class="clearfix"></div>
 
-            <div class="col-lg-6 post_items">
-                <a href="#">
-                <div class="row">
-                    
-                    <div class="col-lg-6 post_items_img">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
+                            <span>
+                                <a class="one-post-link" href="{{ action('PostsController@show', $post->id ) }}">Read More</a>
+                            </span>
 
-                    <div class="col-lg-6 post_items_text">
-                        <h2>{{ $post->title }}</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
+                            <div class="clearfix"></div>
+                        </div>
 
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-                        </p>
-                        <span>Read more</span>
+                        <div class="col-lg-6 post_items_img hover">
+                            <img src="{{ asset('storage/' . $post->image_main) }}">
+                        </div>
+
                     </div>
 
                 </div>
-                </a>
-            </div>
-
-            <div class="col-lg-6 post_items">
-                <a href="#">
-                <div class="row">
-                    
-                    <div class="col-lg-6 post_items_img active">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-
-                    <div class="col-lg-6 post_items_text">
-                        <h2>{{ $post->title }}</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-                        </p>
-                        <span>Read more</span>
-                    </div>
-
-                    <div class="col-lg-6 post_items_img hover">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-
-                </div>
-                </a>
-            </div>
-
-            <div class="col-lg-6 post_items">
-                <a href="#">
-                <div class="row">
-                    
-                    <div class="col-lg-6 post_items_img active">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-
-                    <div class="col-lg-6 post_items_text">
-                        <h2>{{ $post->title }}</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-                        </p>
-                        <span>Read more</span>
-                    </div>
-
-                    <div class="col-lg-6 post_items_img hover">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-
-                </div>
-                </a>
-            </div>
-
-            <div class="col-lg-6 post_items">
-                <a href="#">
-                <div class="row">
-                    
-                    <div class="col-lg-6 post_items_img active">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-
-                    <div class="col-lg-6 post_items_text">
-                        <h2>{{ $post->title }}</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-                        </p>
-                        <span>Read more</span>
-                    </div>
-
-                    <div class="col-lg-6 post_items_img hover">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-
-                </div>
-                </a>
-            </div>
-
-            <div class="col-lg-6 post_items">
-                <a href="#">
-                <div class="row">
-                    
-                    <div class="col-lg-6 post_items_img active">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-
-                    <div class="col-lg-6 post_items_text">
-                        <h2>{{ $post->title }}</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-                        </p>
-                        <span>Read more</span>
-                    </div>
-
-                    <div class="col-lg-6 post_items_img hover">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-
-                </div>
-                </a>
-            </div>
-
-            <div class="col-lg-6 post_items">
-                <a href="#">
-                <div class="row">
-                    
-                    <div class="col-lg-6 post_items_img active">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-
-                    <div class="col-lg-6 post_items_text">
-                        <h2>{{ $post->title }}</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-                        </p>
-                        <span>Read more</span>
-                    </div>
-
-                    <div class="col-lg-6 post_items_img hover">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-
-                </div>
-                </a>
-            </div>
-
-            <div class="col-lg-6 post_items">
-                <a href="#">
-                <div class="row">
-                    
-                    <div class="col-lg-6 post_items_img active">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-
-                    <div class="col-lg-6 post_items_text">
-                        <h2>{{ $post->title }}</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. 
-                        </p>
-                        <span>Read more</span>
-                    </div>
-
-                    <div class="col-lg-6 post_items_img hover">
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
-                    </div>
-
-                </div>
-                </a>
-            </div>
+            @endforeach
 
         </div>
-
     </div>
 
-@endforeach
-
-<div class="row center-pagination">
-    <nav aria-label="Page navigation example">
-        <div class="justify-content-center">
-            {{ $posts->links() }}
-        </div>
-    </nav>
-</div>
+    <div class="row center-pagination">
+        <nav aria-label="Page navigation example">
+            <div class="justify-content-center">
+                {{ $posts->links() }}
+            </div>
+        </nav>
+    </div>
 
 @endsection
