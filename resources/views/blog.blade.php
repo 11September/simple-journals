@@ -125,7 +125,11 @@
 
         @media (max-width: 1200px) {
             .post_items_text .wrapper-view-more-one-item {
-                padding: 15px 45px;
+                padding: 15px 0;
+            }
+
+            .post_items_text .wrapper-view-more-one-item a{
+                padding: 18px 45px;
             }
         }
 
