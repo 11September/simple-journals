@@ -2,10 +2,6 @@
 
 @section('css')
     <style type="text/css">
-        body {
-            /*background-color: transparent;*/
-        }
-
         a, a:hover, a:visited, a:link {
             text-decoration: none;
             color: #111111;
@@ -22,10 +18,6 @@
 
         .row {
             margin: 0;
-        }
-
-        .pink {
-            color: #f171ac;
         }
 
         .wrapper-page {
@@ -79,9 +71,16 @@
             display: block;
         }
 
+        .preview{
+            opacity: 0.8;
+        }
+
         .post_items_img {
-            padding-left: 0;
-            padding-right: 0;
+            padding: 5px;
+        }
+
+        .preview::before, .preview::after{
+            outline: #DC1818 !important;
         }
 
         .post_items_text {
@@ -104,7 +103,7 @@
             margin: 0 !important;
         }
 
-        .post_items_text span a {
+        .post_items_text .wrapper-view-more-one-item a {
             text-transform: uppercase;
             background-color: #c21a3d;
             padding: 18px 75px;
@@ -112,49 +111,20 @@
             font-size: 20px;
         }
 
-        .post_items_text span:hover a{
+        .post_items_text .wrapper-view-more-one-item:hover a{
             background-color: #f171ac;
-        }
-
-        .row.center-pagination {
-            border-top: 2px solid #ffa0f4;
-        }
-
-        .center-pagination li:first-child {
-            display: none;
-        }
-
-        .center-pagination li:last-child {
-            display: none;
-        }
-
-        .center-pagination li {
-            text-decoration: none !important;
-            text-align: center;
-            width: 60px;
-            font-size: 24px;
-            font-weight: bold;
-            padding: 15px 20px;
-            background-color: #ffffff !important;
-            color: #c01a3e !important;
-            margin-top: 15px;
-        }
-
-        .center-pagination li.active {
-            background-color: #c01b3d !important;
-            color: #fff !important;
-        }
-
-        .row.center-pagination {
-            background-color: #f5f5f5;
         }
 
         .pagination li:hover a{
             color: #c01b3d;
         }
 
+        .wrapper-view-more-one-item{
+            margin-bottom: 30px;
+        }
+
         @media (max-width: 1200px) {
-            .post_items_text span {
+            .post_items_text .wrapper-view-more-one-item {
                 padding: 15px 45px;
             }
         }
@@ -162,13 +132,12 @@
         @media (max-width: 992px) {
             .post_items {
                 text-align: center;
-                padding-top: 25px;
-                padding-bottom: 50px;
+                padding: 40px 10%;
             }
 
             .post_items img {
-                width: 50%;
-                height: 400px;
+                width: 60%;
+                height: 460px;
             }
 
             .post_items h2 {
@@ -200,12 +169,29 @@
 
         @media (max-width: 768px) {
             .post_items img {
-                width: 70%;
-                height: 400px;
+                width: 60%;
+                height: 420px;
+            }
+
+            .post_items_text .wrapper-view-more-one-item a{
+                padding: 15px 25px;
             }
         }
 
         @media (max-width: 480px) {
+            .post_items{
+                padding: 30px 5%;
+            }
+
+            .post_items img{
+                height: 360px;
+            }
+
+            .post_items_text .post-content{
+                height: 200px;
+                margin-bottom: 40px;
+            }
+
             .header_bg {
                 display: none;
             }
@@ -220,7 +206,6 @@
                 padding: 8px 15px;
             }
         }
-
     </style>
     {{--@php--}}
     {{--$text = iconv_strlen($page->body);--}}
@@ -249,33 +234,38 @@
             @foreach($posts as $post)
                 <div class="col-lg-6 post_items">
 
-                    <div class="row">
+                    <div class="item effect-picture">
+                        <div class="preview bw">
 
-                        <div class="col-lg-6 post_items_img active">
-                            <img src="{{ asset('storage/' . $post->image_main) }}">
-                        </div>
+                            <div class="row">
 
-                        <div class="col-lg-6 post_items_text">
-                            <h2>{{ $post->title }}</h2>
-                            <div class="post-content">
-                                {!! $post->body !!}
+                                <div class="col-lg-6 post_items_img active">
+                                    <img src="{{ asset('storage/' . $post->image_main) }}">
+                                </div>
+
+                                <div class="col-lg-6 post_items_text">
+                                    <h2>{{ $post->title }}</h2>
+                                    <div class="post-content">
+                                        {!! $post->body !!}
+                                    </div>
+
+                                    <div class="clearfix"></div>
+
+                                    <div class="wrapper-view-more-one-item">
+                                        <a class="one-post-link" href="{{ action('PostsController@show', $post->id ) }}">Read More</a>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </div>
+
+                                <div class="col-lg-6 post_items_img hover">
+                                    <img src="{{ asset('storage/' . $post->image_main) }}">
+                                </div>
+
                             </div>
 
-                            <div class="clearfix"></div>
-
-                            <span>
-                                <a class="one-post-link" href="{{ action('PostsController@show', $post->id ) }}">Read More</a>
-                            </span>
-
-                            <div class="clearfix"></div>
                         </div>
-
-                        <div class="col-lg-6 post_items_img hover">
-                            <img src="{{ asset('storage/' . $post->image_main) }}">
-                        </div>
-
                     </div>
-
                 </div>
             @endforeach
 

@@ -23,13 +23,13 @@
             width: 50%;
             height: calc(100% - 60px);
             position: fixed;
-            top: 80px;
+            top: 77px;
             left: 0;
         }
 
         .blog_blade_text {
             padding: 30px 30px 30px 60px;
-            margin-left: 50%;
+            /*margin-left: 50%;*/
         }
 
         .blog_blade_text .single-post {
@@ -124,17 +124,17 @@
 
         @media (max-width: 768px) {
             .blog_blade_img img {
-                width: 75%;
-                height: calc(100% - 60px);
+                width: 60%;
+                height: 460px;
                 position: relative;
-                top: 20px;
-                left: none;
+                top: 60px;
+                left: auto;
             }
 
             .blog_blade_img_head {
                 position: relative;
                 bottom: auto;
-                padding-top: 35px;
+                padding-top: 90px;
                 background-color: transparent;
                 text-align: center;
                 left: auto;
@@ -188,13 +188,12 @@
 
                 @if($post->image_post)
                     <!-- <img src="{{ asset('storage/' . $post->image_post) }}"> -->
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
+                        <img src="{{ asset('storage/' . $post->image_post) }}">
                         <div class="blog_blade_img_head">
                             <h2>{{ $post->title }}</h2>
                             <p>{{ Carbon\Carbon::parse($post->created_at)->format('M. d, Y') }}</p>
                         </div>
                     @else
-                    <!-- <img src="{{ asset('storage/' . $post->image_main) }}"> -->
                         <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
                     @endif
 
