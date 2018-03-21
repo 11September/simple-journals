@@ -31,14 +31,14 @@
 
         .post_items img {
             width: 100%;
-            height: 500px;
+            height: 440px;
         }
 
         .post_items h2 {
             text-align: left;
-            padding-top: 40px;
+            padding-top: 35px;
             font-size: 30px;
-            padding-bottom: 20px;
+            padding-bottom: 15px;
             text-transform: capitalize;
             font-weight: bold;
             color: #000;
@@ -76,7 +76,7 @@
         }
 
         .post_items_img {
-            padding: 5px;
+            padding: 2px;
         }
 
         .preview::before, .preview::after{
@@ -91,7 +91,7 @@
             color: #9b9b9b;
             font-weight: 500;
             font-size: 18px;
-            height: 295px;
+            height: 235px;
             overflow: hidden;
             text-overflow: ellipsis;
             margin-bottom: 33px;
