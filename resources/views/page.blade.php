@@ -30,6 +30,7 @@
 
 
 @section('content')
+<div class="container">
 
     <div class="wrapper-page">
         <div class="text-center">
@@ -46,5 +47,5 @@
             </div>
         </div>
     </div>
-
+</div>
 @endsection

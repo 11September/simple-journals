@@ -11,7 +11,9 @@
     @endif
 @endsection
 
+
 @section('content')
+<div class="container">
     <div class="wrapper-body-magazines">
         <div class="row">
             @foreach($journals as $journal)
@@ -41,4 +43,5 @@
             </nav>
         </div>
     </div>
+</div>
 @endsection

@@ -226,7 +226,9 @@
     {{--@endif--}}
 @endsection
 
+
 @section('content')
+<div class="container">
     <!--  end container -->
     </div>
 
@@ -283,5 +285,6 @@
             </div>
         </nav>
     </div>
+</div>
 
 @endsection

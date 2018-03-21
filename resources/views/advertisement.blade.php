@@ -4,7 +4,9 @@
 
 @endsection
 
+
 @section('content')
+<div class="container">
 
     @if(isset($advertisement) && $advertisement->positions->count() != 0)
         <div class="wrapper-body">
@@ -209,8 +211,9 @@
             </div>
         </div>
     @endif
-
+</div>
 @endsection
+
 
 @section('scripts')
     <script>

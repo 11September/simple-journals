@@ -24,6 +24,7 @@
 @endsection
 
 @section('content')
+<div class="container">
     <div class="wrapper-journal">
         <div class="text-center">
             @if($journal->image)
@@ -47,5 +48,5 @@
 
         </div>
     </div>
-
+</div>
 @endsection

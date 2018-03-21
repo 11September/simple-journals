@@ -10,9 +10,7 @@
 
 @include('partials.nav')
 
-<div class="container">
-    @yield('content')
-</div>
+@yield('content')
 
 @include('partials.footer')
 

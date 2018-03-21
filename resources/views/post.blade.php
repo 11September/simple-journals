@@ -16,12 +16,13 @@
         }
 
         .blog_blade_img img {
-            width: 500px;
+            width: auto;
             height: calc(100% - 60px);
             position: fixed;
             top: 77px;
             left: 0;
 
+            /*max-width: 500px;*/
             /*background-color: blueviolet;*/
         }
 
@@ -77,10 +78,10 @@
             position: fixed;
             background-color: #c3193d;
             bottom: 60px;
-            width: 378px;
-            left: 120px;
+            width: auto;
+            left: 0;
             color: #fff;
-            padding: 25px 0 20px 55px;
+            padding: 25px 50px 20px 55px;
             text-align: left;
         }
 
@@ -107,6 +108,7 @@
 
             .blog_blade_text{
                 max-width: calc(100% - 480px);
+                padding-left: 15px;
             }
         }
 
@@ -118,17 +120,17 @@
 
             .blog_blade_text{
                 max-width: calc(100% - 470px);
-                padding-right: 0;
+                padding-left: 30px;
             }
         }
 
         @media (max-width: 1200px) {
             .blog_blade_img img{
-                width: 400px;
+                width: auto;
             }
 
             .blog_blade_img_head {
-                width: 354px;
+                width: auto;
                 left: 45px;
             }
         }
@@ -153,7 +155,7 @@
         @media (max-width: 768px) {
             .blog_blade_img img {
                 width: 70%;
-                height: 460px;
+                height: auto;
                 position: relative;
                 top: 60px;
                 left: auto;
@@ -208,7 +210,9 @@
     {{ $post->title }}
 @endsection
 
+
 @section('content')
+<div class="container-fluid">
 
     <div class="wrapper-page">
         <div class="text-center">
@@ -216,7 +220,8 @@
                 <div class="col-lg-5 col-md-2 col-sm-12 blog_blade_img">
 
                     @if($post->image_post)
-                        <img src="{{ asset('storage/' . $post->image_post) }}">
+                       <!--  <img src="{{ asset('storage/' . $post->image_post) }}"> -->
+                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
                         <div class="blog_blade_img_head">
                             <h2>{{ $post->title }}</h2>
                             <p>{{ Carbon\Carbon::parse($post->created_at)->format('M. d, Y') }}</p>
@@ -239,8 +244,9 @@
             </div>
         </div>
     </div>
-
+</div>
 @endsection
+
 
 @section('scripts')
     <script>
