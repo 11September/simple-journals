@@ -28,9 +28,14 @@
 
         .blog_blade_text {
             padding: 30px;
+
+			padding-left:50px;
             z-index: 1029;
-            padding-left: 0;
         }
+		
+		#disqus_thread{
+			margin-left: 50px;
+		}
 
         .blog_blade_text .single-post {
             text-align: left;
@@ -52,6 +57,8 @@
         .post-bottom-line {
             border-bottom: 2px solid #ea77b2;
             padding-bottom: 30px;
+			margin-left:35px;
+			width: calc(100%-60px);
         }
 
         .blog_blade_text img {
@@ -220,8 +227,8 @@
                 <div class="col-lg-5 col-md-2 col-sm-12 blog_blade_img">
 
                     @if($post->image_post)
-                       <!--  <img src="{{ asset('storage/' . $post->image_post) }}"> -->
-                        <img src="{{ asset('images/SMALL_COVER-1.jpg') }}">
+                        <img src="{{ asset('storage/' . $post->image_post) }}">
+                        <!--<img src="{{ asset('images/SMALL_COVER-1.jpg') }}">-->
                         <div class="blog_blade_img_head">
                             <h2>{{ $post->title }}</h2>
                             <p>{{ Carbon\Carbon::parse($post->created_at)->format('M. d, Y') }}</p>
