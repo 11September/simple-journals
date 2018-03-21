@@ -15,10 +15,6 @@
             padding-top: 0;
         }
 
-        .blog_blade_img {
-            padding-left: 0;
-        }
-
         .blog_blade_img img {
             width: 50%;
             height: calc(100% - 60px);
@@ -29,6 +25,7 @@
 
         .blog_blade_text {
             padding: 30px;
+            z-index: 1029;
         }
 
         .blog_blade_text .single-post {
@@ -123,7 +120,7 @@
 
         @media (max-width: 768px) {
             .blog_blade_img img {
-                width: 60%;
+                width: 70%;
                 height: 460px;
                 position: relative;
                 top: 60px;
@@ -203,10 +200,38 @@
                             {!! $post->body !!}
                         </div>
                         <div class="post-bottom-line"></div>
+
+                        <div id="disqus_thread"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+@endsection
+
+@section('scripts')
+    <script>
+
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+        /*
+
+        */
+        var disqus_config = function () {
+            this.page.url = '{{ Request::url() }}';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = '{{ $post->id }}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            this.page.title = '{{ $post->title }}'; //'a unique title for each page where Disqus is present';
+        };
+
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://http-cosmo-press-com.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
 @endsection

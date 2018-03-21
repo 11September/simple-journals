@@ -1,7 +1,5 @@
 <html lang="eng">
 <head>
-    @include('partials.analytics')
-
     @include('partials.head')
 
     @include('partials.css')
