@@ -16,16 +16,19 @@
         }
 
         .blog_blade_img img {
-            width: 45%;
+            width: 500px;
             height: calc(100% - 60px);
             position: fixed;
             top: 77px;
             left: 0;
+
+            /*background-color: blueviolet;*/
         }
 
         .blog_blade_text {
             padding: 30px;
             z-index: 1029;
+            padding-left: 0;
         }
 
         .blog_blade_text .single-post {
@@ -74,7 +77,8 @@
             position: fixed;
             background-color: #c3193d;
             bottom: 60px;
-            width: 476px;
+            width: 378px;
+            left: 120px;
             color: #fff;
             padding: 25px 0 20px 55px;
             text-align: left;
@@ -95,9 +99,37 @@
             display: none;
         }
 
+        @media (min-width: 1300px) {
+            .blog_blade_img{
+                max-width: 500px;
+                left: -5%;
+            }
+
+            .blog_blade_text{
+                max-width: calc(100% - 480px);
+            }
+        }
+
+        @media (min-width: 1500px) {
+            .blog_blade_img{
+                max-width: 500px;
+                left: -15%;
+            }
+
+            .blog_blade_text{
+                max-width: calc(100% - 470px);
+                padding-right: 0;
+            }
+        }
+
         @media (max-width: 1200px) {
+            .blog_blade_img img{
+                width: 400px;
+            }
+
             .blog_blade_img_head {
-                width: 465px;
+                width: 354px;
+                left: 45px;
             }
         }
 
@@ -181,7 +213,7 @@
     <div class="wrapper-page">
         <div class="text-center">
             <div class="row blog_blade_href">
-                <div class="col-lg-6 col-md-2 col-sm-12 blog_blade_img">
+                <div class="col-lg-5 col-md-2 col-sm-12 blog_blade_img">
 
                     @if($post->image_post)
                         <img src="{{ asset('storage/' . $post->image_post) }}">
@@ -194,7 +226,7 @@
                     @endif
 
                 </div>
-                <div class="col-lg-6 col-md-9 col-sm-12 blog_blade_text">
+                <div class="col-lg-7 col-md-9 col-sm-12 blog_blade_text">
                     <div class="single-post">
                         <div class="post-content-wrapper">
                             {!! $post->body !!}
