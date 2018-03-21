@@ -77,7 +77,7 @@
             position: fixed;
             background-color: #c3193d;
             bottom: 60px;
-            width: 487px;
+            width: 476px;
             color: #fff;
             padding: 25px 0 20px 55px;
             text-align: left;
