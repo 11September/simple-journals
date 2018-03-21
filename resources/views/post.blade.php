@@ -16,7 +16,7 @@
         }
 
         .blog_blade_img img {
-            width: 50%;
+            width: 45%;
             height: calc(100% - 60px);
             position: fixed;
             top: 77px;
@@ -74,7 +74,7 @@
             position: fixed;
             background-color: #c3193d;
             bottom: 60px;
-            width: 555px;
+            width: 487px;
             color: #fff;
             padding: 25px 0 20px 55px;
             text-align: left;
