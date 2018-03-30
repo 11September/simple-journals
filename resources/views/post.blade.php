@@ -209,14 +209,14 @@
                     <div class="col-lg-6 col-md-2 col-sm-12 blog_blade_img">
                         @if($post->image_post)
                             <img src="{{ asset('storage/' . $post->image_post) }}">
-                        <!--<img src="{{ asset('images/SMALL_COVER-1.jpg') }}">-->
+                        @else
+                            <img src="{{ asset('storage/' . $post->image_main) }}">
+                        @endif
+
                             <div class="blog_blade_img_head">
                                 <h2>{{ $post->title }}</h2>
                                 <p>{{ Carbon\Carbon::parse($post->created_at)->format('M. d, Y') }}</p>
                             </div>
-                        @else
-                            <img src="{{ asset('storage/' . $post->image_main) }}">
-                        @endif
 
                     </div>
                     <div class="col-lg-6 col-md-9 col-sm-12 blog_blade_text">
