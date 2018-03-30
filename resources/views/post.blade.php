@@ -16,26 +16,18 @@
         }
 
         .blog_blade_img img {
-            width: auto;
+            width: 100%;
             height: calc(100% - 60px);
-            position: fixed;
-            top: 77px;
-            left: 0;
-
-            /*max-width: 500px;*/
-            /*background-color: blueviolet;*/
         }
 
         .blog_blade_text {
             padding: 30px;
-
-			padding-left:50px;
             z-index: 1029;
         }
-		
-		#disqus_thread{
-			margin-left: 50px;
-		}
+
+        .hide_title{
+            display: none;
+        }
 
         .blog_blade_text .single-post {
             text-align: left;
@@ -57,16 +49,11 @@
         .post-bottom-line {
             border-bottom: 2px solid #ea77b2;
             padding-bottom: 30px;
-			margin-left:35px;
-			width: calc(100%-60px);
+            width: calc(100% - 60px);
         }
 
         .blog_blade_text img {
             width: 100%;
-        }
-
-        .delimiter {
-            padding-bottom: 40px;
         }
 
         .delimiter img {
@@ -82,14 +69,22 @@
         }
 
         .blog_blade_img_head {
-            position: fixed;
+            /*position: fixed;*/
+            /*background-color: #c3193d;*/
+            /*top: 77px;*/
+            /*width: auto;*/
+            /*left: 30px;*/
+            /*color: #fff;*/
+            /*padding: 25px 50px 20px 55px;*/
+            /*text-align: left;*/
+
             background-color: #c3193d;
-            bottom: 60px;
             width: auto;
-            left: 0;
             color: #fff;
             padding: 25px 50px 20px 55px;
             text-align: left;
+            position: relative;
+            margin-top: -170px;
         }
 
         .blog_blade_img h2 {
@@ -107,59 +102,32 @@
             display: none;
         }
 
-        @media (min-width: 1300px) {
-            .blog_blade_img{
-                max-width: 500px;
-                left: -5%;
-            }
-
-            .blog_blade_text{
-                max-width: calc(100% - 480px);
-                padding-left: 15px;
-            }
-        }
-
-        @media (min-width: 1500px) {
-            .blog_blade_img{
-                max-width: 500px;
-                left: -15%;
-            }
-
-            .blog_blade_text{
-                max-width: calc(100% - 470px);
-                padding-left: 30px;
-            }
+        .blog_blade_img img {
+            height: auto;
         }
 
         @media (max-width: 1200px) {
-            .blog_blade_img img{
-                width: auto;
+            .blog_blade_img {
+                flex: 0 0 60%;
+                max-width: 50%;
             }
 
-            .blog_blade_img_head {
-                width: auto;
-                left: 45px;
+            .blog_blade_text {
+                flex: 0 0 40%;
+                max-width: 50%;
+
             }
         }
 
         @media (max-width: 992px) {
-            .blog_blade_img img {
-                width: 33%;
+            .hide_title{
+                display: block;
+                margin: 25px 0;
+                text-align: center;
+                font-size: 34px;
+                color: #c3193d;
             }
 
-            .blog_blade_text {
-                margin-left: 33%;
-            }
-
-            .blog_blade_img_head {
-                bottom: 30px;
-                width: 33%;
-                padding: 20px 0 20px 30px;
-                left: 0;
-            }
-        }
-
-        @media (max-width: 768px) {
             .blog_blade_img img {
                 width: 70%;
                 height: auto;
@@ -169,6 +137,23 @@
             }
 
             .blog_blade_img_head {
+                top: 0;
+                padding: 25px 0 20px 0;
+            }
+
+            .blog_blade_img {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            .blog_blade_text {
+                flex: 0 0 100%;
+                max-width: 100%;
+                margin-top: 100px;
+            }
+
+            .blog_blade_img_head {
+                display: none;
                 position: relative;
                 bottom: auto;
                 padding-top: 90px;
@@ -184,10 +169,7 @@
             .blog_blade_text {
                 margin-left: 0;
                 padding-top: 0;
-            }
-
-            .delimiter {
-                text-align: center;
+                padding-left: 30px;
             }
         }
 
@@ -219,39 +201,41 @@
 
 
 @section('content')
-<div class="container-fluid">
+    <div class="container-fluid">
 
-    <div class="wrapper-page">
-        <div class="text-center">
-            <div class="row blog_blade_href">
-                <div class="col-lg-5 col-md-2 col-sm-12 blog_blade_img">
-
-                    @if($post->image_post)
-                        <img src="{{ asset('storage/' . $post->image_post) }}">
+        <div class="wrapper-page">
+            <div class="text-center">
+                <div class="row blog_blade_href">
+                    <div class="col-lg-6 col-md-2 col-sm-12 blog_blade_img">
+                        @if($post->image_post)
+                            <img src="{{ asset('storage/' . $post->image_post) }}">
                         <!--<img src="{{ asset('images/SMALL_COVER-1.jpg') }}">-->
-                        <div class="blog_blade_img_head">
-                            <h2>{{ $post->title }}</h2>
-                            <p>{{ Carbon\Carbon::parse($post->created_at)->format('M. d, Y') }}</p>
-                        </div>
-                    @else
-                        <img src="{{ asset('storage/' . $post->image_main) }}">
-                    @endif
+                            <div class="blog_blade_img_head">
+                                <h2>{{ $post->title }}</h2>
+                                <p>{{ Carbon\Carbon::parse($post->created_at)->format('M. d, Y') }}</p>
+                            </div>
+                        @else
+                            <img src="{{ asset('storage/' . $post->image_main) }}">
+                        @endif
 
-                </div>
-                <div class="col-lg-7 col-md-9 col-sm-12 blog_blade_text">
-                    <div class="single-post">
-                        <div class="post-content-wrapper">
-                            {!! $post->body !!}
-                        </div>
-                        <div class="post-bottom-line"></div>
+                    </div>
+                    <div class="col-lg-6 col-md-9 col-sm-12 blog_blade_text">
+                        <div class="single-post">
 
-                        <div id="disqus_thread"></div>
+                            <h2 class="hide_title">{{ $post->title }}</h2>
+
+                            <div class="post-content-wrapper">
+                                {!! $post->body !!}
+                            </div>
+                            <div class="post-bottom-line"></div>
+
+                            <div id="disqus_thread"></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 

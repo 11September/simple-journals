@@ -31,7 +31,7 @@
 
         .post_items img {
             width: 100%;
-            height: 440px;
+            height: 520px;
         }
 
         .post_items h2 {
@@ -91,7 +91,7 @@
             color: #9b9b9b;
             font-weight: 500;
             font-size: 18px;
-            height: 235px;
+            height: 350px;
             overflow: hidden;
             text-overflow: ellipsis;
             margin-bottom: 33px;
@@ -141,7 +141,7 @@
 
             .post_items img {
                 width: 60%;
-                height: 460px;
+                height: 600px;
             }
 
             .post_items h2 {
@@ -288,3 +288,4 @@
 </div>
 
 @endsection
+
